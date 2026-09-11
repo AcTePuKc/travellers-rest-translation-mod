@@ -2,6 +2,40 @@
 
 Minimal, language-neutral BepInEx 5 plugin for testing translations in Travellers Rest.
 
+## Installation for players and translators
+
+1. Download the official [BepInEx 5.4.21 x64 release](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21). Select `BepInEx_x64_5.4.21.0.zip`.
+2. Extract the contents of the BepInEx ZIP into the folder that contains `TravellersRest.exe`:
+
+   ```text
+   ...\Travellers Rest\Windows\
+   ```
+
+3. Start Travellers Rest once, wait for the main menu, and close the game. This creates the BepInEx folders and config file.
+4. Download the desired translation ZIP from this repository's [Releases](https://github.com/AcTePuKc/travellers-rest-translation-mod/releases) page.
+5. Extract that ZIP into the same `Windows` folder. It already contains the required `BepInEx/plugins` and `BepInEx/config` paths.
+6. Start the game again.
+
+The generated config is:
+
+```text
+Travellers Rest\Windows\BepInEx\config\actepukc.travellersrest.translation.cfg
+```
+
+To select another language file, edit the config and change the filename:
+
+```ini
+TranslationFile = labels.bg.txt
+```
+
+For example, use `labels.de.txt` for German or `labels.fr.txt` for French. The filename must match a file in:
+
+```text
+Travellers Rest\Windows\BepInEx\plugins\TravellersRest Translation\translations\
+```
+
+The current loader applies matching entries regardless of which language is selected in the game's settings. The labels files use the game's English localization keys as identifiers, so the selected file replaces matching displayed text even if the game was previously set to another language.
+
 The plugin reads the configured file from `translations/` and applies matching entries through the game's I2 Localization system. The source translation project remains separate from this mod project.
 
 Each language should use its own file, for example `labels.bg.txt`, `labels.de.txt`, or `labels.example.txt`. The plugin contains no language-specific text.
@@ -18,17 +52,7 @@ The build copies the plugin and all files from `translations/` to:
 Travellers Rest\Windows\BepInEx\plugins\TravellersRest Translation\
 ```
 
-The generated config is:
-
-```text
-Travellers Rest\Windows\BepInEx\config\actepukc.travellersrest.translation.cfg
-```
-
-Select a language file in the config:
-
-```ini
-TranslationFile = labels.example.txt
-```
+For local testing, select a language file in the config, for example `TranslationFile = labels.example.txt`.
 
 ## Download a ready-to-use release
 
