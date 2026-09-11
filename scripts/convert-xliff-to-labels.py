@@ -21,6 +21,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", required=True, help="Crowdin .xliff file")
     parser.add_argument("--output", required=True, help="Output labels file")
+    parser.add_argument(
+        "--duplicate-report",
+        help="Optional path for a report containing duplicate candidates",
+    )
     args = parser.parse_args()
 
     input_path = Path(args.input)
@@ -29,12 +33,13 @@ def main() -> int:
         parser.error(f"input file not found: {input_path}")
 
     root = ET.parse(input_path).getroot()
-    entries: list[tuple[str, str]] = []
-    seen: set[str] = set()
+    records: dict[str, tuple[str, str, int]] = {}
+    record_order: list[str] = []
     skipped_untranslated = 0
-    duplicate_keys: list[str] = []
+    duplicate_keys: set[str] = set()
+    duplicate_records: list[tuple[str, str, int]] = []
 
-    for unit in root.findall(".//x:trans-unit", NS):
+    for unit_number, unit in enumerate(root.findall(".//x:trans-unit", NS), start=1):
         key = unit.get("resname") or unit.findtext("x:source", default="", namespaces=NS)
         target = unit.find("x:target", NS)
         source = unit.findtext("x:source", default="", namespaces=NS)
@@ -46,28 +51,46 @@ def main() -> int:
         if not key or not value or value == source:
             skipped_untranslated += 1
             continue
-        if key in seen:
-            duplicate_keys.append(key)
+        record = (key, value, unit_number)
+        if key in records:
+            if key not in duplicate_keys:
+                duplicate_records.append(records[key])
+                duplicate_keys.add(key)
+            duplicate_records.append(record)
             continue
 
-        seen.add(key)
-        entries.append((key, escape_value(value)))
+        records[key] = record
+        record_order.append(key)
 
-    if duplicate_keys:
-        print("Duplicate keys found:", file=sys.stderr)
-        print("\n".join(duplicate_keys), file=sys.stderr)
-        return 2
+    entries = [
+        (key, escape_value(records[key][1]))
+        for key in record_order
+        if key not in duplicate_keys
+    ]
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8", newline="\n") as output:
         for key, value in entries:
             output.write(f"{key}={value}\n")
 
+    duplicate_report = Path(args.duplicate_report) if args.duplicate_report else Path(f"{output_path}.duplicates.txt")
+    if duplicate_records:
+        duplicate_report.parent.mkdir(parents=True, exist_ok=True)
+        with duplicate_report.open("w", encoding="utf-8", newline="\n") as report:
+            report.write("# Duplicate keys requiring manual review\n")
+            report.write("# These entries were excluded from the generated labels file.\n\n")
+            for key, value, unit_number in duplicate_records:
+                report.write(f"[{key}] XLIFF trans-unit {unit_number}\n")
+                report.write(f"{key}={escape_value(value)}\n\n")
+
     print(f"Input: {input_path}")
     print(f"Output: {output_path}")
     print(f"Entries: {len(entries)}")
     print(f"Untranslated entries skipped: {skipped_untranslated}")
-    print("Verified: true")
+    print(f"Duplicate keys excluded: {len(duplicate_keys)}")
+    if duplicate_records:
+        print(f"Duplicate report: {duplicate_report}")
+    print(f"Verified: {str(not duplicate_keys).lower()}")
     return 0
 
 

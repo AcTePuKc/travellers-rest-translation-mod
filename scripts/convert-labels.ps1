@@ -4,7 +4,8 @@ param(
     [Parameter(Mandatory = $true)]
     [ValidatePattern('^[A-Za-z0-9_-]+$')]
     [string]$LanguageCode,
-    [string]$OutputFile = ""
+    [string]$OutputFile = "",
+    [string]$DuplicateReport = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,9 +20,10 @@ if ([string]::IsNullOrWhiteSpace($OutputFile)) {
 }
 
 $lines = [IO.File]::ReadAllLines((Resolve-Path -LiteralPath $InputFile).Path, [Text.UTF8Encoding]::new($false))
-$output = [Collections.Generic.List[string]]::new()
-$keys = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
-$duplicateKeys = [Collections.Generic.List[string]]::new()
+$records = @{}
+$recordOrder = [Collections.Generic.List[string]]::new()
+$duplicateKeys = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+$duplicateRecords = [Collections.Generic.List[object]]::new()
 $invalidLines = [Collections.Generic.List[int]]::new()
 $emptyTranslations = [Collections.Generic.List[int]]::new()
 
@@ -52,14 +54,34 @@ for ($index = 0; $index -lt $lines.Count; $index++) {
         continue
     }
 
-    if (-not $keys.Add($key)) {
-        $duplicateKeys.Add($key)
+    $record = [pscustomobject]@{
+        Key = $key
+        LineNumber = $lineNumber
+        RawLine = $line
+        Translation = $translation
+    }
+
+    if ($records.ContainsKey($key)) {
+        if ($duplicateKeys.Add($key)) {
+            $duplicateRecords.Add($records[$key])
+        }
+        $duplicateRecords.Add($record)
         continue
     }
 
-    # Preserve runtime escapes. Older local exports used " / / " as a paragraph-break marker;
-    # normalize that legacy form to the format consumed by the plugin.
-    $translation = $translation.Replace(" / / ", "\n\n")
+    $records[$key] = $record
+    $recordOrder.Add($key)
+}
+
+# Preserve runtime escapes. Older local exports used " / / " as a paragraph-break marker;
+# normalize that legacy form to the format consumed by the plugin.
+$output = [Collections.Generic.List[string]]::new()
+foreach ($key in $recordOrder) {
+    if ($duplicateKeys.Contains($key)) {
+        continue
+    }
+
+    $translation = $records[$key].Translation.Replace(" / / ", "\n\n")
     $output.Add("$key=$translation")
 }
 
@@ -71,13 +93,31 @@ if ($parent) {
 $utf8NoBom = [Text.UTF8Encoding]::new($false)
 [IO.File]::WriteAllLines((Resolve-Path -LiteralPath $OutputFile -ErrorAction SilentlyContinue)?.Path ?? $OutputFile, $output, $utf8NoBom)
 
+if ([string]::IsNullOrWhiteSpace($DuplicateReport)) {
+    $DuplicateReport = "$OutputFile.duplicates.txt"
+}
+
+if ($duplicateRecords.Count -gt 0) {
+    $report = [Collections.Generic.List[string]]::new()
+    $report.Add("# Duplicate keys requiring manual review")
+    $report.Add("# These entries were excluded from the generated labels file.")
+    $report.Add("")
+    foreach ($record in $duplicateRecords) {
+        $report.Add("[$($record.Key)] input line $($record.LineNumber)")
+        $report.Add($record.RawLine)
+        $report.Add("")
+    }
+    [IO.File]::WriteAllLines($DuplicateReport, $report, $utf8NoBom)
+}
+
 [pscustomobject]@{
     InputFile = (Resolve-Path -LiteralPath $InputFile).Path
     OutputFile = (Resolve-Path -LiteralPath $OutputFile).Path
     OutputEntries = $output.Count
     EmptyTranslationsSkipped = $emptyTranslations.Count
-    DuplicateKeysSkipped = $duplicateKeys.Count
+    DuplicateKeysExcluded = $duplicateKeys.Count
     InvalidLinesSkipped = $invalidLines.Count
+    DuplicateReport = if ($duplicateRecords.Count -gt 0) { (Resolve-Path -LiteralPath $DuplicateReport).Path } else { $null }
     DuplicateKeys = @($duplicateKeys)
     InvalidLineNumbers = @($invalidLines)
     Verified = ($duplicateKeys.Count -eq 0 -and $invalidLines.Count -eq 0)

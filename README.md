@@ -77,6 +77,8 @@ Crowdin exports can be converted without changing the source translation project
 
 The converter keeps each entry on one physical line. Escaped sequences such as `\n` remain escaped and are decoded by the plugin at runtime. It also splits only at the first `=`, because translated text can contain additional equals signs. Older local exports that use ` / / ` for paragraph breaks are normalized to `\n\n`.
 
+Duplicate keys are excluded from the generated file and written to a `.duplicates.txt` review file with all candidate lines. The converter reports `Verified: false` until the source file is cleaned up and converted again.
+
 ## Convert a Crowdin XLIFF export
 
 For a language export from Crowdin, prefer the language-specific `.xliff` file. It preserves the current target values and stores line breaks as real newlines:
@@ -86,6 +88,8 @@ python .\scripts\convert-xliff-to-labels.py `
   --input "C:\path\to\I2Loc TravellersRest Localization_bg.xliff" `
   --output ".\translations\labels.bg.txt"
 ```
+
+The XLIFF converter also excludes duplicate keys, writes all candidates to a `.duplicates.txt` review file, and continues with the remaining entries. A result containing duplicates is reported as `Verified: false`.
 
 Only XLIFF targets that differ from the English source are exported. Empty or untranslated entries are skipped. If a local draft has not been exported by Crowdin yet, it will not appear in the XLIFF and must be injected through the separate local CSV/TSV workflow first.
 
