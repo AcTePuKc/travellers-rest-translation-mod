@@ -75,7 +75,7 @@ Crowdin exports can be converted without changing the source translation project
   -OutputFile ".\translations\labels.bg.txt"
 ```
 
-The converter keeps each entry on one physical line. Escaped sequences such as `\n` remain escaped and are decoded by the plugin at runtime. It also splits only at the first `=`, because translated text can contain additional equals signs.
+The converter keeps each entry on one physical line. Escaped sequences such as `\n` remain escaped and are decoded by the plugin at runtime. It also splits only at the first `=`, because translated text can contain additional equals signs. Older local exports that use ` / / ` for paragraph breaks are normalized to `\n\n`.
 
 ## Convert an I2Loc XLSX workbook
 

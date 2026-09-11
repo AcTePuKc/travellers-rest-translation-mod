@@ -57,7 +57,9 @@ for ($index = 0; $index -lt $lines.Count; $index++) {
         continue
     }
 
-    # Do not decode or replace \n here. The plugin decodes it at runtime.
+    # Preserve runtime escapes. Older local exports used " / / " as a paragraph-break marker;
+    # normalize that legacy form to the format consumed by the plugin.
+    $translation = $translation.Replace(" / / ", "\n\n")
     $output.Add("$key=$translation")
 }
 
