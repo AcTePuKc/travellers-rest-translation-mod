@@ -77,7 +77,7 @@ Crowdin exports can be converted without changing the source translation project
 
 The converter keeps each entry on one physical line. Escaped sequences such as `\n` remain escaped and are decoded by the plugin at runtime. It also splits only at the first `=`, because translated text can contain additional equals signs. Older local exports that use ` / / ` for paragraph breaks are normalized to `\n\n`.
 
-Duplicate keys are excluded from the generated file and written to a `.duplicates.txt` review file with all candidate lines. The converter reports `Verified: false` until the source file is cleaned up and converted again.
+Duplicate keys are excluded from the generated file and written to a `.duplicates.txt` review file with all candidate lines. The converter reports `Verified: false` until the source file is cleaned up and converted again. It also normalizes em dashes (`—`) to regular hyphens (`-`) in translated values.
 
 ## Convert a Crowdin XLIFF export
 

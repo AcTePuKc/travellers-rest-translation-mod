@@ -81,7 +81,7 @@ foreach ($key in $recordOrder) {
         continue
     }
 
-    $translation = $records[$key].Translation.Replace(" / / ", "\n\n")
+    $translation = $records[$key].Translation.Replace(" / / ", "\n\n").Replace("—", "-")
     $output.Add("$key=$translation")
 }
 
