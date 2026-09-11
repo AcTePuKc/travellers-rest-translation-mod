@@ -36,6 +36,10 @@ Releases contain a ready-to-install ZIP. No .NET SDK, compiler, game assemblies,
 
 Extract the ZIP into the game's `Windows` folder. The archive already contains the required `BepInEx/plugins` and `BepInEx/config` paths.
 
+## GitHub Actions packaging
+
+The `Build Translation Release` workflow packages one selected language file. Run it manually with a language code such as `bg`, `de`, or `fr`, and provide the release version. A version tag such as `v0.1.0` packages the default `bg` language and publishes a GitHub Release.
+
 ## Convert a Crowdin labels file
 
 Crowdin exports can be converted without changing the source translation project:
