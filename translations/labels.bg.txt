@@ -1,0 +1,1312 @@
+A very important guest is visiting!=Пристига много важен гост!
+Abandon quest?=Изоставяне на задачата?
+Accept=Приеми
+Accept order=Приеми поръчката
+Access=Достъпи
+Actionbar 1=Лента с действия 1
+Actionbar 10=Лента с действия 10
+Actionbar 2=Лента с действия 2
+Actionbar 3=Лента с действия 3
+Actionbar 4=Лента с действия 4
+Actionbar 5=Лента с действия 5
+Actionbar 6=Лента с действия 6
+Actionbar 7=Лента с действия 7
+Actionbar 8=Лента с действия 8
+Actionbar 9=Лента с действия 9
+Actions=Действия
+Additions=Добавки
+Advanced=Разширени
+Aged=Отлежал
+Aged Mozzarella=Отлежала моцарела
+Aged price=Цена на отлежалия продукт
+ageingBarrelPopUp=Бъчвите за отлежаване позволяват да отлежавате бира и вино!\n\nПоставете бира или вино в левия слот и те ще отлежават с времето.
+Aging Rack=Стелаж за отлежаване
+alcoholContentWarning=Предупреждение за съдържанието: Тази игра съдържа теми, свързани с приготвянето и консумацията на алкохолни напитки.
+Ale=Ейл
+All=Всички
+AllTimeStats=Статистика за всички времена
+Already learnt!=Вече е научено!
+Apple Must=Ябълкова мъст
+Aromatic=Ароматен
+autoHire=Автоматично наемане
+autoHireDesc=Автоматично наемане в началото на всеки ден
+Autumn=Есен
+Available Orders=Налични поръчки
+Back=Назад
+Backspace=Backspace
+Bar=Меню\n\nМенюто с храна на таверната, достъпно на бара.
+Bartender=Барман
+bartenderDesc=Сервира храна и напитки на клиентите. Необходим е за безпроблемната работа на оживена таверна.
+Bartending=Обслужване зад бара
+Bartending speed=Скорост на обслужване зад бара
+Basket=Кошница
+Bat=Прилеп
+Beard=Брада
+Bed is unmade=Леглото не е оправено
+Beer=Бира
+BForBook=B
+Bin=Кошче
+Bitter=Горчив
+Blue Cheese=Синьо сирене
+bodyBack=Назад
+Brandy=Бренди
+Brew Cider=Приготвяне на сайдер
+Brewing=Варене
+Brie=Бри
+Build Mode=Режим за декорация
+Build mode active=Режимът за декорация е активен
+Building=Строителство
+buildingObjective_11_0=Задай <color=#9F253D>зоната за изработка</color> в създадената стая.
+buildingObjective_14_0=Постави <color=#9F253D>обикновена каменна стена</color> в стаята.
+buildingObjective_15_0=Постави <color=#9F253D>под от каменни блокове</color> в стаята.
+buildingObjective_17_0=Добави врата към <color=#9F253D>залата за изработка</color>.
+buildingObjective_19_0=Изгради маркираната в <color=#006841>зелено</color> зона.
+buildingObjective_2_0=Движи се с [ControllerType: [Action: WASD], [Action: ObjectMove]].
+buildingObjective_2_1=Натисни и задръж [Action: SprintHoldAction], за да се движиш по-бързо.
+buildingObjective_21_0=Изгради <color=#9F253D>врата за стаята за гости</color> в <color=#006841>маркираната зона</color>.
+buildingObjective_25_0=Натисни [Action: BuildMode], за да активираш <color=#9F253D>режима за декорация</color>.
+buildingObjective_25_1=Постави леглото в <color=#9F253D>стаята за гости</color>.
+buildingObjective_25_2=Постави масата в <color=#9F253D>стаята за гости</color>.
+buildingObjective_25_3=Постави стола в <color=#9F253D>стаята за гости</color>.
+buildingObjective_25_4=Постави източника на светлина в <color=#9F253D>стаята за гости</color>.
+buildingObjective_36_0=Потвърди промените и излез от <color=#9F253D>режима за строителство</color>.
+buildingObjective_38_0=Смени пода с <color=#9F253D>горен етаж</color>.
+buildingObjective_9_0=Изгради маркираната в <color=#006841>зелено</color> зона.
+BuildMode=Режим за декорация
+BuildMode_ExitAndCancel=Сигурен ли си, че искаш да отмениш промените?
+BuildMode_ExitAndSave=Сигурен ли си, че искаш да потвърдиш промените и да излезеш от <color=#9F253D>режима за строителство</color>?
+buildModeActive=Режимът за декорация е активен! / / Натисни {0}, за да излезеш.
+Buy=Купи
+Calendar=Календар
+Calm down=Успокой
+CameraZoom=Камера
+Can't afford=Не можете да си го позволите
+Cancel=Отказ
+Cancel Crafting=Отмени изработката
+Cannot abandon=Не може да бъде изоставено
+Capacity=Заетост: {0}
+Caps Lock=Caps Lock
+Caramel=Карамел
+Cat Selector=Избери котката си
+Cellar=Изба
+CellarDoor=Врата на избата
+cForCalendar=C
+Chair=Стол
+Cheddar=Чедър
+Cheese=Сирене
+Cheese ageing=Отлежаване на сирене
+Cheese Aging Rack=Стелаж за отлежаване на сирене
+Cheese making=Производство на сирене
+Cheese Starter=Закваска за сирене
+cheeseAgeingRackPopUp=Стелажите за отлежаване ти позволяват да отлежават сирена и туршии. / / Постави предмет в един от левите слотове и той ще отлежава с времето.
+cheeseRepUnlockedPopUp=Отключи производството на сирене! / / Можеш да купиш мандра и стелаж за отлежаване на сирене в града.
+Cheesy=Съсирен
+Chest=Сандък
+Chilly=Хладно
+Chop=Сечи
+ChristmasEvent=Коледно събитие
+ChristmasPostcard=Весели празници, кръчмари! Още една Коледа дойде в Travellers Rest! / / Тази година в играта са добавени много нови неща и се надяваме да продължите да се наслаждавате на цялото предстоящо съдържание. Благодарим ви много за подкрепата! / / Отключихме събитието за коледния период, за да можете да получите всички сезонни предмети, както и няколко малки изненади, които можете да вземете след 25-и. / / От Isolated Games ви пожелаваме весела Коледа!
+ChristmasPresent=Коледен подарък
+ChristmasPresentsError=Не можете да отворите подаръците си преди Коледа!
+Cider=Сайдер
+Cider Wort=Сайдерова мъст
+Citrus=Цитрус
+Clean=Почисти
+Cleaning=Почистване
+Cleaning Speed=Скорост на почистване
+Cleanliness=Чистота
+cleanVerb=Почисти
+Clear=Изчисти
+Cloak=Мантия
+Close=Затвори
+Close UI=Затвори интерфейса
+Closed=Затворено
+Cold=Студено
+Collect=Вземи
+Collect water=Вземи вода
+Color=Цвят
+Comfort=Удобство
+Coming soon!=Очаквайте скоро!
+Complete order=Завърши поръчката
+Confirm=Потвърди
+contentLockMessage=Напредвай по основната линия на задачите, за да отключиш {0}
+contentLockRepMessage=Повиши репутацията на кръчмата си, за да отключиш {0}
+contentUnlock=Отключи {0} за {1}
+Controller=Геймпад
+Controls=Управление
+CookiesNeeded=Нужни са бисквитки за птиците.
+Cooking=Готвене
+Coster=Подложка за чаша
+Craft=Изработи
+CraftedIn=Изработено в: {0}
+Crafters=Занаятчии
+Crafting=Изработка
+Crafting speed=Скорост на изработка
+Crafting yield=Добив от изработката
+CraftingRoom=Зала за изработка
+CraftingRoomTiles=Плочка за изработка
+Current crafting:=Текуща изработка:
+Current Orders=Текущи поръчки
+Currently crafting=В момента се изработва
+CursorSensitivity=Скорост на курсора
+customersInTavern=В кръчмата ти има клиенти
+Customise Character=Персонаж
+Cycle Placeable Colors=Смяна на цветовете на поставяемите обекти
+Day=Ден
+daysLeft={0} дни
+Decline=Откажи
+Decor=Декорация
+DecorationTile_10=Основен дървен под
+DecorationTile_11=Под рибена кост
+DecorationTile_12=Основна каменна стена
+DecorationTile_13=Основна стена за мазе
+DecorationTile_14=Обикновена каменна стена
+DecorationTile_15=Тънка дървена стена
+DecorationTile_16=Широка дървена стена
+DecorationTile_17=Кремава стена
+DecorationTile_18=Синя стена с цветя
+DecorationTile_19=Неправилен каменен под
+DecorationTile_20=Дървена облицовка
+DecorationTile_21=Основни первази
+DecorationTile_22=Сплетен дървен под
+DecorationTile_23=Тухлена стена
+DecorationTile_24=Жива каменна стена
+DecorationTile_25=Състарена стена
+DecorationTile_3=Под от каменни блокове
+DecorationTile_4=Шахматен плочест под
+DecorationTile_5=Ромбовиден плочест под
+DecorationTile_6=Земен под
+DecorationTile_7=Гладък каменен под
+DecorationTile_8=Основен каменен под
+DecorationTile_9=Износен каменен под
+DefaultSettings=Възстанови настройките по подразбиране
+Delete save?=Изтриване на записа?
+descAromaHops=Добавя цитрусови и плодови аромати към бирата.
+descBucket=Напълни от кладенеца
+descGrog=Разреден алкохол
+descGruel=Обикновена и евтина. Дава малко репутация.
+descOldDoormat=Помага да поддържате пода на кръчмата чист
+descPaperCoaster=Помага да поддържате масите чисти
+descWardrobe=Промени външния вид на героя си
+Deselect item=Премахни избора на предмета
+dForDays=д
+DiningRoom=Трапезария
+DiningRoomTiles=Плочка за трапезария
+Dirty=Мръсно
+disableTutorial=Искаш ли да пропуснеш урока? / / Урокът представя началото на историята.
+discordLink=Откри ли бъг? Имаш ли предложение? / / Ела в нашия <link="https://discord.gg/7rBtuZb"><color="blue">Discord</color></link>!
+Disgusting=Отвратително
+Dismiss=Отхвърли
+Distillery=Дестилерия
+Distilling=Дестилиране
+DistillingYeast=Дрожди за дестилация
+Door=Врата
+Doormat=Изтривалка
+Down Arrow=Стрелка надолу
+Drag item:=Плъзни предмета:
+EditorAction_1=Добави под
+EditorAction_2=Премахни под
+EditorAction_3=Зона за хранене
+EditorAction_4=Зона за изработка
+EditorAction_5=Премахни зона
+EditorAction_6=Врата
+EditorAction_7=Врата за стаята за гости
+EditorAction_8=Премахни достъпа
+EditorAction_9=Добави под
+enchantedBroom=Омагьосана метла
+enchantedBroomDesc=Вълшебна метла, която поддържа подовете ти чисти!
+Error_AnotherZoneInRoom=В стаята има друга зона.
+Error_BarIsBlocking=Барът блокира промените.
+Error_BarNotInADiningRoom=Барът не е поставен в трапезария.
+Error_BedIsBlocking=Твоето легло блокира промените.
+Error_CellarDoorIsBlocking=Вратата на избата блокира промените.
+Error_CellarZone=Зона „Изба“ не може да бъде променяна.
+Error_FloorTilesLimit=Достигна максималния размер на кръчмата.
+Error_InvalidPositions=На това място не може да се строи.
+Error_IsBlockingChanges={0} блокира промените.
+Error_MaxZones=Достигнат е максималният брой зони ({0}). Максимум: {1}.
+Error_MaxZoneSize=Достигнат е максималният размер на зоната (максимум плочки: {0}).
+Error_Money=Нямаш достатъчно пари.
+Error_Mortar=Нямаш достатъчно хоросан.
+Error_Nails=Нямаш достатъчно гвоздеи.
+Error_ObjectIsBlocking={0} блокира промените.
+Error_OccupiedRoom=Не може да се променя заета стая.
+Error_Planks=Нямаш достатъчно дъски.
+Error_RoomDoorIsBlocking=Вратата на стаята за гости блокира промените.
+Error_RoomIndependent=Стаята за гости трябва да е самостоятелна.
+Error_RoomZone=Зона „Стая за гости“ не може да бъде променяна.
+Error_SmallRoom=Стаята е прекалено малка.
+Error_StairsAreBlocking=Стълбите блокират промените.
+Error_Stones=Нямаш достатъчно каменни блокове.
+Error_TableNeedsFreeSpace=Масата трябва да има свободна страна, за да бъде почистена.
+Error_UnableToBeReached=Няма път до входа на кръчмата.
+Events=Събития
+Exit build mode=Излез от режима за декорация
+Exit Game=Изход от играта
+Eye-lashes=Мигли
+Eyes=Очи
+Facial Hair=Окосмяване по лицето
+Far=Далеч
+Farming=Земеделие
+Farming multiplier=Множител на земеделието
+Farming yield=Увеличава цената му / / Увеличава цената, на която се продава предметът.
+Favorites=Любими
+Feet=Стъпала
+Fill=Напълни
+Filthy=Много мръсно
+Finished!=Готово!
+Fireplace=Камина
+Fishy=Рибен
+Floor worker=Работник по почистването
+Floor workerDesc=Почиства и подрежда масите, но не и пода. Поддържа кръчмата чиста и клиентите доволни.
+FloorMaterial=Павета
+FloorTiles=Подова плочка
+Flour=Брашно
+Fondue=Фондю
+Food=Храна
+Fri=Пет
+Fruit=Плод
+Fruit Ferment=Плодова ферментация
+Fruit Liqueur=Плодов ликьор
+Fruity=Плодов
+Fuel=Гориво
+Fullscreen=Цял екран
+Fullscreen Window=Прозоречен режим на цял екран
+Furniture=Мебели
+GetYourPlush=Вземи плюшеното Бобче!
+Gin=Джин
+GiveCookie=Дай бисквитка
+Grain=Зърно
+Grain Ferment=Зърнена ферментация
+Haggle=Пазарлък
+Haggle chance=Шанс за пазарене
+Haggling=Пазарене
+Haggling profit=Печалба от пазарене
+Hair=Коса
+HalloweenEvent=Хелоуинско събитие
+hallway=Коридор
+Harvest=Жътва
+Hat=Шапка
+Herb=Билка
+Herbal=Билков
+hForHours=ч
+Hide UI=Скрий интерфейса
+Hire=Наеми
+Hire Staff=Наеми персонал
+Honey=Мед
+Hop=Хмел
+Hoppy=Хмелен
+Hot=Горещо
+houseKeeper=Камериер
+houseKeeperDesc=Подрежда стаите за гости. Подготвя всяка стая за следващия ти гост.
+houseKeeperWage={0} за стая
+Hovel=Колиба
+iForInventory=I
+Income=Приход: {0}
+Ingredient=Съставка
+Ingredients=Съставки
+Interact=Взаимодействай
+Invalid item=Невалиден предмет
+Invalid seating=Невалидно място за сядане
+Inventory=Инвентар
+Inventory full=Инвентарът е пълен
+Item=Предмет
+itemAleYeast=Дрожди за ейл
+itemAmberAle=Кехлибарен ейл
+itemAmberWort=Кехлибарена мъст
+itemApple=Ябълка
+itemAromaHopsSeeds=Семена за ароматен хмел
+itemAsparagus=Аспержи
+itemAsparagusSeeds=Семена за аспержи
+itemAubergine=Патладжан
+itemAubergineSeeds=Семена за патладжан
+itemAvocado=Авокадо
+itemAvocadoSeeds=Семена за авокадо
+itemBacon=Бекон
+itemBanana=Банан
+itemBar=Бар
+itemBarley=Ечемик
+itemBarleyBread=Ечемичен хляб
+itemBarleyFlour=Ечемично брашно
+itemBarleySeeds=Семена за ечемик
+itemBeefSteak=Телешки стек
+itemBeer=Бира
+itemBeetroot=Цвекло
+itemBeetrootSeeds=Семена за цвекло
+itemBellPepper=Чушка
+itemBellPepperSeeds=Семена за чушка
+itemBiscuitAle=Бисквитен ейл
+itemBiscuitWort=Бисквитена мъст
+itemBitterHopsSeeds=Семена за горчив хмел
+itemBlackAle=Черен ейл
+itemBlackWort=Черна мъст
+itemBlueberry=Боровинка
+itemBlueberrySeeds=Семена за боровинки
+itemBock=Бок
+itemBottle=Бутилка
+itemBreadYeast=Хлебна мая
+itemBroccoli=Броколи
+itemBroccoliSeeds=Семена за броколи
+itemBrownAle=Кафяв ейл
+itemBrownWort=Кафява мъст
+itemButter=Масло
+itemCactus=Кактус
+itemCaramelAle=Карамелен ейл
+itemCaramelWort=Карамелена мъст
+itemCheese=Сирене
+itemCherry=Череша
+itemChilli=Люта чушка
+itemChilliSeeds=Семена за люти чушки
+itemChocolateAle=Шоколадов ейл
+itemChocolateWort=Шоколадова мъст
+itemCoal=Въглища
+itemCoconut=Кокос
+itemCoconutSeeds=Семена за кокос
+itemCoffeeWort=Кафена мъст
+itemColiflower=Карфиол
+itemColiflowerSeeds=Семена за карфиол
+itemCourgette=Тиквичка
+itemCourgetteSeeds=Семена за тиквички
+itemCucumber=Краставица
+itemCucumberSeeds=Семена за краставици
+itemDarkMaltedBarley=Тъмен малцов ечемик
+itemDarkWort=Тъмна мъст
+itemDeliveryBox=Кутия за доставки
+itemDill=Копър
+itemDillSeeds=Семена за копър
+itemDIPA=DIPA
+itemDIPAWort=Мъст за DIPA
+itemDragonFruit=Драконов плод
+itemDragonFruitSeeds=Семена за драконов плод
+itemDripTray=Тавичка за оттичане
+itemDualHopsSeeds=Семена за двоен хмел
+itemEmptyKeg=Празно буре
+itemFence=Ограда
+itemFermentationTank=Ферментационен съд
+itemFirePlace=Камина
+itemFishSteak=Рибен стек
+itemFriedEgg=Пържено яйце
+itemGrainBag=Чувал със зърно
+itemGreenbean=Зелен фасул
+itemGreenbeanSeeds=Семена за зелен фасул
+itemGreenPepper=Зелена чушка
+itemGreenPepperSeeds=Семена за зелени чушки
+itemGrog=Грог
+itemGruel=Каша
+itemHalfShelf=Половин рафт
+itemHalfWindow=Половин прозорец
+itemHoney=Мед
+itemHoneyComb=Пчелна пита
+itemInk=Мастило
+itemIPA=ИПА
+itemIPAWort=Пивна мъст за ИПА
+itemIronIngot=Железен слитък
+itemJam=Сладко
+itemJerky=Сушено месо
+itemKiwi=Киви
+itemKiwiSeeds=Семена за киви
+itemLager=Лагер
+itemLagerYeast=Дрожди за лагер
+itemLargeRock=Голям камък
+itemLeek=Праз
+itemLeekSeeds=Семена за праз
+itemLemon=Лимон
+itemLightMaltedBarley=Светъл малцов ечемик
+itemLime=Лайм
+itemLog=Дънер
+itemMaltedBarley=Малцов ечемик
+itemMaltedRye=Малцова ръж
+itemMaltedWheat=Малцувана пшеница
+itemMango=Манго
+itemMashTun=Съд за озахаряване
+itemMead=Медовина
+itemMelon=Пъпеш
+itemMelonSeeds=Семена за пъпеши
+itemMetalSheet=Метален лист
+itemMildAle=Лек ейл
+itemMildWort=Лека мъст
+itemMint=Мента
+itemMintSeeds=Семена за мента
+itemMushroom=Гъба
+itemOldDoormat=Стара изтривалка
+itemOlive=Маслина
+itemOliveSeeds=Семена за маслини
+itemOrange=Портокал
+itemPaleAle=Светъл ейл
+itemPaleWort=Светла мъст
+itemPaperCoaster=Хартиена подложка
+itemParsley=Магданоз
+itemParsleySeeds=Семена за магданоз
+itemPeach=Праскова
+itemPear=Круша
+itemPepperoni=Пеперони
+itemPickle=Туршия
+itemPilsner=Пилзнер
+itemPineapple=Ананас
+itemPineappleSeeds=Семена за ананас
+itemPlanks=Дъски
+itemPorter=Портър
+itemPumpkin=Тиква
+itemPumpkinSeeds=Семена за тикви
+itemRaspberry=Малина
+itemRaspberrySeeds=Семена за малини
+itemRawBeef=Сурово телешко
+itemRawChicken=Сурово пилешко
+itemRawFish=Сурова риба
+itemRawPork=Сурово свинско
+itemRedGrapeMust=Мъст от червено грозде
+itemRedGrapes=Червено грозде
+itemRedGrapeSeeds=Семена за червено грозде
+itemRedPotato=Червен картоф
+itemRedPotatoSeeds=Семена за червени картофи
+itemRedWine=Червено вино
+itemRedWineJuice=Сок от червено грозде
+itemRoastedBeef=Печено телешко
+itemRoastedChicken=Печено пиле
+itemRoastedPork=Печено свинско
+itemRosemarySeeds=Семена за розмарин
+itemRoseWine=Розе
+itemRoseWineJuice=Сок от грозде за розе
+itemRug=Килим
+itemRye=Ръж
+itemRyeAle=Ръжен ейл
+itemRyeBread=Ръжен хляб
+itemRyeFlour=Ръжено брашно
+itemRyeLager=Ръжен лагер
+itemRyeSeeds=Семена за ръж
+itemRyeWort=Ръжена мъст
+itemSage=Градински чай
+itemSageSeeds=Семена за градински чай
+itemSausage=Наденица
+itemShimejiMushrooms=Гъби шиймеджи
+itemShrimp=Скариди
+itemSickle=Сърп
+itemSingleTable=Единична маса
+itemSoup=Супа
+itemSpade=Лопата
+itemSpringOnion=Зелен лук
+itemStew=Яхния
+itemStick=Пръчка
+itemStout=Стаут
+itemStoutWort=Мъст за стаут
+itemStrawberry=Ягода
+itemStrawberrySeeds=Семена за ягоди
+itemSweetPotato=Сладък картоф
+itemSweetPotatoSeeds=Семена за сладки картофи
+itemThyme=Мащерка
+itemThymeSeeds=Семена за мащерка
+itemTurnip=Ряпа
+itemTurnipSeeds=Семена за ряпа
+itemWater=Вода
+itemWatermelon=Диня
+itemWatermelonSeeds=Семена за дини
+itemWheatAle=Пшеничен ейл
+itemWheatBread=Пшеничен хляб
+itemWheatFlour=Пшенично брашно
+itemWheatLager=Пшеничен лагер
+itemWheatWort=Пшенична мъст
+itemWhiteGrapeMust=Мъст от бяло грозде
+itemWhiteGrapes=Бяло грозде
+itemWhiteGrapeSeeds=Семена за бяло грозде
+itemWhiteVinegar=Бял оцет
+itemWhiteWine=Бяло вино
+itemWhiteWineJuice=Сок от бяло грозде
+itemWineYeast=Винена мая
+Juicy=Сочен
+Juniper=Хвойна
+Juniper Seeds=Семена за хвойна
+Keg=Буре
+Keg empty=Бурето е празно
+Keg not full=Бурето не е пълно
+Key1=Клавиш 1
+Key2=Клавиш 2
+Keypad=Цифров блок
+Kick out=Изгони
+KickedCustomers=Изгонени клиенти: {0}
+Knock=Почукай
+Lager=Лагер
+Last=Последен
+LastWeekStats=Статистика за миналата седмица
+Left Alt=Ляв Alt
+Left Arrow=Стрелка наляво
+Left Control=Ляв Control
+Left Shift=Ляв Shift
+Legs=Панталони
+Light=Запали
+Light Fire=Запали огъня
+LiquorAndWine=Алкохол и вино
+Load=Зареди
+Load save=Зареди запис
+Locked=Заключено
+Magic=Магия
+Magic Broom=Вълшебна метла
+Make bed=Оправи леглото
+Malt=Малц
+Max=Макс.
+Max 3 orders=Макс. 3 поръчки
+MaximumCapacity=Максимална заетост: {0}
+MaximumReached=Достигнат максимум: {0}
+Meat=Месо
+Meaty=Месест
+Messy=Разхвърляно
+Metal=Метал
+MetalWorkshop=Метална работилница
+mForMins=м
+Milk=Мляко
+Mine=Мина
+Misc=Разни
+Modifier requirement not met=Изискването за модификатор не е изпълнено
+Modifiers=Модификатори
+Molasses Ferment=Ферментация на меласа
+Mon=Пон
+Month=Месец
+Mop=Метла
+Mouse=Мишка
+Mouse Wheel Down=Колелце на мишката надолу
+Mouse Wheel Up=Колелце на мишката нагоре
+Mouth=Уста
+Move=Премести
+Move Down=Премести надолу
+Move Forward=Премести напред
+Move Left=Премести наляво
+Move Right=Премести надясно
+Mozzarella=Моцарела
+Music=Музика
+Must=Мъст
+Must be behind bar=Трябва да е зад бара.
+Name...=Име...
+Nature=Природа
+Near=Близо
+Need to learn previous XP increase!=Трябва първо да научиш предишното умение!
+New=Нов
+New Milestone=Нов етап
+New Save=Нов запис
+NewQuestAvailable=Налична е нова задача
+Next Reward=Следваща награда
+Next Trends=Следващи тенденции
+NextItem=Следващ предмет
+NextToWall=До стената
+No=Не
+No bucket of water=Няма кофа с вода!
+No empty bucket=Няма празна кофа!
+No keg=Няма буре!
+Nose=Нос
+Not enough experience!=Няма достатъчно опит!
+Not enough fuel=Недостатъчно гориво!
+Not enough ingredients=Недостатъчно съставки!
+Not enough items=Недостатъчно предмети.
+Not enough money=Няма достатъчно пари!
+Not enough skill points=Няма достатъчно точки за умения!
+Occupied Positions=Работната позиция е блокирана.
+Offer=Предложи
+On=Включено
+Open=Отвори
+Open Calendar=Отвори календара
+OpenClose Tavern=Отвори/затвори кръчмата
+OpenInventory=Отвори инвентара
+OpenQuests=Отвори задачите
+OpenRecipeBook=Отвори книгата с рецепти
+openShop=Отвори
+OpenStats=Отвори статистиката
+OpenTalents=Отвори талантите
+OpenTavern=Отвори кръчмата
+OpenXPModifiers=Отвори модификаторите на опита
+Options=Настройки
+Order=Поръчка
+Order quest=Задача за поръчка
+OrderDelivered=Поръчката е доставена
+Orders=Поръчки
+Output is not ready=Резултатът не е готов.
+Override save=Замени записа
+Override save?=Замени записа?
+Parmesan=Пармезан
+Path is blocked=Пътят е блокиран.
+Pause=Пауза
+per room=за стая
+Perfect=Перфектно
+perHour=на час
+Pet=Домашен любимец
+PhaseItem=Консуматив
+Pick up=Вземи
+Place=Постави
+PlaceableOnSpecificSurfaces=Може да се поставя върху определени повърхности
+PlaceOnATable=Може да се поставя на маса
+Plant=Засади
+player2ConnectGamepad=Включи контролер, за да играеш с втори играч
+player2ToDisconnectFromGame=(Играч 2) Натисни {0}, за да се откачиш
+player2ToJoinGame=(Играч 2) Натисни {0}, за да се присъединиш към играта
+PlayerBed=Леглото на играча
+popUpBuilding1=Добре дошъл в <color=#9F253D>режима за строителство</color>! / / Тук можеш да разширяваш кръчмата си, да променяш стените и подовете, да създаваш стаи, да разпределяш зони и много други.
+popUpBuilding10=Когато строим нови стаи, към тях не се задава <color=#9F253D>зона</color>. Някои предмети и функции са достъпни само в определени зони, затова трябва да определим коя <color=#9F253D>зона</color> ще бъде тази нова стая.
+popUpBuilding11=В менюто <color=#9F253D>Зони</color> на <color=#9F253D>лентата с инструменти</color> можеш да зададеш желаната функция (<color=#9F253D>зона на кръчмата</color>, <color=#9F253D>зона за изработка</color>...). Избери <color=#9F253D>зона за изработка</color> и я задай на новата стая, която създаде.
+popUpBuilding12=Браво! Вече можеш да поставяш изработващи предмети в новата стая. В зависимост от <color=#9F253D>нивото на репутацията</color> си ще имаш повече или по-малко плочки за зониране. С напредъка си ще можеш да разширяваш кръчмата все повече!
+popUpBuilding13=Освен наличните плочки за всяка <color=#9F253D>зона</color> има ограничение и за броя области, които можеш да създадеш. Това ограничение ще се показва на <color=#9F253D>лентата с инструменти</color> и ще се увеличава, докато се усъвършенстваш като кръчмар. С времето ще можеш да имаш повече <color=#9F253D>зали за изработка</color> и дори повече <color=#9F253D>трапезарии</color>!
+popUpBuilding14=Нека персонализираме новата ни <color=#9F253D>зала за изработка</color>. В менюто <color=#9F253D>Декорация</color> на <color=#9F253D>лентата с инструменти</color> ще намериш подове и стени. Избери <color=#9F253D>обикновена каменна стена</color> и я постави върху стената на новата си стая.
+popUpBuilding15=За разлика от стените, подовете могат да се поставят плочка по плочка. / / Избери <color=#9F253D>под от каменни блокове</color> и го постави в цялата стая.
+popUpBuilding16=Строителството и декорацията струват <color=#9F253D>материали</color>, но промените не са окончателни, докато не излезеш от <color=#9F253D>режима за строителство</color>. Изтриването на плочки или замяната на декорации с основните им форми ще върне материалите, ако промените още не са потвърдени.
+popUpBuilding17=Твоята <color=#9F253D>зала за изработка</color> е почти готова. За малко уединение трябва да построим врата. Избери <color=#9F253D>вратата</color> от менюто <color=#9F253D>Достъп</color> на <color=#9F253D>лентата с инструменти</color> и я постави в маркираната зона.
+popUpBuilding18=<color=#9F253D>Залата за изработка</color> е готова! Сега е време да създадеш нов тип стая — <color=#9F253D>стаите за гости</color>. Клиентите ще могат да пренощуват и да ти плащат за това. / / Храната и напитките не са единственият начин да печелиш пари в кръчмата си!
+popUpBuilding19=Първо трябва да създадем необходимото пространство. Избери четката <color=#9F253D>Добави под</color> в <color=#9F253D>лентата с инструменти</color> и изгради зоната, маркирана в зелено.
+popUpBuilding2=За начало нека се разходим малко по картата. Използвай [ControllerType: [Action: WASD], [Action: ObjectMove]], за да движиш камерата.
+popUpBuilding20=Наскоро създадените пространства нямат зададена <color=#9F253D>зона</color>. / / За да построиш <color=#9F253D>стая за гости</color> за клиентите си, тя трябва да има само един <color=#9F253D>достъп</color> и вътре да няма зададена <color=#9F253D>зона</color>.
+popUpBuilding21=Тази стая отговаря на изискванията. Отиди в менюто <color=#9F253D>Достъп</color> на <color=#9F253D>лентата с инструменти</color> и постави <color=#9F253D>врата за стаята за гости</color> в маркираната зона, за да създадеш <color=#9F253D>стаята за гости</color>.
+popUpBuilding23=Като поставиш <color=#9F253D>вратата за стаята за гости</color>, стаята автоматично се превръща в <color=#9F253D>стая за гости</color>. Тази зона не може да бъде заменена, освен ако <color=#9F253D>вратата за стаята за гости</color> не бъде премахната.
+popUpBuilding25=За да прекара нощта, клиентът трябва да има <color=#9F253D>стая за гости</color> с <color=#9F253D>легло</color>, <color=#9F253D>маса</color>, <color=#9F253D>стол</color> и <color=#9F253D>източник на светлина</color>. Този път ще ти дадем всичко необходимо. Натисни [Action: BuildMode], за да активираш <color=#9F253D>режима за декорация</color>, и постави предметите в <color=#9F253D>стаята за гости</color>.
+popUpBuilding26=<color=#9F253D>Стаята за гости</color> е готова. Докато са изпълнени минималните изисквания, тя може да бъде предоставяна на клиенти, които поискат <color=#9F253D>стая за гости</color> на бара на кръчмата.
+popUpBuilding2B=Ако натиснеш [Action: SprintHoldAction], докато правиш това, ще се движиш по-бързо.
+popUpBuilding3=Панелът в горния ляв ъгъл ще ти позволи да превключваш между изгледа на <color=#9F253D>пода</color>, изгледа на <color=#9F253D>пода и стените</color> и <color=#9F253D>пълния изглед</color>, който включва и предметите. [ControllerType: Натисни [Action: Use], за да промениш изгледа.]
+popUpBuilding36=Поздравления! Вече имаш всичко необходимо, за да използваш кръчмата си максимално добре. За да потвърдиш промените и да излезеш от урока, натисни бутона за потвърждение. Когато го направиш, всички промени ще бъдат приложени и използваните материали ще бъдат приспаднати.
+popUpBuilding37=Това е всичко! Повишавай <color=#9F253D>репутацията</color> си като кръчмар, за да получиш достъп до нови компоненти, и не забравяй да сложиш материали в новата си <color=#9F253D>строителна маса</color>, преди да започнеш да строиш!
+popUpBuilding38=Панелът в горния десен ъгъл на екрана показва етажа, на който се намираш. [ControllerType: Щракни върху <color=#9F253D>горния етаж</color>, за да продължиш, или натисни [Action: Up], за да се преместиш на <color=#9F253D>горния етаж</color>.]
+popUpBuilding4=Строителството и декорацията изразходват материали. В централния панел горе можеш да видиш всички ресурси, съхранявани в твоята <color=#9F253D>строителна маса</color>. Не забравяй да сложиш в нея всички необходими материали, преди да започнеш да строиш!
+popUpBuilding5=Тъй като това е първият ти път, промените, които правиш, няма да струват нищо. В бъдеще <color=#9F253D>строителната маса</color>, чрез която си влязъл в <color=#9F253D>режима за строителство</color>, ще се използва за съхраняване на всички материали, които ще използваш.
+popUpBuilding6=В долната част на екрана ще намериш <color=#9F253D>лентата с инструменти</color>. Чрез нея можеш да навигираш в различните менюта, за да строиш подове, да персонализираш кръчмата, да разпределяш зони или да добавяш врати и достъп до други етажи.
+popUpBuilding7=В момента някои от тези опции са заключени, но веднага щом завършиш урока, ще имаш достъп до всички опции!
+popUpBuilding8=Захващай се за работа! Ще започнем, като добавим <color=#9F253D>зала за изработка</color> на този етаж!
+popUpBuilding9=Използвай четката <color=#9F253D>Създай под</color> в менюто <color=#9F253D>Строителство</color> на <color=#9F253D>лентата с инструменти</color>, за да създадеш зоната, маркирана в <color=#006841>зелено</color>. Можеш да изградиш новото пространство плочка по плочка или да щракнеш и плъзнеш, за да разшириш зоната, която искаш да построиш.
+Press {0} to continue=Натисни {0}, за да продължиш
+Press any key=Натисни произволен клавиш
+Press SPACE to continue=Натисни SPACE, за да продължиш
+PressSPACE=Натисни SPACE, за да продължиш
+PressToPlay=Натисни [ControllerType: [Action: Start], [Action: UIInteract]], за да играеш!
+PreviousItem=Предишен предмет
+Price buy=Покупна цена
+Price sell=Продажна цена
+Prices=Цени: {0}
+Profit=Печалба: {0}
+Pull beer=Налей напитка
+Put Out Fire=Угаси огъня
+Quest Complete=Задачата е изпълнена
+quest_description_14=Сервирай {0} чаши вода.
+quest_description_16=Отсечи {0} дървета с медната брадва.
+quest_description_17=Изработи {0} дървени дъски в дъскорезницата.
+quest_description_18=Добий {0} метални жили с медната кирка.
+quest_description_19=Изработи {0} железни гвоздея с топилната пещ и наковалнята.
+quest_description_20=Изработи малка маса на работната маса.
+quest_description_21=Изработи {0} малки пейки.
+quest_description_22=Купи стенен календар.
+quest_description_23=Разчисти {0} квадратчета терен със сърпа и лопатата.
+quest_description_24=Подготви земеделски парцел, като разореш {0} квадратчета с мотиката.
+quest_description_25=Засади {0} семена и обери реколтата, когато е готова.
+quest_description_33=Украси я както искаш, но звездата и гирляндът са задължителни!
+quest_name_14=Сервирай вода
+quest_name_16=Отсечи дървета
+quest_name_17=Изработи дъски
+quest_name_18=Добий метална руда
+quest_name_19=Изработи гвоздеи
+quest_name_20=Още маси
+quest_name_21=Още пейки
+quest_name_22=Календар
+quest_name_23=Разчисти терена
+quest_name_24=Земеделие
+quest_name_25=Жътва
+quest_name_33=Украси коледното дърво
+questDescBoiling=Изработи малко лека мъст.
+questDescCraftingRoom=Отключи залата за изработка. Намира се от северната страна на кръчмата.
+questDescCraftPorridge=Изработи каша.
+questDescFarming=Отключи земеделския парцел. Намира се навън, на север.
+questDescFermenting=Изработи първата си бира.
+questDescFirstCustomers=Сервирай на {0} клиенти.
+questDescGruel=Сервирай {0} купи каша.
+questDescMalting=Изработи малцов ечемик.
+questDescPorridge=Сервирай {0} купи овесена каша.
+QuestInfoButton=Натисни {0}
+questNameBoiling=Варене
+questNameCraftingRoom=Зала за изработка
+questNameCraftPorridge=Изработи каша
+questNameFarming=Земеделие
+questNameFermenting=Ферментация
+questNameFirstCustomers=Първи клиенти
+questNameGruel=Каша
+questNameMalting=Малцуване
+questNamePorridge=Овесена каша
+Quests=Задачи
+Quit to desktop?=Изход към работния плот?
+Quit to title screen?=Изход към заглавния екран?
+Random=Случайно
+Recipe Book=Книга с рецепти
+Remove=Премахни
+RentedRoom=Стая за гости
+RentingRooms=Настаняване на гости
+repUnlockImportant=Важно събитие за клиент. / / Провери календара, за да го видиш.
+repUnlockMagic=Дърво на уменията за магия.
+repUnlockOrderQuest=Случайни задачи за поръчки. / / Налични на таблото за обяви.
+repUnlockRentingRooms=Настаняване на гости
+repUnlockStaff=Персонал за наемане. / / Наличен на таблото за обяви.
+repUnlockUpgrade=Подобри кръчмата си
+repUnlockUpgrades=Подобрения на героя. / / Натисни [ControllerType: {0}, {1}], за да отвориш.
+Reputation=Репутация
+Reputation Reward {0}=Награда за репутация {0}
+ReputationBuildMode=Отключен режим за строителство
+reputationRequirement=Достигни репутация на кръчмата {0}, за да отключиш {1}
+Required Items=Необходими предмети
+Requirements=Изисквания
+Requirements not met=Изискванията не са изпълнени.
+resolution=Разделителна способност
+Resume=Продължи
+Return=Върни се
+Rewards=Награди
+Right Alt=Десен Alt
+Right Arrow=Стрелка надясно
+Right Control=Десен Control
+Right Shift=Десен Shift
+Room missing required items=В стаята липсват необходимите предмети!
+Room occupied=Стаята е заета
+Room unavailable=Стаята не е достъпна
+roomBeingCleaned=Стаята се почиства
+RoomDoor=Врата на стаята за гости
+Rooms=Стаи
+Rotate=Завърти
+Rotate Placeable=Завърти предмета
+Rum=Ром
+Sat=Съб
+Satisfaction=Удовлетворение
+SatisfiedCustomers=Доволни клиенти: {0}
+Save=Запази
+Scarecrow=Плашило
+screen_mode=Цял екран
+Seed=Семена
+Seedy=Семенист
+Select=Избери
+Select a room=Избери стая
+Sell=Продай
+SendHome=Изпрати у дома
+Serve=Сервирай
+ServedCustomers=Обслужени клиенти: {0}
+setDefaultSettings=Сигурен ли си, че искаш да възстановиш всички бутони до настройките им по подразбиране?
+sForSeconds=с
+SFX=Звукови ефекти
+Shanty=Барака
+Shifty Customer=Обвини
+Shirt=Риза
+Shoes=Обувки
+shopOpen=Отвори
+Sickle=Сърп
+sickleDesc=Използва се за жънене на реколтата.
+Side=Аксесоар
+Skin=Кожа
+Sleep?=Лягай?
+Small Rug=Малък килим
+Social=Социално
+SortByName=Сортирай по име
+SortByType=Сортирай по вид
+Sour=Кисел
+Space=SPACE
+spaceContinue=Натисни SPACE...
+Spade=Лопата
+Spice=Подправка
+Spicy=Люто
+Spring=Пролет
+Sprint time=Време за спринт
+sprintHold=Спринт (задържане)
+SprintHoldAction=Спринт
+sprintToggle=Спринт (превключване)
+SprintToggleAction=Автоматичен спринт
+Staff=Персонал
+StaffCost=Разходи за персонал: {0}
+StairsUp=Стълби
+Starchy=Нишестен
+startPolling=Искаш ли да промениш бутона за {0}?
+Stone=Камък
+StoneWorkshop=Каменна работилница
+Style=Стил
+Summer=Лято
+Sun=Слънце
+Sweet=Сладък
+Swiss Cheese=Швейцарско сирене
+switchedOff=Изключено
+Table=Маса
+Table is dirty=Масата е мръсна.
+Talent=Талант
+talent_name_29=Сандвичи
+talent_name_47=Паста и пайове
+talent_name_50=Майстор на месото
+talent_name_101=Основна дърводелска работа
+talent_name_102=Решения за съхранение
+talent_name_103=Мебели
+talent_name_104=Дървообработване на открито
+talent_name_105=Прости каменни изделия
+talent_name_106=Основно строителство
+talent_name_107=Основна скулптура
+talent_name_108=Каменно строителство
+talent_name_109=Основно леене на желязо
+talent_name_110=Прости метални изделия
+talent_name_111=Основно коване
+talent_name_112=Работа с остриета
+talent_name_113=Декоративни брони
+talent_name_114=Осветление
+talent_name_115=Прости медни изделия
+talent_name_116=Основно топене на мед
+talent_name_117=Дестилация
+talentAmber=Кехлибар
+talentApplesandPears=Ябълки и круши
+talentBerries=Горски плодове
+talentBread=Хляб
+talentBrown=Кафяво
+talentChairs=Столове
+talentCitrus=Цитруси
+talentContainers=Контейнери
+talentDark=Тъмно
+talentDrupe=Костилкови плодове
+talentGrain=Зърно
+talentGreens=Зеленолистни
+talentGround=Земя
+talentHerbs=Билки
+talentHops=Хмел
+talentLager=Лагер
+talentLagerAdv.=Лагер+
+talentMead=Медовина
+talentMetalwork=Металообработване
+talentMildAle=Лек ейл
+talentPale=Светъл
+talentPaleAdv.=Светъл+
+talentPeppers=Чушки
+talentPickles=Туршии
+talentPorridge=Овесена каша
+talentPorter=Портър
+talentRoasting=Печене
+talentRoot=Кореноплодни
+talentRye=Ръж
+talentSausages=Наденици
+talentShelves=Рафтове
+talentSoup=Супа
+talentStew=Яхния
+talentTables=Маси
+talentTea=Чай
+talentTropical=Тропически
+talentWheat=Пшеница
+talentWine=Вино
+talentWoodwork=Дървообработване
+Tap=Кран
+Tavern=Кръчма
+Tavern must be closed=Кръчмата трябва да е затворена.
+Tavern Vision=Визия на кръчмата
+tavernCloseWarning=Кръчмата трябва да е затворена
+TavernName=Име на кръчмата...
+TavernVision=Визия на кръчмата
+tavernVisionActive=Визията на кръчмата е активна! / / Натисни {0}, за да излезеш.
+Temperature=Температура
+Temporary Ingredient=Временна съставка
+tForTech=Т
+The Cellar=Избата
+This ingredient is temporarily available=Тази съставка е временно налична.
+Thurs=Чет
+Till=Обработи почвата
+Time left:=Оставащо време:
+TimeLeft=Остават {0}
+Title Screen=Заглавен екран
+Toggle Build Mode=Включи/изключи режима за декорация
+Too far away=Прекалено далеч!
+Too late to open=Твърде късно за отваряне!
+Tool=Инструмент
+Tools=Инструменти
+Travellers Rest=Travellers Rest
+TreeSeed=Кълн
+Trends=Тенденции
+Trousers=Панталони
+Tue=Вто
+Turn Off=Изключи
+Turn On=Включи
+Tutorial=Урок
+tutorialPopUp0=Добре дошъл в <color=#9F253D>Travellers Rest</color>! / / Играта в момента е в <color=#9F253D>ранен достъп</color>, което означава, че все още се разработва въз основа на <color=#9F253D>отзивите</color> ти. / / Ако се забавляваш, помисли дали да оставиш <color=#9F253D>отзив</color>, за да подкрепиш този <color=#9F253D>независим проект</color>. / / <color=#9F253D>Благодарим ти</color>!
+tutorialPopUp23=Това е твоят <color=#9F253D>календар</color>, в който ще бъдат отбелязвани важните <color=#9F253D>събития</color>. / / <color=#A45D20>Избери</color> ден, отбелязан с <color=#B50006>червена точка</color>, за да видиш неговите <color=#9F253D>събития</color>.
+tutorialPopUp28=На посещение идва <color=#9F253D>важен гост</color>! / / Докато важният гост е при теб, промените в <color=#9F253D>репутацията</color> ти ще бъдат <color=#9F253D>значително увеличени</color>. / / Погледни <color=#9F253D>календара</color> на таблото за обяви за повече подробности.
+tutorialPopUp29=<color=#9F253D>Важният гост</color> пристигна! / / Гостът е обозначен със <color="yellow">златна звезда</color>. / / Увери се, че кръчмата ти работи безпроблемно!
+tutorialPopUp76=В кръчмата ти се е появила котка. Май вече живее тук! / / Можеш да купиш легло и купа за вода, за да е щастлива!
+tutorialPopUp77=Клиент поиска стая! / / Ако приемеш предложението му, просто избери стая и натисни „Приеми“. / / Можеш и да се пазариш за по-добра цена или просто да откажеш предложението му, ако е твърде ниско.
+tutorialPopUp78=Отключи първата си стая за гости! / / Всяка стая има минимални изисквания, които се виждат от дясната страна на екрана. / / Стаите имат и оценка за удобство. Увеличаването на оценката на стаята носи повече репутация. / / Поддържай всяка стая чиста, иначе ще губиш репутация.
+tutorialPopUp80=Вече имаш различни ястия и напитки в менюто на кръчмата си! / / Колкото по-голямо е разнообразието от ястия и напитки, които продаваш, толкова повече пари и репутация ще печелиш. / / Помни, че клиентите оценяват разнообразието само ако рецептите са напълно различни — различните съставки или модификации на една и съща рецепта не добавят разнообразие към менюто ти.
+tutorialPopUp81=Отключи <color=#9F253D>тенденциите</color>! / / Отвори раздела [Red=Тенденции] в [Red=Менюто] на кръчмата си, за да видиш кои съставки, ястия и напитки са [Red=популярни или непопулярни]. Това пряко влияе на продажните им цени.
+tutorialPopUp82=В прозореца [Red=Тенденции] можеш да видиш кои рецепти и съставки са [Red=популярни или непопулярни всяка седмица]. / / Клиентите ще поръчват [Red=популярните] ястия и съставки по-често, с бонус към продажната цена от [Red=+20% за ястия и напитки] и [Red=+10% за съставка]. / / [Red=Непопулярните] ястия и напитки също ще се поръчват с нормална честота, но с намаление на продажната цена от [Red=-10% за ястия и напитки] и [Red=-5% за съставка].
+tutorialPopUp94=<color=#9F253D>Режимът за строителство</color> е отключен! Достъпи се до него от <color=#9F253D>строителната маса</color>, която е изпратена в <color=#9F253D>сандъка за доставки</color>.
+tutorialPopUpCraftingChests=Поставянето на контейнери в залата ти за изработка позволява на всички станции за изработка да използват инвентара им.
+TutorialQuestion=Искаш ли да активираш урока?
+Unaged Blue=Неотлежало синьо сирене
+Unaged Brandy=Неотлежало бренди
+Unaged Brie=Неотлежало сирене бри
+Unaged Cheddar=Неотлежало сирене чедър
+Unaged Parmesan=Неотлежал пармезан
+Unaged Rum=Неотлежал ром
+Unaged Swiss=Неотлежало швейцарско сирене
+Unaged Whiskey=Неотлежало уиски
+Unlocked at Tavern Reputation {0}=Отключва се при репутация на кръчмата {0}
+Unsaved progress will be lost.=Незаписаният прогрес ще бъде загубен.
+Up Arrow=Стрелка нагоре
+Upgrade=Подобри
+Upgrade Crafting Room=Подобри залата за изработка
+Upgrade Tavern=Подобри кръчмата
+upgradeRoomNotification=Подобри {0} за {1}?
+Use=Използвай
+V-Sync=V-Sync
+Vanilla=Ванилия
+Veg=Зеленчуци
+Veggie=Зеленчуков
+Vodka=Водка
+VSync=Вертикална синхронизация
+Wage=Заплата
+Warm=Топло
+Water Bowl=Купа за вода
+waterBowlDesc=Напълни с вода, за да поддържаш котката си щастлива!
+Wed=Сря
+wForWeeks=с
+Whiskey=Уиски
+Windowed=Прозоречен режим
+Wine=Вино
+Wine and beer ageing=Отлежаване на вино и бира
+Winter=Зима
+WithoutRecipesYet=Все още няма рецепти
+Wood=Дърво
+WoodWorkshop=Дървена работилница
+Workbench=Работна маса
+Wort=Пивна мъст
+xForXP=О
+XP=Опит
+xp=опит
+XP Upgrades=Подобрения на опита
+xpModDescBartending=Стани по-добър барман.
+xpModDescCleaning=Поддържай кръчмата си безупречно чиста!
+xpModDescCrafting=Изработвай, оформяй и създавай
+xpModDescFarming=Увеличава цената, която плодовете и зеленчуците добавят към ястията.
+xpModDescHaggling=По-добро пазарене
+Year=Година
+Yeast=Мая
+Yes=Да
+yForYears=г
+ZoneCostBonus=Намаляване на цената на {0} в работната зона.
+ZoneFirewood=Бонус дърва за огрев в работната зона: {0}
+ZoneFuel=Разход на гориво в работната зона: {0}
+ZonePlanks=Бонус дъски в работната зона: {0}
+ZoneProductionBonus=Допълнителен бонус {0} в работната зона.
+Zones=Зони
+ZoneTimeBonus=Намаляване на времето в работната зона: {0}
+ErrorWhileSaving=Записването беше неуспешно!
+OnlyABird=Можеш да имаш само една птица във всяка трапезария.
+BirdInAChest_Error=Птиците могат да се съхраняват само в клетка за птици.
+Talk=Говори
+LetGoBird=Сигурен ли си, че искаш да пуснеш тази птица?
+Play=Играй
+Language=Език
+Information=Информация
+ErrorMessage_CageWithBirds=Не може да се вдигне клетка, в която има птици.
+Graphics=Графика
+Sound=Звук
+Others=Други
+SearchBox_ItemName...=Име...
+quest_name_27=Призрачен дъх
+quest_description_27=Изработи и сервирай {0} призрачни дъха.
+quest_name_28=Същност от отвъдното
+quest_description_28=Изработи и сервирай {0} същности от отвъдното.
+quest_name_29=Пробудител на мъртвите
+quest_description_29=Изработи и сервирай {0} пробудители на мъртвите.
+New_Recipe=Нова рецепта: {0}
+GiveItem=Дай {0}
+Give=Дай
+quest_name_30=Разговор с Гас
+quest_description_30=Информирай Гас за напредъка си.
+Error_CannotPickUp=В момента предметът не може да бъде вдигнат.
+quest_reward_27_28_29=Отключва нови предмети в магазина на Гас.
+Community_Translation=(Превод от общността)
+Sprint speed=Скорост на спринта
+NewClothing=Гардероб: налично е {0}
+quest_name_31=Война на птиците
+quest_description_31=Сервирай {0} ястия с пълнена пуйка в кръчмата си.
+quest_name_32=Нечестна конкуренция
+quest_description_32=Унищожи {0} снежни човеци.
+cloth_name_98=Шапка на Дядо Коледа
+Error_CloseMenus=За да извърши това действие, другият играч трябва да затвори прозореца.
+tutorialPopUp95=Добре дошъл в кооперативния режим! / / В инвентара на втория играч ще намериш специален сандък. Постави този сандък където и да е в кръчмата си, за да се запази инвентарът на втория играч, когато напусне игровата сесия. / / Когато вторият играч се присъедини отново, предметите от сандъка автоматично ще бъдат поставени в неговия инвентар.
+ItemsOutOfStock=Предметите са изчерпани
+Exit=Изход
+WaterBucketNeeded=В инвентара ти няма кофа с вода
+RingBell=Удари камбаната
+AnimalsNeedMoreSpace=Животните имат нужда от повече място за движение.
+MilkAction=Издои
+ImproveObject?=Сигурен ли си, че искаш да подобриш този предмет ({0})?
+IncreaseUI=Увеличи интерфейса
+BarnConstructionTutorial_1=Уау, най-после си стигнал до построяването на първата си сграда, а? Не се тревожи, Бъз ще ти обясни как работи това!
+BarnConstructionTutorial_2=В момента имаш достъп само до [Red=хамбара] и [Red=кокошарника]. / / [Red=Хамбарът] ще ти позволи да се грижиш за големи животни, като прасета, крави и овце.
+BarnConstructionTutorial_3=От друга страна, [Red=кокошарникът] е за по-малки животни, като кокошките. / / Отдясно на всяка сграда можеш да видиш колко такива сгради можеш да построиш в земята си в момента!
+BarnConstructionTutorial_4=В [Red=лентата с инструменти] можеш да видиш наличните си ресурси. / / Помни, че трябва да носиш строителните материали в инвентара си, за да можеш да ги използваш!
+BarnConstructionTutorial_5=Тук можеш да видиш колко ще струва построяването на новата ти сграда. / / Щом приемеш поръчката за строеж, сумата ще бъде приспадната от материалите ти.
+BarnConstructionTutorial_6=Как така ти се струва скъпо?! Да му се не види, комшио, това е себестойността! Ако го направя по-евтино, ще губя пари!
+BarnConstructionTutorial_7=Това е всичко засега! / / Ако разполагаш с необходимите ресурси, когато избереш сграда, можеш да избереш зоната, в която искаш да я построиш. / / Не забравяй да разчистиш терена, преди да дойдеш при мен!
+BarnConstructionTutorial_8=Сега, когато имаш сграда, можеш да [Red=я променяш]. / / Различните опции в този панел ще ти позволят да променяш позицията ѝ, да персонализираш външния ѝ вид, да увеличаваш капацитета ѝ... / / Възможностите са много!
+BarnConstructionTutorial_9=Тъй като си построил само една сграда, в момента не можеш да преминеш към друга. / / Щом имаш повече сгради във фермата си, ще можеш да превключваш между тях с помощта на тези стрелки.
+BarnConstructionTutorial_10=[Red=Подобрението на сградата] ще добави още места за животни и други подобрения. / / Например [Red=кокошарникът] ще може да съхранява повече яйца, а [Red=хранилката] и [Red=коритото] ти ще се увеличат, за да се грижиш по-лесно за кокошките.
+BarnConstructionTutorial_11=[Red=Хамбарът] също ще увеличи капацитета си при подобрение, но в този случай ще трябва да подобриш и [Red=хранилките] и [Red=коритата поотделно]. / / За целта използвай опцията [Red=мебели], за да получиш достъп до предметите вътре и да ги промениш според желанието си.
+BarnConstructionTutorial_12=[Red=Хамбарът] също ще увеличи капацитета си при подобрение, но в този случай ще трябва да подобриш и [Red=хранилките] и [Red=поилките поотделно]. За целта ще имаш опция, наречена [Red=мебели], която ще ти позволи да подобряваш и променяш предметите вътре.
+BarnConstructionTutorial_13=Чудесно, след това обяснение вече трябва да си експерт. / / Не забравяй да подобряваш [Red=сградите] и [Red=мебелите] им, за да увеличиш печалбите си и да улесниш развитието на животните си!
+LevelX=Ниво {0}
+Trough=Хранилка
+WaterTrough=Поилка
+UpgradeToLevel=Подобри до ниво {0}
+Facilities=Съоръжения
+Customize=Персонализирай
+MoveConstructionMode=Премести
+Demolish=Разруши
+Construction=Строителство
+Modifications=Модификации
+CurrentCapacity=Текущ капацитет: {0}
+ImprovedCapacity=Увеличен капацитет: {0}
+CurrentCapacity_Trough=Текущ капацитет: {0}
+ImprovedCapacity_Trough=Увеличен капацитет: {0}
+DemolishConfirmation=Сигурен ли си, че искаш да разрушиш тази сграда ({0})?
+DemolishConfirmationWithAnimals=Ако разрушиш тази сграда, ще бъдат загубени {1} животни. / / Сигурен ли си, че искаш да разрушиш тази сграда ({0})?
+UpgradeConfirmation=Сигурен ли си, че искаш да подобриш тази сграда ({0})?
+BuildConfirmation=Сигурен ли си, че искаш да започнеш строителството на тази сграда ({0})?
+UpgradeObjectConfirmation=Сигурен ли си, че искаш да подобриш този предмет ({0})?
+Fish=Риба
+ProductValue=Стойност
+Dairy=Млечни продукти
+AvailableSpace=Свободно място
+Drink=Напитка
+Production=Производство
+Slaughter=Клане
+NewCraftingRecipesAvailable=Налични са нови рецепти за изработка!
+NewUniqueObject=Нов уникален предмет!
+Error_PlaceItInChickenCoop=Може да бъде поставено само в кокошарник.
+Error_PlaceItInAnimalSpace=Може да бъде поставено само в свободно отделение в хамбара.
+HasWalked=Излезе на разходка
+RentRoom=Наеми стая
+ProfessionPoints=Професионални точки
+HireWorker?=Вече си наел служител за тази позиция. Сигурен ли си, че искаш да го замениш?
+Tasks=Задачи
+Waiter=[WaiterGender=Сервитьор/Сервитьорка]
+Bouncer=Охранител
+HouseKeeper=Камериер
+BartenderDescription=Приготвя поръчките на бара и оставя напитките готови на масата за напитки, за да ги сервираш ти или сервитьор.
+WaiterDescription=Сервира вече приготвените напитки на масите и почиства пода и масите.
+BouncerDescription=Справя се с досадни клиенти и не позволява на персонала да прави прекалено дълги почивки.
+HouseKeeperDescription=Управлява наемането и обслужването на стаите и помага с поддръжката на кръчмата.
+BarService=Обслужване на бара
+TrayPreparation=Подготовка на подноса
+TableService=Обслужване на масите
+Security=Охрана
+SuperviseStaff=Надзор над персонала
+Accommodation=Настаняване
+RoomService=Обслужване на стаите
+Maintenance=Поддръжка
+Salary=Заплата
+WorkerSkills=Умения на {0}
+DismissWorker?=Сигурен ли си, че искаш да уволниш този служител?
+Unaged=Неотлежало
+Young=Младо
+Reserve=Резерва
+GrandReserve=Голяма резерва
+Occupied=Заето
+NotValid=Невалидно
+Error_RoomDirty=Стаята е мръсна.
+tutorialPopUp102=Този панел показва наличните [Brown=професионални точки], които могат да се използват за [Brown=подобряване на чертите на служител]. / / Тук са показани и максималните почасови заплати на служителите. / / След като ги наемеш, можеш да [Brown=намалиш заплатата им], като намалиш [Brown=нивото на чертите им] или премахнеш [Brown=задачи] от графика им.
+ 
+         
+tutorialPopUp103=Първият ти [Brown=служител] ще започне работа, щом [Brown=отвориш кръчмата]. / / Можеш да видиш повече информация за служителите си [ControllerType: като щракнеш върху [Action: Staff] или отвориш инвентара и избереш раздела за персонала].
+tutorialPopUp104=Служител си почива! / / Понякога служителите излизат да [Brown=починат] за няколко минути. Ако смяташ, че почивката им е прекалено дълга, винаги можеш да отидеш при тях и да ги [Brown=върнеш на работното им място].
+tutorialPopUp105=В този панел можеш да управляваш служителите си. / / Служителите ще идват на работа, стига да си отворил кръчмата и да е избрана опцията „[Brown=Работи]“. Ако я изключиш, служителят [Brown=няма да идва в кръчмата] и също така [Brown=няма да получава заплата].
+tutorialPopUp106=В този раздел можеш да решиш кои [Brown=задачи] изпълнява служителят ти. / / Ако изключиш дадена задача, служителят [Brown=ще спре да изпълнява тази функция]. [Brown=Заплатата] на служителя зависи от задачите, които изпълнява, така че колкото по-малко задачи са избрани, толкова [Brown=по-ниска ще бъде заплатата му].
+tutorialPopUp107=Като разпределяш [Brown=професионални точки], ще можеш да [Brown=подобряваш чертите на служител]. / / След като бъде [Brown=отключено], ще можеш да активираш [Brown=всяко ниво на дадена черта]. По-ниското ниво ще намали бонуса, но ще направи и заплатата на служителя по-ниска.
+tutorialPopUp108=Новият ти барман започна работа! / / Помни, че барманът [Brown=няма да носи напитките до масите], а ще ги оставя готови [Brown=на масата за напитки]. / / От [Brown=теб или сервитьор] зависи да ги [Brown=вземете] и [Brown=занесете до масата на клиента].
+tutorialPopUp109=Твоят [WaiterGender=нов сервитьор/нова сервитьорка] пристигна в кръчмата! / / Помни, че сервитьорите [Brown=няма да наливат напитки от крановете]. Поръчките [Brown=трябва да са готови] на [Brown=масата за напитки], за да могат сервитьорите да ги сервират на масите. / / Поръчките на масите могат да бъдат приготвяни от теб или от нает барман.
+tutorialPopUp110=Вече имаш [Brown=охранител] сред служителите си! / / Охранителите ще [Brown=се справят с досадните клиенти] и ще накарат служителите ти да [Brown=се върнат на работното си място], ако почивките им са прекалено дълги.
+tutorialPopUp111=[Brown=Камериерът] е готов да започне работа. / / За разлика от сервитьорите, камериерите могат да [Brown=наливат напитки от крановете], така че няма да се тревожиш за приготвянето на поръчките им. / / Освен че се грижат за стаите, те ще помагат и с [Brown=поддръжката] на кръчмата, като палят [Brown=камината], зареждат [Brown=свещниците] и почистват [Brown=пода на трапезарията].
+tutorialPopUp112=В този панел можеш да видиш всички [Brown=стаи] и техните [Brown=характеристики]. / / Иконите до имената на стаите служат за разпознаването им и ще се появяват и на вратите им. / / Характеристиките на стаята са нейният [Brown=статус], [Brown=размер], [Brown=тип] и [Brown=удобство]. Всеки клиент ще има различни [Brown=изисквания] към стаята си, а [Brown=цената ще бъде намалена наполовина], ако стаята, която му дадеш, [Brown=не отговаря на очакванията му].
+tutorialPopUp113=Стаи, които вече са [Brown=заети] или [Brown=мръсни], не могат да бъдат отдавани. / / За да бъде дадена под наем, стаята трябва поне да има [Brown=основното обзавеждане] (светлина, маса, стол и легло), да бъде [Brown=свободна] и [Brown=чиста].
+tutorialPopUp114=Нае първата си стая! / / Помни, че гостите обикновено напускат стаите си сутрин за през деня. Тогава ти или служителите ти можете да влезете и да ги почистите. Поддържането на чиста стая носи [Brown=допълнителна репутация].
+tutorialPopUp115=Гост [Brown=приключи] престоя си! / / Помни, че за да отдадеш стаята отново, първо трябва да я почистиш.
+tutorialPopUp116=Имаш поръчка за [Brown=обслужване на стая]. / / Напитките, поръчани от стаите, ще бъдат обявени на [Brown=рецепцията]. / / За да ги сервираш, просто [Brown=налей напитка] от крана и я [Brown=занеси в стаята]. / / Ако имаш [Brown=нает камериер], той ще се погрижи за [Brown=обслужването на стаята].
+tutorialPopUp120=Тук можеш да видиш наличните кандидати за [Brown=служители]. Има четири типа, но можеш да наемеш [Brown=само по един от всеки тип]. / / Служителите могат да имат до три положителни и една отрицателна черта. С повишаването на репутацията ти ще можеш да [Brown=наемаш служители от по-високо ниво] с [Brown=по-добри черти].
+UpdatePopUP_v0.6.1_1=Добре дошъл във версия 0.6.1, кръчмарю! / / Тази нова версия добавя система за наемане на служители и нов тип служител. / / Добавена е и система за поръчки от масите, подносът за напитки, както и нови системи за стаите и за отлежаването на напитки.
+UpdatePopUP_v0.6.1_2=Освен това добавихме [Brown=енциклопедия], в която можеш да преглеждаш управлението и основните механики на Travellers Rest. / / Можеш да я отвориш от [Brown=менюто за пауза]. / / Благодарим ти, че играеш, и се надяваме да ти хареса тази нова версия!
+UpdatePopUP_v0.6.1_3=Системата за [Brown=наемане на стаи] е променена. Сега ще трябва да имаш поставена [Brown=рецепция] в трапезарията, за да пристигат нови гости. / / Вече би трябвало да имаш такава в [Brown=инвентара си] или във външния [Brown=сандък за доставки]. Постави я в трапезарията, за да отдаваш стаите си под наем!
+CheckoutDate=Дата на напускане
+quest_name_34=Отлей първата си бира
+quest_description_34=Отлей 20 бири.
+WorkerXP=Опит на служителя
+quest_name_35=Стаи за гости
+quest_description_35=Построй първата си стая.
+Workers=Служители
+Error_DrinkLimitOnTray=Достигнат е лимитът на напитките в подноса.
+Antiquity=Стаж
+AlternateWalkRun=Задръж, за да тичаш
+Put=Постави
+Take=Вземи
+Available=Налично
+OrderName=Поръчка
+CellarUnlockMessage=Напредвай по основните задачи, за да отключиш избата.
+Working=Работи
+Level=Ниво
+encyclopedia_section_title_1=Основи
+encyclopedia_section_title_2=Обслужване на кръчмата
+encyclopedia_section_title_3=Удовлетворение на клиентите
+encyclopedia_section_title_4=Обслужване на стаите за гости
+encyclopedia_section_title_5=Служители
+encyclopedia_section_title_6=Изработка
+encyclopedia_section_title_7=Животни
+encyclopedia_section_title_8=Отглеждане на култури
+encyclopedia_section_title_11=Риболов и копаене
+encyclopedia_section_title_9=Строителство
+encyclopedia_section_title_10=Животни спътници
+encyclopedia_section_title_12=Онлайн мултиплейър
+encyclopedia_section_title_13=Мина
+encyclopedia_section_title_14=Магия
+encyclopedia_entry1.1_title=Основни управления
+encyclopedia_entry1.1_text=Движи се с [Action: WASD] / / Задръж [Action: SprintHoldAction], за да тичаш. / / С [Action: Interact] и [Action: Select] можеш да взаимодействаш с повечето предмети и контейнери. / / Натисни [Action: BuildMode], за да влезеш и излезеш от режима за декорация. / / [ControllerType: Щракни върху [Brown=табелата под часовника] или натисни [Action: OpenTavern], за да отвориш и затвориш кръчмата, Натисни [Action: OpenTavern], за да отвориш и затвориш кръчмата.] / / Натисни [Action: OpenInventory], за да отвориш инвентара. / / Натисни [Action: Pause], за да отвориш менюто за пауза и опциите на играта.
+encyclopedia_entry1.2_title=Режим за декорация
+encyclopedia_entry1.2_text=[Brown=Режимът за декорация] ти позволява да поставяш и вдигаш предмети в кръчмата си. За да влезеш и излезеш от режима за декорация, [Brown=натисни [Action: BuildMode]]. / / Докато си в режима за декорация, можеш да [Brown=поставиш предмет], като [ControllerType: [Brown=щракнеш] върху иконата му в лентата за действия или натиснеш [Action: RightMouseDetect], натиснеш [Action: Use]], докато предметът е избран в лентата за действия. / / Той ще се появи на екрана и ще трябва само да го [Brown=плъзнеш] до валидна позиция с [Action: ObjectMove] и [Brown=да го поставиш с [ControllerType: [Action: LeftMouseDetect]., [Action: Interact]]]. / / Можеш също да [Brown=завърташ] някои предмети с [Action: Rotate] или да променяш [Brown=стила] им с [Action: Style], докато ги поставяш. / / При [Brown=активиран режим за декорация] можеш да местиш вече поставени предмети или да ги вдигаш: като преместиш курсора [Brown=([Action: ObjectMove])] върху предмет, който може да бъде вдигнат, той ще бъде [Brown=маркиран]. След това можеш да го [Brown=плъзнеш] до новата му позиция с [ControllerType: [Action: LeftMouseDetect], [Action: Interact]], или да го [Brown=вдигнеш с [ControllerType: [Action: RightMouseDetect]., [Action: Use]]].
+encyclopedia_entry1.3_title=Меню в инвентара
+encyclopedia_entry1.3_text=Ако натиснеш [Action: OpenInventory], можеш да видиш своя [Brown=инвентар и лента за действия]. Там ще видиш предметите, които носиш, и можеш да ги плъзнеш в лентата за действия, за да превключваш бързо между тях, без да отваряш менюто, като използваш [ControllerType: [Action: ScrollUp] / [Action: ScrollDown], бутоните [Action: ScrollUp] / [Action: ScrollDown]]. / / В инвентара можеш да навигираш между различните раздели [ControllerType: като щракаш върху тях или натискаш [Action: ScrollUp] / [Action: ScrollDown]], за да получиш достъп до различна информация, като книгата с рецепти, служителите, информацията за кръчмата и още много... / / [ControllerType: Можеш да отваряш разделите с различни клавишни комбинации, без първо да отваряш инвентара: / / -[Action: OpenStats], за да видиш статистиката на кръчмата. / -[Action: OpenTalents], за да видиш дървото на уменията си. / -[Action: OpenRecipeBook], за да отвориш книгата с рецепти. / -[Action: OpenQuests], за да отвориш задачите. / ,]
+encyclopedia_entry1.4_title=Купуване на предмети
+encyclopedia_entry1.4_text=Златото, което печелиш в кръчмата си, може да се използва за купуване на предмети и съставки за рецептите ти. В Travellers Rest ще намериш различни търговци, които продават уникални предмети. Посещавай ги често, защото редовно ще добавят нови продукти в магазина си. / / Имай предвид, че повечето магазини са затворени в неделя.
+encyclopedia_entry1.5_title=Дърво на уменията
+encyclopedia_entry1.5_text=С повишаването на нивото на репутацията си ще получаваш точки за умения, които можеш да изразходваш за различни [Brown=умения], даващи пасивни бонуси на героя ти. / / Можеш да отвориш дървото на уменията си [ControllerType=като натиснеш клавиша [Action: OpenInventory], за да отвориш инвентара, и избереш съответния раздел, или чрез прекия път [Action: OpenTalents]/като отвориш инвентара с [Action: OpenInventory] и навигираш между разделите с [Action: ScrollUp] — [Action: ScrollDown]].
+encyclopedia_entry2.1_title=Подготовка на кръчмата
+encyclopedia_entry2.1_text=Преди да отвориш кръчмата, трябва да се увериш, че клиентите имат къде да ядат и пият, иначе дори няма да влязат. / / За да влизат клиенти и да правят поръчки, трябва да има поне една маса със свободни места. За да я поставиш, влез в [Brown=режима за декорация] и сложи маса в трапезарията. След това избери местата, които искаш, и ги постави непосредствено до масата на валидна позиция. / / Ако си направил всичко правилно, мястото за сядане ще се премести малко по-близо до масата, което означава, че е готово за нови клиенти.
+encyclopedia_entry2.2_title=Отваряне и затваряне на кръчмата
+encyclopedia_entry2.2_text=Можеш да [Brown=отвориш кръчмата] по всяко време на деня, като [ControllerType: щракнеш върху табелата до часовника в интерфейса или натиснеш клавиша [Action: OpenTavern], натиснеш [Action: OpenTavern]]. / / След като кръчмата е отворена, можеш веднага да обявиш [Brown=последни поръчки] или да я [Brown=затвориш], като [ControllerType: щракнеш отново върху табелата или натиснеш клавиша [Action: OpenTavern], натиснеш [Action: OpenTavern]]. / / По време на [Brown=последните поръчки] няма да има нови поръчки и [Brown=ще предотвратиш влизането на нови клиенти]. Това ще ти даде време да сервираш всичко останало, а когато последният клиент напусне кръчмата, тя ще се затвори автоматично. / / Ако не оставиш достатъчно време за последните поръчки и [Brown=затвориш] кръчмата, преди всички клиенти да си тръгнат, всички ще бъдат принудени да напуснат веднага и ще ти дадат отрицателна репутация.
+encyclopedia_entry2.3_title=Сервиране на храна
+encyclopedia_entry2.3_text=Клиентите, които идват в кръчмата ти, могат да поръчат храна от теб [Brown=на бара]. За да им я сервираш, просто се приближи до тях и натисни [Action: Interact]. / / Можеш да [Brown=добавяш нови ястия в менюто], книгата вляво от бара, като натиснеш [Action: Interact]. Клиентите ще поръчват само ястията, които са заредени там. / / Ако [Brown=нямаш нищо налично в менюто], клиентите ще поръчват [Brown=каша]. Това е най-обикновеното ястие и можеш да го сервираш дори при празно меню, но почти не носи печалба.
+encyclopedia_entry2.4_title=Сервиране на напитки
+encyclopedia_entry2.4_text=Клиентите могат също да [Brown=поръчват напитки] на бара, стига напитката да е добавена в един от диспенсърите ти. [Brown=Крановете] могат да съхраняват газирани напитки, а [Brown=буретата] — всякакви напитки. / / За да [Brown=напълниш диспенсър], приближи се до него и натисни [Action: Select], за да го отвориш, след което избери напитката от инвентара си, която искаш да съхраняваш в него. След това можеш да натиснеш [Action: Interact] близо до пълния диспенсър, за да добавиш напитката в [Brown=подноса] си, и да я сервираш на клиента с [Action: Interact] на бара или на масата, от която е поръчал. / / Освен това, когато напълниш диспенсър, към него автоматично ще бъде зададен [Brown=цвят]. Поръчките за напитки са оцветени по същия начин, за да показват от кой диспенсър трябва да налееш. Можеш да промениш цвета по всяко време от същото меню, в което добавяш напитките. / / Ако в диспенсърите ти няма друга напитка, клиентите ще поискат [Brown=чаши вода]. Можеш да добавиш напитка, за да се променят поръчките автоматично, или да напълниш буре с [Brown=кофа с вода], за да сервираш чаши вода.
+encyclopedia_entry2.5_title=Поднос
+encyclopedia_entry2.5_text=Когато налееш напитка от диспенсър, тя автоматично се добавя в [Brown=подноса] ти. Можеш да носиш едновременно [Brown=максимум пет] напитки. Можеш да видиш напитките в [Brown=панела на подноса] си, над [Brown=лентата за действия]. / / Можеш да [Brown=изхвърлиш напитките] от подноса, за да се върнат в диспенсъра [ControllerType: като задържиш клавиша [Action: Rotate] или щракнеш върху [Brown=иконата] вдясно от панела и задържиш бутона [Action: Rotate]]. / / Ако диспенсърите са били напълнени с друга напитка, преди да изпразниш подноса, напитките ще бъдат съхранени в инвентара ти, за да можеш да ги добавиш ръчно.
+encyclopedia_entry2.6_title=Маса за напитки
+encyclopedia_entry2.6_text=Вдясно от бара има [Brown=маса за напитки]. Когато клиент поръча напитка [Brown=от масата си], там се появява индикатор. Приближи се до масата, за да видиш пълния списък с чакащи поръчки за напитки, оцветени според съответния диспенсър. / / Можеш да [Brown=оставяш и вземаш напитки] от нея, което е удобно, когато в кръчмата работят няколко души, независимо дали са приятели или твои служители. / / Когато [Brown=оставиш напитки] на масата с [Action: Interact], до нея ще се появят нови индикатори с добавените напитки, а съответните напитки ще бъдат премахнати от списъка с чакащи поръчки и ще се покажат в списъка с напитките, които масата съдържа. Сега напитките са готови за вземане от твоя приятел или сервитьор, който да ги занесе на масите. / / От друга страна, ако на масата вече има напитки, приготвени от твоя приятел или барман, можеш да ги [Brown=вземеш] с [Action: Select] и да ги занесеш на клиентите.
+encyclopedia_entry2.7_title=Корекция на цените
+encyclopedia_entry2.7_text=Взаимодействието с книгата над бара ще отвори менюто за [Brown=ястия]. В раздела [Brown=„Цени“] можеш да променяш цената на всяко ястие и напитка в менюто си. / / Можеш да предлагаш ястия под пазарната цена, за да печелиш репутация, докато печелиш по-малко пари, или над пазарната цена с обратния резултат. / / Ако ястията са [Brown=твърде скъпи], клиентите могат да ги [Brown=откажат] и да напуснат кръчмата.
+encyclopedia_entry2.8_title=Тенденции
+encyclopedia_entry2.8_text=В началото на всяка седмица тенденциите се променят и някои рецепти стават популярни или непопулярни. / / Базовата цена на популярните ястия и напитки се увеличава с 20%, а на популярните съставки — с 10%. Базовата цена на непопулярните ястия и напитки се намалява с 10%, а на съставките — с 5%. / / Не забравяй да [Brown=коригираш цените], за да се възползваш максимално от тенденциите, като увеличиш печалбите си и намалиш загубите.
+encyclopedia_entry3.1_title=Удовлетворение
+encyclopedia_entry3.1_text=Доброто обслужване, добре поддържаната кръчма и висококачествените храни и напитки ще повишат [Brown=удовлетворението] на клиентите ти. Високото удовлетворение ще ти донесе повече пари, ще увеличи броя на клиентите в кръчмата ти и ще повиши [Brown=репутацията] ти. / / Много фактори могат да повлияят на удовлетворението на клиентите. За да постигнеш възможно най-високо удовлетворение, освен да предлагаш най-добрите ястия и напитки, ще трябва да се увериш, че [Brown=предлагаш добро обслужване]. / / Репутацията, която получаваш от клиентите, зависи от това дали: / / -Им даваш ястията и напитките, които са поискали. / -Обслужваш ги, когато поръчват храна или напитки. / -Поддържаш кръчмата чиста. / -Поддържаш правилната температура в трапезарията. / -Уверяваш се, че масите имат достатъчно светлина. / -Избягваш буйни клиенти.
+encyclopedia_entry3.2_title=Репутация
+encyclopedia_entry3.2_text=Когато клиент напусне кръчмата, след като е бил обслужен, той ще увеличи или намали [Brown=репутацията] ти според удовлетворението си от обслужването. / / Тази репутация работи като точки за опит и ще ти позволи да повишаваш нивата на репутация на мястото си. Повишаването на нивото ще отключва нови предмети и механики и значително ще увеличава максималния брой клиенти, които могат да идват в заведението ти.
+encyclopedia_entry3.3_title=Чистота
+encyclopedia_entry3.3_text=Поддържането на чистотата на кръчмата е важна част от обслужването и пренебрегването ѝ може да навреди на [Brown=репутацията] ти. / / Докато клиентите използват масите, те се замърсяват. Можеш да ги избършеш, като се приближиш до тях и задържиш [Action: Interact]. Когато замърсяването на масата достигне критично ниво, външният ѝ вид се променя, за да покаже, че трябва да я почистиш спешно. / / Клиентите могат също да оставят [Brown=петна по пода], които трябва да бъдат [Brown=почистени с метлата]. Екипирай метлата, като я избереш от лентата за действия, и задръж [Action: Interact] близо до петната, за да ги почистиш. / / Ако кръчмата стане прекалено мръсна, отдясно на екрана ти ще се появи индикатор. Поддържай кръчмата възможно най-чиста, за да те награждават клиентите с по-висока репутация, когато си тръгват.
+encyclopedia_entry3.4_title=Температура
+encyclopedia_entry3.4_text=[Brown=Температурата] в трапезарията също влияе на удобството на клиентите ти и следователно на [Brown=репутацията] ти. Когато отдясно на екрана ти няма [Brown=индикатор], това означава, че нивото на температурата е подходящо. Когато се покаже индикаторът за температура, това означава, че тя е [Brown=твърде ниска или твърде висока]. / / Когато е [Brown=студено], можеш да [Brown=запалиш камината], за да се повиши температурата до приятно ниво. Ако температурата се повиши, а камината все още гори, ще стане [Brown=твърде горещо], така че ще трябва да [Brown=угасиш огъня]. / / Макар дневната температура да [Brown=зависи от сезона], обикновено [Brown=вечер температурите спадат], затова това обикновено е най-подходящото време да запалиш камината.
+encyclopedia_entry3.5_title=Осветление
+encyclopedia_entry3.5_text=За да поддържаш [Brown=клиентите доволни], е важно да има [Brown=светлина на масите]. Клиентите, които са на тъмно, ще се оплакват и ще ти дадат лоша репутация. / / Най-добрият начин да осигуриш светлина е да поставиш свещ на масата, което можеш да направиш в режима за декорация. Свещите изгарят след три дни, затова е важно да ги сменяш тогава. / / Предмети като [Brown=свещници] ще позволят на служителите ти да сменят свещите автоматично. Когато една свещ изгори, камериерът ще я смени и автоматично ще ти бъде начислена цената ѝ.
+encyclopedia_entry3.6_title=Декорация и удобство
+encyclopedia_entry3.6_text=Можеш да поставяш декоративни предмети в кръчмата си, като много от тях осигуряват на клиентите [Brown=по-голямо усещане за удобство], което значително увеличава репутацията, която получаваш, когато ги обслужваш. / / Когато поставиш един и същ предмет няколко пъти, печалбата на репутация леко намалява, като всяко следващо копие носи по-малко удобство. / / Удобството на кръчмата увеличава спечелената репутация, а удобството на стаите увеличава цената им за наем.
+encyclopedia_entry3.7_title=Буйни клиенти
+encyclopedia_entry3.7_text=[Brown=Клиентите могат да започнат да се оплакват] от обслужването, като намалят репутацията, която дават всички клиенти, седнали на тяхната маса. / / Когато клиент стане буен, над главата му ще се появи иконата <sprite name="Rowdy_Emote">. Отиди при него и натисни [Action: Interact], за да се опиташ да го успокоиш. Ако всичко мине добре, клиентът ще се успокои и ще продължи да яде и пие, без да безпокои никого. / / Понякога думите не са достатъчни, за да го успокоиш, и клиентът ще стане от масата си, предизвиквайки [Brown=разправия]. Ако това се случи, време е да действаш и да го изгониш от заведението. [Brown=Екипирай метлата], като я избереш от лентата за действия, и натисни [Action: Interact] близо до него, за да го цапардосаш добре. Клиентът ще си тръгне наказан.
+encyclopedia_entry4.1_title=Стаи за гости
+encyclopedia_entry4.1_text=Когато достигнеш необходимото ниво на репутация и отключиш [Brown=строителната маса], ще можеш да построиш първите си стаи за гости. Клиентите могат да наемат тези стаи за една или повече нощувки. / / Можеш да прочетеш повече за строежа им в раздела [Brown=Строителство]. / / Когато създадеш стая за отдаване под наем, към нея автоматично ще бъде зададен [Brown=символ], видим на [Brown=вратата] ѝ, който ще служи за различаване на една стая от друга. / / За да можеш да отдадеш стая под наем, тя трябва да съдържа определени нужни [Brown=мебели]: [Brown=легло, маса, място за сядане и източник на светлина]. Без тези предмети стаята не може да бъде отдадена. Освен това стаята трябва да е чиста, иначе клиентите също няма да искат да я наемат.
+encyclopedia_entry4.2_title=Характеристики
+encyclopedia_entry4.2_text=Стаите за гости имат различни характеристики, които определят цената им и дали могат да бъдат отдавани на различни гости: / / -[Brown=Статус]: Определя състоянието на стаята. За да бъде отдадена, тя трябва да е напълно [Brown=достъпна]. Стаи, които вече са [Brown=заети], не могат да бъдат отдавани, докато гостите не си тръгнат, а [Brown=мръсните] стаи няма да се показват като достъпни, докато не ги почистиш. / / Ако стаята е отбелязана като „[Brown=Невалидно]“, това означава, че в нея липсват необходимите мебели и трябва да се увериш, че има легло, маса, място за сядане и източник на светлина. / / -[Brown=Тип]: Типът на стаята зависи от предметите, с които я декорираш. Засега е достъпен само неутралният тип, но в бъдещи обновявания ще бъдат добавени още. / / -[Brown=Пространство]: Това е броят строителни квадратчета, които заема стаята. Колкото по-голяма е стаята, толкова по-скъпа ще бъде за клиентите. / / -[Brown=Удобство]: Нивото на удобство се определя от декоративните предмети в стаята. Колкото повече удобство има, толкова по-скъпа ще бъде стаята. / / Можеш да видиш тези характеристики, когато влезеш в стаите за гости, или като погледнеш списъка със стаи на [Brown=рецепцията].
+encyclopedia_entry4.3_title=Рецепция
+encyclopedia_entry4.3_text=За да можеш да отдаваш построените стаи под наем, трябва да поставиш [Brown=рецепция] в трапезарията на кръчмата си. Оттам ще можеш да преглеждаш [Brown=списъка със стаи], характеристиките и цените им, а клиентите ще идват, когато поискат стая. / / Когато клиент поиска стая на рецепцията, приближи се до него и натисни [Action: Interact], за да отвориш списъка и да избереш стаята, която искаш да му дадеш. Долният панел показва [Brown=изискванията на клиента], а списъкът показва в червено [Brown=недостъпните стаи], било защото са мръсни, заети или неподготвени. / / Освен това стаите, които не [Brown=отговарят на изискванията на клиента], получават наказание от [Brown=50%] към цената си. То ще бъде отбелязано в самия списък до характеристиките, на които не отговаряш. С повишаването на репутацията ти гостите ще изискват по-големи и по-удобни стаи.
+encyclopedia_entry4.4_title=Почистване на стаите
+encyclopedia_entry4.4_text=Сутрин гостите ще напускат стаите си и ще се връщат няколко часа по-късно. През това време ти и наетите камериери ще можете да [Brown=почиствате стаите] на гостите, като печелите допълнителна репутация. / / Когато гост напусне стаята завинаги, тя не може да бъде отдавана отново, докато не бъде напълно почистена. / / За целта трябва да се увериш, че: / / -Оправиш леглото. / -Почистиш петната по пода. / -Почистиш масата. / -Смениш източника на светлина, ако е изгорял.
+encyclopedia_entry4.5_title=Обслужване на стаите
+encyclopedia_entry4.5_text=Гостите, които са отседнали в кръчмата ти, могат също да [Brown=поръчват храна и напитки в стаите си]. Когато гост поръча обслужване на стаята, над [Brown=рецепцията] ще се появи индикатор, подобно на индикатора при масата за напитки. / / Ако се приближиш до нея, панелът ще се разгъне и ще можеш да видиш точно какво е поръчал гостът. При напитка ще бъде показан цветът на диспенсъра, както и [Brown=символът на стаята], до която трябва да я занесеш. / / Така ще трябва само да добавиш съответната напитка в подноса си и да отидеш до вратата на стаята, от която е поръчката. Там натисни [Action: Interact] и поръчката автоматично ще бъде доставена на госта. / / Помни, че сервитьорите не носят напитки до стаите. Само ти или камериерите можеш да занесеш поръчки в стаите за гости.
+encyclopedia_entry5.1_title=Видове служители
+encyclopedia_entry5.1_text=След като достигнеш необходимото ниво, ще можеш да наемаш служители, които да ти помагат с обслужването в кръчмата. Има четири типа служители, но можеш да наемеш само по един от всеки тип. / / -[Brown=Барман]: Барманите [Brown=сервират храна и напитки] на бара и оставят поръчките готови на [Brown=масата за напитки], откъдето ти или сервитьор можеш да ги вземеш и занесеш до масите на клиентите. / / Те също така пълнят диспенсърите с [Brown=вода], ако по време на обслужване свършат другите напитки. / / -[Brown=Сервитьор]: Сервитьорите [Brown=почистват] пода и масите на кръчмата, както и [Brown=носят напитки] до масите на клиентите. За разлика от барманите, те не наливат напитки от диспенсърите, затова ти или барман трябва да оставите поръчките готови на масата за напитки. / / -[Brown=Охранител]: Те отговарят за [Brown=успокояването] на буйни клиенти и [Brown=изгонването им], ако предизвикат разправия. Те също така надзирават останалите служители, за да не правят прекалено дълги [Brown=почивки]. / / -[Brown=Камериер]: Те помагат с [Brown=почистването] на кръчмата и поддръжката на [Brown=стаите за гости]. Могат да се заемат с отдаването им под наем и с почистването им, когато са мръсни, но ще ти трябва [Brown=рецепция] в трапезарията, за да могат да настаняват клиентите в стаите им. / / Те се грижат и за [Brown=обслужването на стаите], като сервират поръчките на гостите в стаите им.
+encyclopedia_entry5.2_title=Наемане
+encyclopedia_entry5.2_text=След като достигнеш необходимото ниво на репутация, ще можеш да наемаш служители от [Brown=таблото за обяви] пред кръчмата. За целта отиди до него, използвай [Action: Interact] и избери опцията "[Brown=Наеми служители]".\n\nВ този панел ще виждаш до [Brown=четирима кандидати] за всяка професия, които можеш да наемеш, заедно с техните [Brown=ниво], [Brown=черти] и максималната им [Brown=почасова заплата]. След като наемеш служител, можеш да промениш работния му график, за да [Brown=намалиш дневната му заплата].\n\nМакар че можеш да наемеш само по един служител от всеки тип едновременно, списъкът с кандидати се обновява всеки [Brown=понеделник и четвъртък]. По всяко време можеш да замениш служител с някого, който е по-подходящ за твоя стил на игра, като наемеш нов човек от таблото.
+encyclopedia_entry5.3_title=Черти
+encyclopedia_entry5.3_text=Работниците имат различни [Brown=черти], които ги отличават един от друг. Тези черти им дават уникални предимства и недостатъци, така че всеки от тях се различава от останалите кандидати в същата професия.\n\nВсички имат една [Brown=отрицателна черта] и до [Brown=три положителни черти], или [Brown=умения], които могат да достигнат до ниво пет. Колкото по-високо е нивото на дадено умение, толкова по-силен е ефектът му, но толкова по-висока ще бъде и заплатата на служителя.\n\nКогато служителите ти повишават нивото си, можеш да подобряваш уменията им с помощта на [Brown=професионални точки]. Когато всички умения на служителя достигнат пето ниво, той ще е достигнал максималното си ниво и повече няма да може да се развива.\n\nС повишаването на репутацията на кръчмата ти ще намираш по-добри работници на таблото за обяви. Колкото по-малко положителни черти има един работник, толкова по-ниско ще бъде максималното му ниво и толкова по-малък ще е потенциалът му в сравнение със служители, чиито умения могат да се подобряват повече.
+encyclopedia_entry5.4_title=Панел на служителите
+encyclopedia_entry5.4_text=В панела на служителите можеш да преглеждаш [Brown=информацията] за служителите си и да променяш техните [Brown=активни черти] и [Brown=задачи], за да намалиш дневната им заплата.\n\nВ този панел ще намериш:\n\n- [Brown=Основна информация]: Името им, от колко време работят за теб и текущото им ниво.\n\n- [Brown=Заплата]: Сумата, която трябва да плащаш на служителя за всеки час работа. Размерът на заплатата зависи от [Brown=активните черти] и [Brown=задачите] на служителя.\n\n- [Brown=Активни черти]: Чертите на служителя и нивото, на което са зададени в момента. Можеш по всяко време да задаваш нивата на чертите в отключения диапазон — от най-ниското до най-високото желано ниво.\n\n- [Brown=Професионални точки]: Точки, с които можеш да подобряваш чертите на служителя и значително да увеличаваш ефекта им. За всяко ново ниво служителят получава професионална точка, която можеш да изразходваш веднага или да запазиш, за да събереш необходимите точки за най-скъпите подобрения.\n\n- [Brown=Задачи]: Различните дейности, които служителят ще изпълнява в кръчмата. Деактивирането им значително ще намали заплатата, която му плащаш, но той повече няма да изпълнява изключената задача.\n\nПолето за отметка "[Brown=Работи]" определя дали служителят ще дойде на работа, когато отвориш кръчмата. Ако махнеш отметката, служителят няма да дойде на работа и няма да трябва да му плащаш.
+encyclopedia_entry5.5_title=Активни черти
+encyclopedia_entry5.5_text=Всяка положителна черта, или умение, има базова цена, която се добавя към заплатата на служителя. Колкото по-високо е нивото на активното умение, толкова по-висока е цената му.\n\nПо всяко време на играта можеш да променяш нивото на [Brown=активните умения] на служителя в рамките на отключените нива. Това означава, че дори работникът да е отключил и петте нива на дадено умение, можеш да активираш първо ниво, за да намалиш цената му.
+encyclopedia_entry5.6_title=Почивки
+encyclopedia_entry5.6_text=Служителите, които работят дълги часове, могат да си вземат до [Brown=две почивки] на ден. Когато това се случи, иконата <sprite name="Break_Emote"> ще се появи над главата на служителя и той ще излезе навън за няколко минути, докато се върне на работа.\n\nМожеш да излезеш навън и да взаимодействаш с него чрез [Action: Interact], за да го накараш [Brown=да се върне бързо на работното си място], или да използваш метлата, за да му удариш един хубав пердах. Това със сигурност ще го върне веднага на работа.\n\nОхранителите също могат да накарат други служители да се върнат на работното си място, когато са излезли в почивка.
+encyclopedia_entry5.7_title=Уволнение на служител
+encyclopedia_entry5.7_text=Можеш да уволниш служител по всяко време, като отвориш панела на служителите от менюто, избереш служителя и [ControllerType: натиснеш бутона [Brown=Уволни] или натиснеш бутона [Action: UIAddRemove]].\n\nКогато избереш да го уволниш, ще трябва да потвърдиш действието, защото след уволнението няма да можеш да върнеш този работник обратно.\n\nАко наемеш нов служител за вече заета от теб позиция, съобщението за уволнение също ще се появи. Ако решиш да уволниш стария си служител, новият ще заеме мястото му.
+encyclopedia_entry6.1_title=Получаване на ресурси
+encyclopedia_entry6.1_text=В Travellers Rest ще ти трябват различни ресурси, за да изработваш нови предмети и ястия. Има няколко начина да се сдобиеш с тези ресурси:\n\n- [Brown=Събиране]: Докато изследваш света, ще забелязваш различни предмети в дивата природа — растителност, гъби, плодове и други. Оглеждай се внимателно и ще можеш да събереш голямо количество материали и съставки.\n\n- [Brown=Земеделие]: Отглеждането на зеленчуци може да ти осигури необходимите за ястията съставки. Трябва да засадиш съответните семена и да изчакаш необходимото време, преди да можеш да ожънеш реколтата.\n\n- [Brown=Сечене на дървета]: Можеш да отсичаш дървета, като се приближиш до тях с избрана брадва в лентата за действия и натиснеш [Action: Use].\n\n- [Brown=Добив]: Навсякъде по света можеш да намериш различни минерали, които да добиваш с кирката. Приближи се до рудната жила с избрана кирка и задръж [Action: Use], за да извлечеш рудата.\n\n- [Brown=Купуване на ресурси]: Някои материали могат да се купят от магазините.\n\n- [Brown=Изработка]: Някои материали и съставки могат да се получат само чрез изработването им от други материали. По-сложните рецепти изискват междинни стъпки на изработка.
+encyclopedia_entry6.2_title=Инструменти
+encyclopedia_entry6.2_text=Докато играеш, ще намираш различни инструменти с множество приложения.\n\n- [Brown=Брадва]: Позволява ти да отсичаш дървета и да получаваш дървесина.\n\n- [Brown=Лопата]: Позволява ти да премахваш тревата, за да разчистиш земята, както и да я върнеш обратно.\n\n- [Brown=Мотика]: Можеш да я използваш, за да разореш почвата и да засадиш култури.\n\n- [Brown=Кирка]: Позволява ти да добиваш минерали от рудни жили.\n\n- [Brown=Метла]: Можеш да я използваш, за да почистваш пода на кръчмата, както и като ефикасно оръжие.\n\n- [Brown=Лейка]: Използвай я, за да поливаш разораната почва и културите, за да могат да растат.
+encyclopedia_entry6.3_title=Станции за изработка
+encyclopedia_entry6.3_text=Докато играеш, ще намираш различни мебели, които можеш да използваш, за да [Brown=изработваш] ястия, напитки и други полезни предмети. В тях можеш да преглеждаш своите [Brown=рецепти] и свързаната с тях информация, като необходимите съставки, времето за приготвяне или горивото, ако е нужно.\n\nНякои станции за изработка могат да се поставят само в определени зони. Повече информация ще намериш в раздела [Brown=Изработка / Зони на кръчмата].\n\nОсвен това някои станции за изработка ти позволяват да наредиш на опашка няколко рецепти, така че те да се приготвят една след друга, докато списъкът бъде изпълнен. Когато изработката приключи, можеш да вземеш предметите, като се приближиш до мебелта и натиснеш [Action: Interact].
+encyclopedia_entry6.4_title=Станции и работни зони
+encyclopedia_entry6.4_text=Има и няколко специални станции за изработка, които могат да се поставят само в определени [Brown=работни зони].\n\nТези работни зони се създават автоматично, когато поставиш един от трите вида основни станции за изработка. След като работната зона бъде създадена, ще можеш да поставиш останалите необходими мебели в нея.\n\n- [Brown=Ковашка зона]: Създава се чрез поставяне на топилня.\n\n- [Brown=Каменоделска зона]: Създава се чрез поставяне на каменоделска работна станция.\n\n- [Brown=Дърводелска зона]: Създава се чрез поставяне на дъскорезница.
+encyclopedia_entry6.5_title=Модификатори
+encyclopedia_entry6.5_text=Когато изработваш ястия и напитки, можеш да добавяш модификатори към рецептите им. Това са съставки, които [Brown=могат да се променят] за всяка рецепта и променят крайната стойност на продукта ти.
+encyclopedia_entry6.6_title=Гориво
+encyclopedia_entry6.6_text=Някои станции за изработка се нуждаят от [Brown=гориво], за да работят. Можеш да добавиш гориво, като се приближиш до съответната станция и натиснеш [Action: Select].
+encyclopedia_entry6.7_title=Зони на кръчмата
+encyclopedia_entry6.7_text=Кръчмата ти е разделена на различни зони, всяка със собствено предназначение:\n\n- [Brown=Трапезария]: Това е зоната за обслужване, където клиентите поръчват храна и напитки и сядат, за да ги консумират.\n\n- [Brown=Зали за изработка]: Това са ограничени зони, в които можеш да изработваш ястия и храна. Клиентите и служителите ти няма да могат да влизат в тях.\n\n- [Brown=Стаи за гости]: Това са стаи, предназначени за гостите. Само ти или камериер ще можете да влизате в тях, за да ги почиствате.\n\n- [Brown=Изба]: Тази зона на долното ниво на кръчмата е предназначена специално за отлежаването на напитки и определени видове храна.
+encyclopedia_entry6.8_title=Сандъци
+encyclopedia_entry6.8_text=Сандъците са контейнери, в които можеш да съхраняваш всякакви предмети. Можеш да ги отвориш, като се приближиш до тях и натиснеш [Action: Interact], за да получиш достъп до съдържанието им.\n\nСлед като ги отвориш, можеш да промениш и техния [Brown=цвят], за да ги различаваш по-лесно.\n\nСъставките, съхранявани в сандъците ти, могат да се използват, стига да са [Brown=в същата зона] като станцията за изработка, която използваш. Така не е нужно да носиш всички съставки за рецептите, които ще приготвяш — достатъчно е да ги държиш в близък сандък.
+encyclopedia_entry6.9_title=Отлежаване
+encyclopedia_entry6.9_text=Някои рецепти, като сирена и алкохолни напитки, изискват продуктите да отлежат, преди да могат да бъдат продадени. Когато имаш такъв предмет, в името му ще се появи "[Brown=неотлежал]".\n\nЗа да отлежиш продуктите си, трябва да отидеш в [Brown=избата] и да използваш съответните станции за изработка, като бъчви или стелажи за отлежаване.\n\nПросто се приближи до тях и натисни [Action: Select], за да получиш достъп до съдържанието им. Постави предмета вътре и остава само да изчакаш достатъчно дълго, докато храната или напитката ти стане готова.\n\nСирената могат да достигнат само първо ниво на отлежаване, докато напитките продължават да повишават нивото си с времето и могат да имат различни степени на отлежаване:\n\n- [Brown=Неотлежало]: Напитката не може да бъде продадена или използвана като съставка.\n\n- [Brown=Неутрално]: Напитката има базовата си стойност и може да бъде сервирана.\n\n- [Brown=Младо]: Първо ниво на отлежаване, което добавя [Brown=10%] към стойността.\n\n- [Brown=Резерва]: Увеличава цената на напитката с [Brown=20%].\n\n- [Brown=Гранд резерва]: Последното ниво на отлежаване. Дава максималната полза — увеличение с [Brown=30%] на базовата цена на напитката.
+encyclopedia_entry6.10_title=Подобряване на инструментите
+encyclopedia_entry6.10_text=С помощта на Халмунд, [Brown=ковач в града], инструментите ти могат да бъдат подобрени, което ги прави по-лесни за използване. С подобрени инструменти можеш да разбиваш най-твърдите руди в мината, да получаваш по-добри ресурси от дърветата и да унищожаваш препятствия, за да освободиш повече място в земите си.
+encyclopedia_entry6.11_title=Ниво на качеството на ястията
+encyclopedia_entry6.11_text=Ястията имат ниво на качество до три, обозначено от броя сини скъпоценни камъни в долната част на иконите им. Това ниво влияе на продажната им цена и зависи от това дали станцията за изработка, на която са приготвени, е базова, напреднала или превъзходна.
+encyclopedia_entry7.1_title=Сгради за животни
+encyclopedia_entry7.1_text=За да купуваш животни, първо трябва да имаш подходящите [Brown=сгради], в които да ги настаниш.\n\n- [Brown=Кокошарник] ти позволява да се грижиш за [Brown=малки животни], като кокошки. Сградата се предлага с обща хранилка и корито за вода за всички животни.\n\n- [Brown=Обор] ти позволява да отглеждаш [Brown=по-големи] животни, като овце, крави и прасета. За разлика от кокошарниците, вътре има различни места за животните, всяко със собствена хранилка, както и общо корито за вода за всички животни в обора.\n\nЗа да ги построиш, трябва да намериш подходящия търговец, който ще ти даде достъп до менюто [Brown=Сгради]. Повече информация ще намериш в раздела [Brown=Сгради].
+encyclopedia_entry7.2_title=Купуване и разпределяне на животни
+encyclopedia_entry7.2_text=След като имаш подходяща сграда, в която да ги настаниш, можеш да [Brown=купиш животни] от търговец и да ги [Brown=разпределиш] в избраната от теб сграда.
+encyclopedia_entry7.3_title=Грижа за животните
+encyclopedia_entry7.3_text=След като вече си разпределил животни, можеш да отвориш панела им, като се приближиш до тях и натиснеш [Action: Interact]. В този панел можеш да преглеждаш цялата информация за животното, като [Brown=нивото му на растеж], необходимите му [Brown=грижи], лентата за напредъка на [Brown=производството] на мляко или яйца и [Brown=продукта, получаван при клането му].\n\nКолкото повече расте животното, толкова по-голямо количество продукти ще получиш при клането му. Добрата грижа за животното ще ускори растежа му.\n\n- [Brown=Храна]: Животните трябва да се хранят веднъж дневно. За целта трябва само да се увериш, че имат достатъчно храна в съответните си [Brown=хранилки]. Трябва да пълниш хранилките на всяко животно в обора поотделно, докато всички кокошки в кокошарника използват една и съща хранилка.\n\n- [Brown=Вода]: Животните също пият веднъж дневно, затова трябва да имат достатъчно вода в [Brown=коритата си]. И кокошките, и животните в оборите пият от общи корита. Не забравяй да допълваш коритата в кокошарниците и оборите, за да осигуриш растежа на животните.\n\n- [Brown=Разхождане]: Животните в оборите трябва да излизат навън веднъж дневно за поне един час. Точно до входа на обора има [Brown=звънец], който можеш да удариш, за да накараш животните да излязат и да се върнат в обора си.
+encyclopedia_entry7.4_title=Животински продукти
+encyclopedia_entry7.4_text=Освен продуктите, които получаваш при клането на животното, много животни ще ти дават и други продукти, като мляко и яйца, докато се грижиш за тях.\n\nВ панела на животното ще виждаш ленти за напредъка на всеки продукт, които показват колко остава, преди животното да го произведе. Колкото по-добре се грижиш за животното, толкова по-бързо ще се запълват лентите и ще получаваш повече ресурси за по-малко дни.\n\n[Brown=Прясно снесените яйца] се съхраняват в кокошарника. Не забравяй да ги събереш, преди кокошарникът да достигне максималния си капацитет за яйца, защото кокошките няма да снасят повече, ако няма място.\n\nДруги продукти, като [Brown=млякото], трябва да се събират директно от животното. Докато кравата не бъде издоена, тя няма да произведе повече мляко.
+encyclopedia_entry7.5_title=Клане
+encyclopedia_entry7.5_text=Можеш да заколиш животно по всяко време, за да получиш [Brown=месо] и други подобни продукти, като обвивки. Количеството, което ще получиш, зависи от [Brown=нивото на растеж] на животното, затова най-подходящият момент за клане е, когато то достигне максималното си ниво.\n\nЗа да заколиш животно, просто се приближи до него и [Brown=го удари] с оръжие, макар че и [Brown=метлата] ще свърши работа.
+encyclopedia_entry7.6_title=Болести
+encyclopedia_entry7.6_text=Ако животните в оборите не се върнат в обора си [Brown=преди да си легнеш], има вероятност да се [Brown=разболеят].\n\nБолните животни остават в обора и няма да ядат или пият, докато не бъдат излекувани, като така напълно спират развитието си — както растежа си, така и производството на животински продукти.\n\nЗа да ги излекуваш, трябва да им дадеш [Brown=лекарство], което можеш да купиш от някои търговци. След като им го дадеш, трябва само да изчакаш до следващия ден и животното ще се върне към нормалното си състояние.
+encyclopedia_entry7.7_title=Пчелини
+encyclopedia_entry7.7_text=[Brown=Пчелините] могат да ти осигурят постоянен пасивен източник на [Brown=мед] и [Brown=восък]. Можеш да ги [Brown=изработиш], ако имаш [Brown=чертеж] за пчелин, а с придобиването на нови чертежи можеш да ги [Brown=подобряваш].\n\nЗа да изработиш пчелин, ти трябва [Brown=специална съставка], която понякога получаваш при отсичането на [Brown=стари дървета]: [Brown=пчелна майка].\n\nПчелините трябва да бъдат [Brown=поставени] извън кръчмата ти. Те автоматично ще произвеждат мед и восък на всеки [Brown=определен брой дни] в зависимост от нивото си.
+encyclopedia_entry8.1_title=Подготовка на културите
+encyclopedia_entry8.1_text=Преди да засадиш семената, трябва да подготвиш почвата.\n\nПървата стъпка е да се увериш, че си [Brown=премахнал тревата]. За целта избери лопатата от лентата за действия и я използвай с [Action: Use].\n\nЩом разчистиш земята, трябва да [Brown=разореш почвата] с мотиката, като натиснеш [Action: Use].\n\nСлед това трябва да [Brown=полееш] разораната почва, като избереш лейката от лентата за действия и натиснеш [Action: Use].\n\nКогато имаш достатъчно голяма разорана и полята площ, можеш да избереш своите [Brown=семена] от лентата за действия и да ги засадиш на избраното място с [Action: Use].
+encyclopedia_entry8.2_title=Жътва
+encyclopedia_entry8.2_text=Броят дни, които трябва да изчакаш след засаждането, преди да ожънеш културите, е различен за всеки вид.\n\nВ зависимост от вида на растението можеш да го ожънеш, като се приближиш и натиснеш [Action: Interact], или да използваш [Brown=сърпа], за да го отрежеш и прибереш.
+encyclopedia_entry8.3_title=Кълнове на дървета
+encyclopedia_entry8.3_text=Дърветата, които не дават плодове, ще се размножават сами без допълнителни грижи. Колкото повече дървета имаш, толкова по-вероятно е около тях да поникнат нови.\n\nМожеш обаче по всяко време да [Brown=засадиш още кълнове на дървета], без да подготвяш почвата. Такива дървета ще растат сами и можеш да ги отсичаш за дървесина на всеки етап от развитието им.
+encyclopedia_entry8.4_title=Поливане
+encyclopedia_entry8.4_text=С лейката можеш да поливаш разорана почва, за да засаждаш семена в нея, или да поливаш културите, за да растат. След това почвата ще запази влагата си за три дни. Ако вали, тя ще запази влагата си за още един ден.\n\nАко почвата изсъхне, културите ще спрат да растат, докато не ги полееш.
+encyclopedia_entry8.5_title=Сезони на културите
+encyclopedia_entry8.5_text=С изключение на плодните дървета, културите умират, когато сезонът се смени с такъв, през който не могат да бъдат ожънати.\n\nПлодните дървета обаче остават през цялата година, но ще дават плодове само след като станат възрастни и през сезоните, в които могат да бъдат обрани.
+encyclopedia_entry8.6_title=Напояване
+encyclopedia_entry8.6_text=[Brown=Напоителните системи] ти позволяват да поддържаш част от културите си напоени, без да поливаш всяка от тях ръчно. Можеш да ги [Brown=изработиш], ако имаш [Brown=чертеж] за тях, и да ги [Brown=подобриш] с необходимите чертежи и материали.\n\nНапоителната система трябва да бъде поставена върху [Brown=разорана почва], а за да я включиш, просто трябва да я напълниш с вода. Всяка напоителна система има различен [Brown=обхват] и [Brown=вместимост за вода] в зависимост от размера и нивото си.\n\nЗа да напълниш отново водния резерв на напоителната система, просто се приближи до нея и натисни [Action: Interact], докато имаш [Brown=кофа, пълна с вода] в инвентара си.
+encyclopedia_entry9.1_title=Строителна маса
+encyclopedia_entry9.1_text=Когато достигнеш необходимото ниво, ще получиш [Brown=строителна маса]. Тази мебел ще ти позволи да съхраняваш материали и да получиш достъп до различни инструменти, с които да [Brown=разширяваш и персонализираш] кръчмата си.\n\nСлед като я поставиш, можеш да влезеш в [Brown=строителен режим], като се приближиш до нея и натиснеш [Action: Interact].\n\nСтроителството изразходва [Brown=материали], които трябва да се съхраняват в масата, за да могат да се използват. За да поставиш материали в строителната маса, приближи се до нея и натисни [Action: Select].
+encyclopedia_entry9.2_title=Строителен режим
+encyclopedia_entry9.2_text=В строителен режим можеш да виждаш няколко панела с различна информация и инструменти:\n\n- [Brown=Изгледи]: В горния ляв ъгъл можеш да променяш режима на изглед, за да виждаш пода на кръчмата, подовете и стените или напълно декорираната кръчма.\n\nДокато си в строителен режим, можеш да влезеш и в [Brown=режим за декорация], като натиснеш [Action: BuildMode], за да преместиш предметите, които ти пречат.\n\n- [Brown=Материали]: Горе можеш да видиш материалите, необходими за разширяване и персонализиране на кръчмата. Материалите и златото се приспадат, когато завършиш строителството.\n\n- [Brown=Етажи]: Вдясно от материалите можеш да превключваш между двата етажа на кръчмата и избата, за да променяш желания от теб.\n\n- [Brown=Разходи]: Долу, вляво от инструментите, можеш да видиш цената на всяко действие. Когато строиш или персонализираш стена или под, цената за квадрат се приспада от материалите ти.\n\n- [Brown=Лента с инструменти]: Долу можеш да видиш няколко раздела с всички налични опции и да избираш между инструментите за разширяване или премахване на пода, декориране на стените и други.
+encyclopedia_entry9.3_title=Строителни инструменти
+encyclopedia_entry9.3_text=Панелът с инструменти в долната част на екрана има различни раздели:\n\n- [Brown=Строителство]: Тук можеш да добавяш или премахваш плочки за под. При този процес трябва да спазваш определени правила, които ще се показват с различни цветове, за да знаеш точно къде можеш да строиш.\n\nИма максимален брой подови плочки, които можеш да използваш, и той се увеличава с нивото на репутацията ти. В строителния инструмент можеш да видиш колко са налични.\n\n- [Brown=Декорация]: Позволява ти да персонализираш пода или стените на кръчмата. Когато променяш стила на пода, можеш свободно да избереш зоната, в която искаш да приложиш стила. Когато персонализираш стена, стилът трябва да се приложи върху цялата стена.\n\n- [Brown=Зони]: Позволява ти да задаваш предназначение на построените зони. Така можеш да определяш дали новите зони да бъдат част от трапезарията ти (където клиентите сядат на маси, за да ядат и пият), или от залите за изработка, където можеш да поставяш станции за изработка и други елементи.\n\n- [Brown=Достъп]: Позволява ти да поставяш врати и да създаваш стаи за гости. Повече информация ще намериш в следващата точка — "Създаване на стаи за гости".
+encyclopedia_entry9.4_title=Създаване на стаи за гости
+encyclopedia_entry9.4_text=След като получиш достъп до строителната маса, можеш да създадеш първите си стаи за гости, в които клиентите могат да пренощуват и да ти плащат за това.\n\nЗа да създадеш стая за гости, трябва да направиш достатъчно дълъг [Brown=коридор], така че след него да се образува празна стая с минимален размер от 3x2 подови плочки.\n\nСлед като имаш стаята, отвори раздела "[Brown=Достъп]" и постави [Brown=Врата за стая за гости] в коридора. Ако изискванията са изпълнени, вратата ще бъде поставена и пространството автоматично ще бъде определено като стая за гости.\n\nСлед това на вратата ще се появи дървен [Brown=символ], за да я различаваш от останалите, и ще можеш да я подготвиш за отдаване под наем. Повече информация ще намериш в раздела [Brown=Обслужване на стаите за гости].\n\nПомни, че броят стаи за гости, които можеш да имаш, е ограничен и зависи от нивото на репутацията ти. Колкото по-високо е нивото ти, толкова повече стаи можеш да създадеш.\n\nАко искаш да изтриеш стая, трябва само да премахнеш вратата ѝ и пространството автоматично ще бъде освободено.
+encyclopedia_entry10.1_title=Птици
+encyclopedia_entry10.1_text=Ако получиш [Brown=птиче яйце], то ще се излюпи след няколко дни, ако го държиш в инвентара си. След като се излюпи, можеш да поставиш птицата на [Brown=кацалка за птици] в режим за декорация.\n\nПапагалите и туканите говорят от време на време от кацалките си и могат да казват положителни или отрицателни фрази, които съответно ще повишават или понижават репутацията на кръчмата ти.\n\nЗа да обучаваш птиците, дай им птичен сухар веднага след като кажат положителна фраза. Животното ще се учи малко по малко и постепенно ще казва по-малко отрицателни и повече положителни фрази.\n\nМожеш да им даваш най-много два сухара на ден, затова не забравяй да ги използваш, за да затвърждаваш положителното поведение.
+encyclopedia_entry10.2_title=Котки
+encyclopedia_entry10.2_text=Колкото по-добре се грижиш за котката си, толкова по-високо ще бъде нивото на привързаността ѝ към теб. Има три действия, които можеш да извършиш и така в края на деня котката ти ще получи [Brown=привързаност].\n\n- Погали я.\n- Напълни хранилката ѝ с вода.\n- Напълни хранилката ѝ с храна.\n\nОсвен това има определени предмети, които ще помогнат да поддържаш котката си щастлива.
+encyclopedia_entry10.3_title=Кучета
+encyclopedia_entry10.3_text=Както при котките, нивото на [Brown=привързаност] на кучето към теб ще се увеличава всеки ден, ако:\n\n- го погалиш;\n- напълниш хранилката му с вода;\n- напълниш хранилката му с храна.\n\nОсвен това можеш да кажеш на кучето [Brown="Следвай ме"] или [Brown="Стой"], за да те следва, докато преминаваш през различни външни зони, и да те чака пред входа, когато влезеш вътре.\n\nВсеки ден, в който го галиш, храниш и му даваш вода, привързаността му към теб ще се увеличава, докато достигне максималното ниво. Колкото по-високо е това ниво, толкова по-голям е шансът кучето ти да намери нови [Brown=дупки], които можеш да разкопаеш с лопатата си.
+encyclopedia_entry11.1_title=Условия за риболов
+encyclopedia_entry11.1_text=За да ловиш риба, просто се приближи до водоем с екипирани въдица и стръв. Рибите, които можеш да уловиш, зависят от следните условия:\n\n- [Brown=Стръв]: Без стръв не можеш да ловиш риба. Натисни [Action: Select], за да избереш между примамките в инвентара си. При всяко замятане се изразходва една стръв. Има пет различни вида: [Brown=месо], [Brown=черупчести], [Brown=примамки], [Brown=ларви] и [Brown=червеи].\n\n- [Brown=Сезони]: През всеки сезон можеш да уловиш различни видове риба.\n\n- [Brown=Вода]: Различни риби се срещат в [Brown=сладководни] водоеми, като реки и езера, и в [Brown=солени води], като морето.\n\n- [Brown=Въдица]: Колкото по-добра е въдицата ти, толкова по-добри риби можеш да уловиш.
+encyclopedia_entry11.2_title=Примамване на риба
+encyclopedia_entry11.2_text=След като избереш вида стръв, който ще използваш, просто се приближи до водоем и натисни [Action: Use]. Ако има риба за ловене, ще видиш как плувката ти потъва. Когато е [Brown=потънала напълно], натисни [Action: Use], за да започнеш минииграта.\n\nАко след замятането плувката не помръдва и никоя риба не клъвне, това означава, че не спазваш условията за риболов. В такъв случай най-добре смени стръвта или вида на водата и опитай отново.
+encyclopedia_entry11.3_title=Улавяне на риба
+encyclopedia_entry11.3_text=След като рибата клъвне, трябва да извадиш улова си от водата. За целта трябва успешно да завършиш [Brown=минииграта].\n\nКогато се появи прозорецът, [ControllerType: движи мишката или левия стик] отляво надясно, за да [Brown=съвпадне полето за избор с рибата], която се движи от едната страна към другата. Когато съвпаднат, [ControllerType: натисни левия бутон на мишката или натисни [Action: Use]], за да се запълни [Brown=лентата за напредъка]. Когато лентата се напълни, рибата ще бъде уловена и добавена в инвентара ти.\n\nАко [Brown=полето за избор] не е върху рибата, лентата за напредъка ще намалява. Ако [ControllerType: натиснеш левия бутон на мишката или натиснеш [Action: Use]], докато полето не е върху рибата, лентата ще намалее още повече. Ако лентата се изчерпи, ще изгубиш рибата и ще трябва да замяташ отново.
+encyclopedia_entry11.4_title=Твоята колекция
+encyclopedia_entry11.4_text=Рибите, които ловиш, не служат само като съставки за рецептите ти — те ще бъдат записвани и в риболовния ти дневник, а можеш и да ги изложиш в кръчмата си.\n\n- [Brown=Стенни трофеи]: Ще можеш да излагаш любимия си улов в кръчмата. В [Brown=режим за декорация] можеш да [Brown=поставиш риба], като [ControllerType: [Brown=натиснеш] иконата ѝ в лентата за действия или [Brown=натиснеш [Action: RightMouseDetect]] върху рибата, която искаш да поставиш, [Brown=и я избереш] в лентата за действия].\n\nСлед като изложиш рибата, можеш да натиснеш [Action: Interact] близо до нея, за да видиш записа за най-голямата риба от този вид, която си уловил.\n\n- [Brown=Риболовен дневник]: В [Brown=Колекции] можеш да видиш риболовния си дневник. За да го отвориш, натисни [Action: OpenInventory] и отиди до прозореца на менюто [Brown=Колекции]. Там ще намериш цялата информация за рибите, които си уловил. Улови нови риби или говори с различни персонажи, за да допълниш информацията.
+encyclopedia_entry11.5_title=Черупчести
+encyclopedia_entry11.5_text=Черупчестите не се ловят с въдица. Можеш да се сдобиеш с тях по [Brown=различни начини], включително като ги събираш от скалите на [Brown=плажа], намираш ги да се движат по брега, изкопаваш ги от [Brown=дупки] или използваш [Brown=капани за риба].\n\nМожеш да поставяш [Brown=риболовни капани] край брега, за да ловиш черупчести с течение на времето.\n\nМожеш да ги [Brown=купиш или изработиш]. След като ги поставиш във водата, [Brown=ще отнеме известно време], докато някое същество попадне вътре. Когато се напълнят, можеш да събереш улова си, но капаните [Brown=ще бъдат унищожени завинаги].\n\nКапаните за риба трябва да бъдат поставени в [Brown=солена вода близо до брега].
+encyclopedia_entry11.6_title=Копаене
+encyclopedia_entry11.6_text=Когато видиш [Brown=разровено място на земята], можеш да използваш лопатата си, за да изкопаеш нещо.\n\nСред заровените предмети можеш да намериш [Brown=стръв за риболов], [Brown=материали], [Brown=съставки] или дори [Brown=мистериозни рецепти].
+encyclopedia_entry12.1_title=Създаване на онлайн игра
+encyclopedia_entry12.1_text=От главното меню можеш да избереш [Brown=да създадеш онлайн игра] с нова или вече съществуваща запазена игра и да поканиш до трима приятели. След като влезеш в играта, можеш директно да [Brown=поканиш приятелите си] или да споделиш [Brown=кода за покана], който ще видиш в горния десен ъгъл на менюто за пауза.
+encyclopedia_entry12.2_title=Присъединяване към онлайн игра
+encyclopedia_entry12.2_text=Домакинът на играта може да те покани директно през платформата, на която играеш, или да сподели своя [Brown=код за покана], за да се присъединиш към играта му.\n\nСлед като получиш кода, избери [Brown=Присъединяване към онлайн игра] от главното меню, въведи кода в полето и избери запазен профил, с който да се присъединиш към играта и да започнеш да играеш с приятеля си.
+encyclopedia_entry12.3_title=Спални и сандъци на играчите
+encyclopedia_entry12.3_text=Когато играч се присъедини, ще му бъде определена спалня с [Brown=легло] и [Brown=сандък на играча].\n\nВ този сандък се съхранява инвентарът на играча, когато той напусне играта. Когато се присъедини отново, съдържанието на сандъка ще бъде добавено в инвентара му. Домакинът на играта може да получи достъп до сандъците на играчите само когато съответните играчи са офлайн, ако иска да си върне предметите им.\n\nВсеки играч трябва да отиде до определеното му легло, за да могат всички да заспят едновременно и да преминат към следващия ден.
+encyclopedia_entry12.4_title=Напредък и повишаване на нивата онлайн
+encyclopedia_entry12.4_text=Когато си [Brown=поканен] в онлайн игра, ще използваш собственото си ниво на репутация и своите рецепти, но предложенията на магазините и общият напредък в играта ще се определят от нивото на домакина.\n\nДомакинът обаче ще се възползва от твоите умения и отключени рецепти, а натрупаният от теб опит и част от печалбите ще бъдат добавени към сметката ти.
+encyclopedia_entry13.1_title=Как работи
+encyclopedia_entry13.1_text=Мината е разделена на етажи, всеки от които съдържа различни ресурси в зависимост от дълбочината си. Спусни се с асансьора или по стълбите, за да започнеш експедицията си.\n\nПомни, че миньорите постоянно търсят нови маршрути, затова [Brown=разположението на всеки етаж ще бъде различно всеки ден]!
+encyclopedia_entry13.2_title=Достъп до долните етажи
+encyclopedia_entry13.2_text=За да получиш достъп до долните етажи, трябва да разчистиш отломките, които блокират входа към тях. Феро, [Brown=синьокожият миньор в базовия лагер], с удоволствие ще изработи нови експлозиви, които да ти помогнат с тази задача. Отломките няма да се появят отново, след като бъдат унищожени, така че не се колебай да взривиш всичко възможно най-скоро!\n\nКогато разчистиш пътя към нов етаж, връзката му с асансьора ще бъде възстановена и ще можеш да го посещаваш когато пожелаеш.
+encyclopedia_entry13.3_title=Ресурси в мината
+encyclopedia_entry13.3_text=[Brown=Колкото по-надолу се спускаш, толкова по-добри ресурси] ще намираш, като гранит и кобалт, за чието добиване са нужни подобрени инструменти.\n\nМожеш също да купуваш ресурси от Клайв в базовия лагер. Той ще може да ти продава по-добри предмети, колкото повече етажи от мината отключиш.
+encyclopedia_entry13.4_title=Пъзели
+encyclopedia_entry13.4_text=На някои етажи ще има незадължително предизвикателство, чието решаване ще ти донесе различни награди. Може да се наложи да потърсиш определени елементи на сцената или да предложиш материал. Винаги ще намираш [Brown=подсказка, като прочетеш надписа върху златната плоча на олтара].
+encyclopedia_entry14.1_title=Заклинания
+encyclopedia_entry14.1_text=[Brown=Гримуарът] ще ти позволи да използваш научените заклинания. За целта трябва да заредиш заклинанието на [Brown=магическа поставка за книги]. След като в гримуара има налични заряди, избери го от лентата за действия, натисни [Action:Select] и [Action:Use], за да използваш заклинанието.\n\nДокато използваш заклинания, твоето [Brown=ниво на магията] ще се повишава, което ще ти позволи да отключваш нови заклинания, като говориш с Атлас, древната костенурка.
+encyclopedia_entry14.2_title=Зареждане на заклинания
+encyclopedia_entry14.2_text=Използвай [Brown=магическата поставка за книги], за да добавяш или премахваш заряди на заклинанията от своите гримуари.\n\nЗареждането на заклинание струва [Brown=магически фрагменти], които трябва да бъдат добавени като гориво и се изразходват при зареждането.\n\nПомни, че максималният брой места за заклинания и броят заряди за всяко заклинание зависят от нивото на гримуара.
+encyclopedia_entry14.3_title=Магическа кухня
+encyclopedia_entry14.3_text=Магическата кухня ще повишава [Brown=магическата ти репутация], което ще ти позволи да получаваш нови рецепти и награди.\n\nБроят на магическите клиенти не може да надвишава 20% от максималния ти капацитет.\n\nИма много магически съставки. Изследвай [Brown=мината] и говори с търговците на [Brown=Пустотата], за да получиш всичко необходимо.
+encyclopedia_entry14.4_title=Магически култури
+encyclopedia_entry14.4_text=Магическите култури могат да растат само в почва, подготвена с [Brown=магически тор], който може да се използва и за ускоряване на растежа на други видове култури.\n\nЗа да купиш всичко, свързано с магическите култури, можеш да говориш с [Brown=Молд], окования зомби в Пустотата.

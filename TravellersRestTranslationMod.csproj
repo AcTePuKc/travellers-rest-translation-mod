@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AssemblyName>TravellersRestTranslationMod</AssemblyName>
+    <RootNamespace>TravellersRestTranslationMod</RootNamespace>
+    <Version>0.1.0</Version>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GameDir Condition="'$(GameDir)' == ''">F:\SteamLibrary\steamapps\common\Travellers Rest\Windows</GameDir>
+    <BepInExDir>$(GameDir)\BepInEx</BepInExDir>
+    <ManagedDir>$(GameDir)\TravellersRest_Data\Managed</ManagedDir>
+    <PluginDir>$(BepInExDir)\plugins\TravellersRest Translation</PluginDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExDir)\core\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExDir)\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(ManagedDir)\Assembly-CSharp-firstpass.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedDir)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <TranslationFiles Include="translations\*.txt" />
+  </ItemGroup>
+
+  <Target Name="StagePlugin" AfterTargets="Build">
+    <MakeDir Directories="$(PluginDir)\translations" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginDir)" />
+    <Copy SourceFiles="@(TranslationFiles)" DestinationFolder="$(PluginDir)\translations" />
+  </Target>
+</Project>

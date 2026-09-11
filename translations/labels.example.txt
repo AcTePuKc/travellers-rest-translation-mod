@@ -1,0 +1,3 @@
+# Example format: one source term and one translated value per line.
+# Keep literal newlines escaped as \n inside a value.
+Example term=Example translation
