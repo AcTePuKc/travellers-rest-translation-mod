@@ -20,7 +20,7 @@ if ([string]::IsNullOrWhiteSpace($OutputFile)) {
 }
 
 $lines = [IO.File]::ReadAllLines((Resolve-Path -LiteralPath $InputFile).Path, [Text.UTF8Encoding]::new($false))
-$records = @{}
+$records = [Collections.Generic.Dictionary[string, object]]::new([StringComparer]::Ordinal)
 $recordOrder = [Collections.Generic.List[string]]::new()
 $duplicateKeys = [Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
 $duplicateRecords = [Collections.Generic.List[object]]::new()
