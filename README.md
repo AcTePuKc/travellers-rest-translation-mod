@@ -77,9 +77,19 @@ Crowdin exports can be converted without changing the source translation project
 
 The converter keeps each entry on one physical line. Escaped sequences such as `\n` remain escaped and are decoded by the plugin at runtime. It also splits only at the first `=`, because translated text can contain additional equals signs. Older local exports that use ` / / ` for paragraph breaks are normalized to `\n\n`.
 
-## Convert an I2Loc XLSX workbook
+## Convert a Crowdin XLIFF export
 
-The workbook format stores line breaks as real newlines inside cells. Use the XLSX converter to turn them into the escaped form required by `labels.*.txt`:
+For a language export from Crowdin, prefer the language-specific `.xliff` file. It preserves the current target values and stores line breaks as real newlines:
+
+```powershell
+python .\scripts\convert-xliff-to-labels.py `
+  --input "C:\path\to\I2Loc TravellersRest Localization_bg.xliff" `
+  --output ".\translations\labels.bg.txt"
+```
+
+Only XLIFF targets that differ from the English source are exported. Empty or untranslated entries are skipped. If a local draft has not been exported by Crowdin yet, it will not appear in the XLIFF and must be injected through the separate local CSV/TSV workflow first.
+
+The XLSX converter is also available for workbooks that contain populated language columns:
 
 ```powershell
 python .\scripts\convert-xlsx-to-labels.py `
@@ -87,5 +97,3 @@ python .\scripts\convert-xlsx-to-labels.py `
   --language Bulgarian `
   --output ".\translations\labels.bg.txt"
 ```
-
-The language name must match a workbook column exactly. Empty language cells are skipped, so an unapproved language produces an empty output file until translations are present.
