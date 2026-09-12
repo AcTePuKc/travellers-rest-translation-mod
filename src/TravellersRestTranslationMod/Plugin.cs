@@ -259,4 +259,18 @@ public sealed class Plugin : BaseUnityPlugin
     {
         DumpObservedSubtitle("StandardUISubtitlePanel.SetSubtitleTextContent", __instance?.currentSubtitle);
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(DialogueNPCBase), nameof(DialogueNPCBase.GetSubtitleFromDatabase))]
+    private static void DialogueNPCBase_GetSubtitleFromDatabase_Postfix(PixelCrushers.DialogueSystem.Subtitle __result)
+    {
+        DumpObservedSubtitle("DialogueNPCBase.GetSubtitleFromDatabase", __result);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(DialogueNPCBase), "OnConversationLine")]
+    private static void DialogueNPCBase_OnConversationLine_Postfix(PixelCrushers.DialogueSystem.Subtitle __0)
+    {
+        DumpObservedSubtitle("DialogueNPCBase.OnConversationLine", __0);
+    }
 }
