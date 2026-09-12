@@ -4,6 +4,7 @@ using BepInEx.Logging;
 using HarmonyLib;
 using I2.Loc;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -21,12 +22,17 @@ public sealed class Plugin : BaseUnityPlugin
     private static readonly Dictionary<string, string> Labels = new Dictionary<string, string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedTerms = new HashSet<string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedSubtitles = new HashSet<string>(StringComparer.Ordinal);
+    private static readonly HashSet<string> ObservedFormattedTexts = new HashSet<string>(StringComparer.Ordinal);
     private static ManualLogSource log;
     private static ConfigEntry<bool> enableTranslationOverrides;
     private static ConfigEntry<string> translationFile;
     private static ConfigEntry<bool> dumpObservedTerms;
+    private static ConfigEntry<bool> dumpDialogueDatabase;
     private static ConfigEntry<string> dumpFile;
     private static string dumpPath;
+    private static string dialogueDatabaseDumpPath;
+    private static bool dialogueDatabaseDumped;
+    private static int databaseProbeCount;
 
     private void Awake()
     {
@@ -34,18 +40,31 @@ public sealed class Plugin : BaseUnityPlugin
         enableTranslationOverrides = Config.Bind("General", "EnableTranslationOverrides", true, "Apply labels.txt translations to the game.");
         translationFile = Config.Bind("General", "TranslationFile", "labels.txt", "Translation file inside the plugin translations folder.");
         dumpObservedTerms = Config.Bind("Debug", "DumpObservedTerms", false, "Write every localization term requested by the game to a runtime dump.");
+        dumpDialogueDatabase = Config.Bind("Debug", "DumpDialogueDatabase", false, "Write the complete Dialogue System database once after it loads.");
         dumpFile = Config.Bind("Debug", "DumpFile", "runtime-labels.txt", "Runtime dump filename inside the plugin translations folder.");
 
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? Paths.PluginPath;
         var translationsDir = Path.Combine(pluginDir, "translations");
         var labelsPath = Path.Combine(translationsDir, translationFile.Value);
         dumpPath = Path.Combine(translationsDir, dumpFile.Value);
+        dialogueDatabaseDumpPath = Path.Combine(translationsDir, "runtime-dialogue-database.txt");
         LoadLabels(labelsPath);
         PrepareRuntimeDump();
+        log.LogInfo($"Observed localization dump enabled: {dumpObservedTerms.Value}");
+        StartCoroutine(DumpDialogueDatabaseWhenReady());
+        log.LogInfo($"Dialogue database dump enabled: {dumpDialogueDatabase.Value}");
 
         new Harmony(PluginGuid).PatchAll(typeof(Plugin));
         log.LogInfo($"{PluginName} {PluginVersion} loaded with {Labels.Count} labels");
         log.LogInfo($"Labels path: {labelsPath}");
+    }
+
+    private void Update()
+    {
+        if (dumpDialogueDatabase.Value && !dialogueDatabaseDumped)
+        {
+            TryDumpDialogueDatabase();
+        }
     }
 
     private static void LoadLabels(string path)
@@ -102,6 +121,7 @@ public sealed class Plugin : BaseUnityPlugin
     {
         ObservedTerms.Clear();
         ObservedSubtitles.Clear();
+        ObservedFormattedTexts.Clear();
         if (!dumpObservedTerms.Value)
         {
             return;
@@ -119,6 +139,113 @@ public sealed class Plugin : BaseUnityPlugin
             "# This file is regenerated when the game starts with DumpObservedTerms enabled.\n",
             new UTF8Encoding(false));
         log.LogInfo($"Runtime localization dump enabled: {dumpPath}");
+    }
+
+    private IEnumerator DumpDialogueDatabaseWhenReady()
+    {
+        if (!dumpDialogueDatabase.Value)
+        {
+            yield break;
+        }
+
+        for (var attempt = 0; attempt < 300 && !dialogueDatabaseDumped; attempt++)
+        {
+            if (TryDumpDialogueDatabase())
+            {
+                yield break;
+            }
+
+            yield return null;
+        }
+
+        if (!dialogueDatabaseDumped)
+        {
+            log.LogWarning("Dialogue System database was not ready for the full runtime dump.");
+        }
+    }
+
+    private static bool TryDumpDialogueDatabase()
+    {
+        try
+        {
+            var managerType = typeof(PixelCrushers.DialogueSystem.DialogueManager);
+            var hasInstance = (bool)(managerType.GetProperty("hasInstance")?.GetValue(null, null) ?? false);
+            var database = managerType.GetProperty("masterDatabase")?.GetValue(null, null);
+            if (database == null)
+            {
+                var databases = UnityEngine.Resources.FindObjectsOfTypeAll<PixelCrushers.DialogueSystem.DialogueDatabase>();
+                if (databaseProbeCount++ % 120 == 0)
+                {
+                    log.LogInfo($"Dialogue database resource probe: found {databases.Length} database asset(s).");
+                }
+
+                if (databases.Length > 0)
+                {
+                    database = databases[0];
+                }
+            }
+            if (databaseProbeCount++ % 120 == 0)
+            {
+                log.LogInfo($"Dialogue database probe: hasInstance={hasInstance}, masterDatabase={(database == null ? "null" : database.GetType().FullName)}");
+            }
+            if (!hasInstance || database == null)
+            {
+                return false;
+            }
+
+            var databaseType = database.GetType();
+            var conversations = databaseType.GetField("conversations", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.GetValue(database) as IEnumerable;
+            if (conversations == null)
+            {
+                log.LogWarning("Dialogue database probe: conversations field was not found or was null.");
+                return false;
+            }
+
+            var output = new StringBuilder();
+            output.AppendLine("# Full Dialogue System database dump");
+            output.AppendLine("# Generated once after the master database became available.");
+            var conversationCount = 0;
+            var entryCount = 0;
+
+            foreach (var conversation in conversations)
+            {
+                var conversationType = conversation.GetType();
+                var title = conversationType.GetProperty("Title")?.GetValue(conversation, null)?.ToString() ?? string.Empty;
+                var conversationId = conversationType.GetField("id", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.GetValue(conversation)?.ToString() ?? string.Empty;
+                var entries = conversationType.GetField("dialogueEntries", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.GetValue(conversation) as IEnumerable;
+                conversationCount++;
+                output.AppendLine($"\n# Conversation={EncodeValue(title)}");
+                output.AppendLine($"# ConversationId={EncodeValue(conversationId)}");
+
+                if (entries == null)
+                {
+                    continue;
+                }
+
+                foreach (var entry in entries)
+                {
+                    var entryType = entry.GetType();
+                    var entryId = entryType.GetField("id", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)?.GetValue(entry)?.ToString() ?? string.Empty;
+                    var dialogueText = entryType.GetProperty("DialogueText")?.GetValue(entry, null)?.ToString() ?? string.Empty;
+                    var localizedText = entryType.GetProperty("currentLocalizedDialogueText")?.GetValue(entry, null)?.ToString() ?? string.Empty;
+                    output.AppendLine($"# EntryId={EncodeValue(entryId)}");
+                    output.AppendLine($"# Key=Conversation/{EncodeValue(title)}/Entry/{EncodeValue(entryId)}/Dialogue Text");
+                    output.AppendLine($"# DialogueText={EncodeValue(dialogueText)}");
+                    output.AppendLine($"# LocalizedDialogueText={EncodeValue(localizedText)}");
+                    entryCount++;
+                }
+            }
+
+            File.WriteAllText(dialogueDatabaseDumpPath, output.ToString(), new UTF8Encoding(false));
+            dialogueDatabaseDumped = true;
+            log.LogInfo($"Full Dialogue System database dump written: {conversationCount} conversations, {entryCount} entries.");
+            return true;
+        }
+        catch (Exception exception)
+        {
+            log.LogWarning($"Could not write full Dialogue System database dump: {exception.Message}");
+            return false;
+        }
     }
 
     private static void DumpObservedTerm(string term, string value)
@@ -149,11 +276,12 @@ public sealed class Plugin : BaseUnityPlugin
         }
 
         var entryTag = subtitle.entrytag ?? string.Empty;
-        var conversationTitle = subtitle.activeConversationRecord?.conversationTitle ?? string.Empty;
+        var conversationTitle = GetSubtitleConversationTitle(subtitle);
+        var canonicalConversationTitle = NormalizeConversationTitle(conversationTitle);
         var entryId = subtitle.dialogueEntry?.id.ToString() ?? string.Empty;
-        var resolvedTerm = string.IsNullOrEmpty(conversationTitle) || string.IsNullOrEmpty(entryId)
+        var resolvedTerm = string.IsNullOrEmpty(canonicalConversationTitle) || string.IsNullOrEmpty(entryId)
             ? string.Empty
-            : $"Conversation/{conversationTitle}/Entry/{entryId}/Dialogue Text";
+            : $"Conversation/{canonicalConversationTitle}/Entry/{entryId}/Dialogue Text";
         var rawText = subtitle.formattedText?.text ?? string.Empty;
         var dialogueText = subtitle.dialogueEntry?.currentDialogueText ?? string.Empty;
         var localizedText = subtitle.dialogueEntry?.currentLocalizedDialogueText ?? string.Empty;
@@ -190,17 +318,81 @@ public sealed class Plugin : BaseUnityPlugin
             return;
         }
 
-        var conversationTitle = subtitle.activeConversationRecord?.conversationTitle;
-        if (string.IsNullOrEmpty(conversationTitle))
+        var conversationTitle = GetSubtitleConversationTitle(subtitle);
+        var canonicalConversationTitle = NormalizeConversationTitle(conversationTitle);
+        if (string.IsNullOrEmpty(canonicalConversationTitle))
         {
             return;
         }
 
-        var term = $"Conversation/{conversationTitle}/Entry/{subtitle.dialogueEntry.id}/Dialogue Text";
+        var term = $"Conversation/{canonicalConversationTitle}/Entry/{subtitle.dialogueEntry.id}/Dialogue Text";
         if (Labels.TryGetValue(term, out var replacement))
         {
-            subtitle.formattedText.text = replacement;
+            log.LogInfo($"Dialogue translation matched: {term}");
+            subtitle.dialogueEntry.currentLocalizedDialogueText = replacement;
+            subtitle.formattedText = PixelCrushers.DialogueSystem.FormattedText.Parse(replacement, null);
         }
+    }
+
+    private static void ApplyResponseTranslation(PixelCrushers.DialogueSystem.Response response)
+    {
+        var entry = response?.destinationEntry;
+        if (!enableTranslationOverrides.Value || entry == null)
+        {
+            return;
+        }
+
+        var conversationTitle = GetConversationTitle(entry.conversationID);
+        var canonicalConversationTitle = NormalizeConversationTitle(conversationTitle);
+        if (string.IsNullOrEmpty(canonicalConversationTitle))
+        {
+            return;
+        }
+
+        var term = $"Conversation/{canonicalConversationTitle}/Entry/{entry.id}/Dialogue Text";
+        if (Labels.TryGetValue(term, out var replacement))
+        {
+            log.LogInfo($"Response translation matched: {term}");
+            response.formattedText = PixelCrushers.DialogueSystem.FormattedText.Parse(replacement, null);
+        }
+    }
+
+    private static string NormalizeConversationTitle(string conversationTitle)
+    {
+        return string.IsNullOrEmpty(conversationTitle)
+            ? string.Empty
+            : conversationTitle.Replace('/', '.');
+    }
+
+    private static string GetSubtitleConversationTitle(PixelCrushers.DialogueSystem.Subtitle subtitle)
+    {
+        var conversationTitle = subtitle?.activeConversationRecord?.conversationTitle;
+        if (!string.IsNullOrEmpty(conversationTitle))
+        {
+            return conversationTitle;
+        }
+
+        var dialogueEntry = subtitle?.dialogueEntry;
+        if (dialogueEntry == null)
+        {
+            return string.Empty;
+        }
+
+        try
+        {
+            return GetConversationTitle(dialogueEntry.conversationID);
+        }
+        catch
+        {
+            return string.Empty;
+        }
+    }
+
+    private static string GetConversationTitle(int conversationId)
+    {
+        return PixelCrushers.DialogueSystem.DialogueManager.masterDatabase
+            ?.GetConversation(conversationId)
+            ?.Title ?? string.Empty;
     }
 
     private static void ApplyTranslationOverride(string term, ref string result)
@@ -213,6 +405,61 @@ public sealed class Plugin : BaseUnityPlugin
         DumpObservedTerm(term, result);
     }
 
+    private static void DumpFormattedTextParse(string rawText, PixelCrushers.DialogueSystem.FormattedText parsedText)
+    {
+        if (!dumpObservedTerms.Value || string.IsNullOrEmpty(rawText))
+        {
+            return;
+        }
+
+        var parsed = parsedText?.text ?? string.Empty;
+        var signature = $"{rawText}\n{parsed}";
+        if (!ObservedFormattedTexts.Add(signature))
+        {
+            return;
+        }
+
+        try
+        {
+            var block =
+                "\n# FormattedText.Parse\n" +
+                $"# RawText={EncodeValue(rawText)}\n" +
+                $"# ParsedText={EncodeValue(parsed)}\n";
+            File.AppendAllText(dumpPath, block, new UTF8Encoding(false));
+        }
+        catch (Exception exception)
+        {
+            log.LogWarning($"Could not write formatted-text trace: {exception.Message}");
+        }
+    }
+
+    private static void DumpDialogueEntryLookup(string conversationName, int entryId, PixelCrushers.DialogueSystem.DialogueEntry entry)
+    {
+        if (!dumpObservedTerms.Value)
+        {
+            return;
+        }
+
+        try
+        {
+            var dialogueText = entry?.currentDialogueText ?? string.Empty;
+            var localizedText = entry?.currentLocalizedDialogueText ?? string.Empty;
+            var block =
+                "\n# DialogueEntry lookup\n" +
+                $"# ConversationName={EncodeValue(conversationName ?? string.Empty)}\n" +
+                $"# RequestedEntryId={entryId}\n" +
+                $"# ResultEntryId={entry?.id.ToString() ?? string.Empty}\n" +
+                $"# DialogueText={EncodeValue(dialogueText)}\n" +
+                $"# LocalizedDialogueText={EncodeValue(localizedText)}\n";
+            File.AppendAllText(dumpPath, block, new UTF8Encoding(false));
+        }
+        catch (Exception exception)
+        {
+            log.LogWarning($"Could not write dialogue-entry trace: {exception.Message}");
+        }
+    }
+
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(LocalizationManager), nameof(LocalizationManager.GetTranslation))]
     private static void LocalizationManager_GetTranslation_Postfix(string Term, ref string __result)
@@ -224,6 +471,24 @@ public sealed class Plugin : BaseUnityPlugin
 
         ApplyTranslationOverride(Term, ref __result);
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.FormattedText), nameof(PixelCrushers.DialogueSystem.FormattedText.Parse))]
+    private static void FormattedText_Parse_Postfix(string rawText, PixelCrushers.DialogueSystem.FormattedText __result)
+    {
+        DumpFormattedTextParse(rawText, __result);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(DialogueNPCBase), nameof(DialogueNPCBase.GetDialogueEntryFromDatabase))]
+    private static void DialogueNPCBase_GetDialogueEntryFromDatabase_Postfix(
+        string __0,
+        int __1,
+        PixelCrushers.DialogueSystem.DialogueEntry __result)
+    {
+        DumpDialogueEntryLookup(__0, __1, __result);
+    }
+
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(PixelCrushers.UILocalizationManager), nameof(PixelCrushers.UILocalizationManager.GetLocalizedText))]
@@ -290,11 +555,83 @@ public sealed class Plugin : BaseUnityPlugin
         DumpObservedSubtitle("DialogueNPCBase.GetSubtitleFromDatabase", __result);
     }
 
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(DialogueNPCBase), "OnConversationLine")]
+    private static void DialogueNPCBase_OnConversationLine_Prefix(PixelCrushers.DialogueSystem.Subtitle __0)
+    {
+        ApplySubtitleTranslation(__0);
+    }
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(DialogueNPCBase), "OnConversationLine")]
     private static void DialogueNPCBase_OnConversationLine_Postfix(PixelCrushers.DialogueSystem.Subtitle __0)
     {
         ApplySubtitleTranslation(__0);
         DumpObservedSubtitle("DialogueNPCBase.OnConversationLine", __0);
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.BarkController), "Bark",
+        new[]
+        {
+            typeof(PixelCrushers.DialogueSystem.Subtitle),
+            typeof(UnityEngine.Transform),
+            typeof(UnityEngine.Transform),
+            typeof(PixelCrushers.DialogueSystem.IBarkUI)
+        })]
+    private static void BarkController_Bark_Prefix(PixelCrushers.DialogueSystem.Subtitle __0)
+    {
+        log.LogInfo($"Bark hook reached: {__0?.dialogueEntry?.conversationID}:{__0?.dialogueEntry?.id}");
+        ApplySubtitleTranslation(__0);
+        DumpObservedSubtitle("BarkController.Bark", __0);
+    }
+
+    [HarmonyPrefix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.BarkController), "Bark",
+        new[]
+        {
+            typeof(PixelCrushers.DialogueSystem.Subtitle),
+            typeof(bool)
+        })]
+    private static void BarkController_BarkSubtitle_Prefix(PixelCrushers.DialogueSystem.Subtitle __0)
+    {
+        log.LogInfo($"Bark subtitle hook reached: {__0?.dialogueEntry?.conversationID}:{__0?.dialogueEntry?.id}");
+        ApplySubtitleTranslation(__0);
+        DumpObservedSubtitle("BarkController.Bark(Subtitle)", __0);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.ConversationModel), "GetState",
+        new[]
+        {
+            typeof(PixelCrushers.DialogueSystem.DialogueEntry),
+            typeof(bool),
+            typeof(bool),
+            typeof(bool)
+        })]
+    private static void ConversationModel_GetState_Postfix(PixelCrushers.DialogueSystem.ConversationState __result)
+    {
+        if (__result?.subtitle != null)
+        {
+            log.LogInfo($"Conversation state hook reached: {__result.subtitle.dialogueEntry?.conversationID}:{__result.subtitle.dialogueEntry?.id}");
+            ApplySubtitleTranslation(__result.subtitle);
+            DumpObservedSubtitle("ConversationModel.GetState", __result.subtitle);
+
+            if (__result.npcResponses != null)
+            {
+                foreach (var response in __result.npcResponses)
+                {
+                    ApplyResponseTranslation(response);
+                }
+            }
+
+            if (__result.pcResponses != null)
+            {
+                foreach (var response in __result.pcResponses)
+                {
+                    ApplyResponseTranslation(response);
+                }
+            }
+        }
     }
 }

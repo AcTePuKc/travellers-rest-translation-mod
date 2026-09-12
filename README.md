@@ -56,6 +56,8 @@ For local testing, select a language file in the config, for example `Translatio
 
 ## Dump runtime localization terms
 
+Debug dumps are disabled by default. Enable them only while investigating a missing or unusual string, then disable them again before normal use.
+
 To inspect the exact localization keys requested by the running game, enable this in `BepInEx/config/actepukc.travellersrest.translation.cfg`:
 
 ```ini
@@ -65,6 +67,15 @@ DumpFile = runtime-labels.txt
 ```
 
 Start the game, reproduce the dialogue or screen you want to inspect, then close the game. The plugin writes the observed terms and the text returned to the game to `BepInEx/plugins/TravellersRest Translation/translations/runtime-labels.txt`. The dump is regenerated on each start while the option is enabled.
+
+The optional full Dialogue System database dump can be enabled with:
+
+```ini
+[Debug]
+DumpDialogueDatabase = true
+```
+
+It writes `runtime-dialogue-database.txt` next to `runtime-labels.txt` and is also disabled by default.
 
 ## Download a ready-to-use release
 
@@ -99,7 +110,22 @@ The converter adds selected overrides back into the generated file and reports `
 
 ## Convert a Crowdin XLIFF export
 
-For a language export from Crowdin, prefer the language-specific `.xliff` file. It preserves the current target values and stores line breaks as real newlines:
+### Downloading the language file from Crowdin
+
+The recommended workflow is to export the language directly from Crowdin:
+
+1. Open the desired language in the Crowdin editor. For Bulgarian, the language link is [Bulgarian in the Travellers Rest project](https://crowdin.com/editor/travellers-rest/12/en-bg).
+2. Click the file name `I2Loc TravellersRest Localization.xlsx`.
+3. When the file is open, select `File` → `Save as XLIFF`.
+4. Save the language-specific XLIFF outside this repository, for example:
+
+   ```text
+   C:\Temp\I2Loc TravellersRest Localization_nl.xliff
+   ```
+
+The downloaded file is for local conversion only. Do not commit the XLIFF, the workbook, or the generated test dump to this repository.
+
+Prefer the language-specific `.xliff` file over XLSX for this workflow. XLIFF preserves the current target values and stores line breaks as real newlines:
 
 ```powershell
 python .\scripts\convert-xliff-to-labels.py `
@@ -109,7 +135,21 @@ python .\scripts\convert-xliff-to-labels.py `
 
 The XLIFF converter also excludes duplicate keys, writes all candidates to a `.duplicates.txt` review file, closes remaining unclosed Unity rich-text tags, and continues with the remaining entries. It uses the same optional `.overrides.txt` file next to the output to select a duplicate candidate. A result containing unresolved duplicates is reported as `Verified: false`.
 
-Only XLIFF targets that differ from the English source are exported. Empty or untranslated entries are skipped. If a local draft has not been exported by Crowdin yet, it will not appear in the XLIFF and must be injected through the separate local CSV/TSV workflow first.
+Only non-empty XLIFF targets that differ from the English source are exported. The converter does not require a target to be `final`: it also accepts targets whose XLIFF state is `translated` or `needs-translation`. The command prints a state summary so you can see which kinds of records were present in the download. A target that is identical to the English source is intentionally skipped.
+
+For example, the generated Dutch file can be selected in the installed config without changing the Bulgarian file:
+
+```ini
+TranslationFile = labels.nl.txt
+```
+
+Copy `labels.nl.txt` into:
+
+```text
+Travellers Rest\Windows\BepInEx\plugins\TravellersRest Translation\translations\
+```
+
+If a local draft has not been exported by Crowdin yet, it will not appear in the XLIFF. In that case, use the separate local CSV/TSV injection workflow first, then export XLIFF again.
 
 The XLSX converter is also available for workbooks that contain populated language columns:
 

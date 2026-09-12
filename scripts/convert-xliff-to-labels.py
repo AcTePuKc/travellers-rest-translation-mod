@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -88,6 +89,7 @@ def main() -> int:
     records: dict[str, tuple[str, str, int]] = {}
     record_order: list[str] = []
     skipped_untranslated = 0
+    target_states: Counter[str] = Counter()
     duplicate_keys: set[str] = set()
     duplicate_records: list[tuple[str, str, int]] = []
 
@@ -98,6 +100,8 @@ def main() -> int:
         if target is None:
             skipped_untranslated += 1
             continue
+
+        target_states[target.get("state", "unspecified")] += 1
 
         value = "".join(target.itertext())
         if not key or not value or value == source:
@@ -145,6 +149,9 @@ def main() -> int:
     print(f"Output: {output_path}")
     print(f"Entries: {len(entries)}")
     print(f"Untranslated entries skipped: {skipped_untranslated}")
+    print("XLIFF target states:")
+    for state, count in sorted(target_states.items()):
+        print(f"  {state}: {count}")
     unresolved_duplicates = duplicate_keys - set(overrides)
     print(f"Duplicate keys detected: {len(duplicate_keys)}")
     print(f"Duplicate keys unresolved: {len(unresolved_duplicates)}")
