@@ -247,13 +247,6 @@ public sealed class Plugin : BaseUnityPlugin
     }
 
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.AbstractUISubtitleControls), nameof(PixelCrushers.DialogueSystem.AbstractUISubtitleControls.SetSubtitle))]
-    private static void AbstractUISubtitleControls_SetSubtitle_Postfix(PixelCrushers.DialogueSystem.Subtitle __0)
-    {
-        DumpObservedSubtitle("AbstractUISubtitleControls.SetSubtitle", __0);
-    }
-
-    [HarmonyPostfix]
     [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.StandardUISubtitlePanel), "SetSubtitleTextContent")]
     private static void StandardUISubtitlePanel_SetSubtitleTextContent_Postfix(PixelCrushers.DialogueSystem.StandardUISubtitlePanel __instance)
     {
