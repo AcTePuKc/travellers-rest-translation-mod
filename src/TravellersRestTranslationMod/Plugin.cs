@@ -149,6 +149,11 @@ public sealed class Plugin : BaseUnityPlugin
         }
 
         var entryTag = subtitle.entrytag ?? string.Empty;
+        var conversationTitle = subtitle.activeConversationRecord?.conversationTitle ?? string.Empty;
+        var entryId = subtitle.dialogueEntry?.id.ToString() ?? string.Empty;
+        var resolvedTerm = string.IsNullOrEmpty(conversationTitle) || string.IsNullOrEmpty(entryId)
+            ? string.Empty
+            : $"Conversation/{conversationTitle}/Entry/{entryId}/Dialogue Text";
         var rawText = subtitle.formattedText?.text ?? string.Empty;
         var dialogueText = subtitle.dialogueEntry?.currentDialogueText ?? string.Empty;
         var localizedText = subtitle.dialogueEntry?.currentLocalizedDialogueText ?? string.Empty;
@@ -163,6 +168,9 @@ public sealed class Plugin : BaseUnityPlugin
             var block =
                 $"\n# Subtitle hook: {hook}\n" +
                 $"# EntryTag={EncodeValue(entryTag)}\n" +
+                $"# ConversationTitle={EncodeValue(conversationTitle)}\n" +
+                $"# DialogueEntryId={EncodeValue(entryId)}\n" +
+                $"# ResolvedTerm={EncodeValue(resolvedTerm)}\n" +
                 $"# Speaker={EncodeValue(subtitle.speakerInfo?.Name)}\n" +
                 $"# RawText={EncodeValue(rawText)}\n" +
                 $"# DialogueText={EncodeValue(dialogueText)}\n" +
@@ -172,6 +180,26 @@ public sealed class Plugin : BaseUnityPlugin
         catch (Exception exception)
         {
             log.LogWarning($"Could not write runtime subtitle dump: {exception.Message}");
+        }
+    }
+
+    private static void ApplySubtitleTranslation(PixelCrushers.DialogueSystem.Subtitle subtitle)
+    {
+        if (!enableTranslationOverrides.Value || subtitle?.formattedText == null || subtitle.dialogueEntry == null)
+        {
+            return;
+        }
+
+        var conversationTitle = subtitle.activeConversationRecord?.conversationTitle;
+        if (string.IsNullOrEmpty(conversationTitle))
+        {
+            return;
+        }
+
+        var term = $"Conversation/{conversationTitle}/Entry/{subtitle.dialogueEntry.id}/Dialogue Text";
+        if (Labels.TryGetValue(term, out var replacement))
+        {
+            subtitle.formattedText.text = replacement;
         }
     }
 
@@ -250,6 +278,7 @@ public sealed class Plugin : BaseUnityPlugin
     [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.StandardUISubtitlePanel), "SetSubtitleTextContent")]
     private static void StandardUISubtitlePanel_SetSubtitleTextContent_Postfix(PixelCrushers.DialogueSystem.StandardUISubtitlePanel __instance)
     {
+        ApplySubtitleTranslation(__instance?.currentSubtitle);
         DumpObservedSubtitle("StandardUISubtitlePanel.SetSubtitleTextContent", __instance?.currentSubtitle);
     }
 
@@ -257,6 +286,7 @@ public sealed class Plugin : BaseUnityPlugin
     [HarmonyPatch(typeof(DialogueNPCBase), nameof(DialogueNPCBase.GetSubtitleFromDatabase))]
     private static void DialogueNPCBase_GetSubtitleFromDatabase_Postfix(PixelCrushers.DialogueSystem.Subtitle __result)
     {
+        ApplySubtitleTranslation(__result);
         DumpObservedSubtitle("DialogueNPCBase.GetSubtitleFromDatabase", __result);
     }
 
@@ -264,6 +294,7 @@ public sealed class Plugin : BaseUnityPlugin
     [HarmonyPatch(typeof(DialogueNPCBase), "OnConversationLine")]
     private static void DialogueNPCBase_OnConversationLine_Postfix(PixelCrushers.DialogueSystem.Subtitle __0)
     {
+        ApplySubtitleTranslation(__0);
         DumpObservedSubtitle("DialogueNPCBase.OnConversationLine", __0);
     }
 }
