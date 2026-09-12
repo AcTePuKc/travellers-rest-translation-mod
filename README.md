@@ -77,7 +77,13 @@ Crowdin exports can be converted without changing the source translation project
 
 The converter keeps each entry on one physical line. Escaped sequences such as `\n` remain escaped and are decoded by the plugin at runtime. It also splits only at the first `=`, because translated text can contain additional equals signs. Older local exports that use ` / / ` for paragraph breaks are normalized to `\n\n`.
 
-Duplicate keys are excluded from the generated file and written to a `.duplicates.txt` review file with all candidate lines. The converter reports `Verified: false` until the source file is cleaned up and converted again. It also normalizes em dashes (`—`) to regular hyphens (`-`) and closes any remaining unclosed Unity rich-text tags in translated values. If a source file contains a `# Unique labels` marker after a prepended review report, everything before that marker is ignored.
+Duplicate keys are excluded from the generated file and written to a `.duplicates.txt` review file with all candidate lines. To select a candidate without editing the source export, create an overrides file next to the output, for example `translations/labels.bg.overrides.txt`, containing one selected `key=value` line:
+
+```text
+tutorialPopUp103=The selected translation goes here
+```
+
+The converter adds selected overrides back into the generated file and reports `Verified: false` only while duplicate keys remain unresolved. It also normalizes em dashes (`—`) to regular hyphens (`-`) and closes or repairs Unity rich-text tags in translated values. If a source file contains a `# Unique labels` marker after a prepended review report, everything before that marker is ignored.
 
 ## Convert a Crowdin XLIFF export
 
@@ -89,7 +95,7 @@ python .\scripts\convert-xliff-to-labels.py `
   --output ".\translations\labels.bg.txt"
 ```
 
-The XLIFF converter also excludes duplicate keys, writes all candidates to a `.duplicates.txt` review file, closes remaining unclosed Unity rich-text tags, and continues with the remaining entries. A result containing duplicates is reported as `Verified: false`.
+The XLIFF converter also excludes duplicate keys, writes all candidates to a `.duplicates.txt` review file, closes remaining unclosed Unity rich-text tags, and continues with the remaining entries. It uses the same optional `.overrides.txt` file next to the output to select a duplicate candidate. A result containing unresolved duplicates is reported as `Verified: false`.
 
 Only XLIFF targets that differ from the English source are exported. Empty or untranslated entries are skipped. If a local draft has not been exported by Crowdin yet, it will not appear in the XLIFF and must be injected through the separate local CSV/TSV workflow first.
 

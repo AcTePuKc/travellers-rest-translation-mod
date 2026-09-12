@@ -59,12 +59,30 @@ def main() -> int:
         "--duplicate-report",
         help="Optional path for a report containing duplicate candidates",
     )
+    parser.add_argument(
+        "--override-file",
+        help="Optional key=value file for selecting duplicate candidates",
+    )
     args = parser.parse_args()
 
     input_path = Path(args.input)
     output_path = Path(args.output)
     if not input_path.is_file():
         parser.error(f"input file not found: {input_path}")
+
+    override_path = Path(args.override_file) if args.override_file else output_path.with_name(f"{output_path.stem}.overrides.txt")
+    overrides: dict[str, str] = {}
+    invalid_override_lines: list[int] = []
+    if override_path.is_file():
+        for line_number, raw_line in enumerate(override_path.read_text(encoding="utf-8").splitlines(), start=1):
+            line = raw_line.strip("\ufeff")
+            if not line.strip() or line.startswith("#") or line.startswith("//"):
+                continue
+            if "=" not in line or not line.split("=", 1)[1].strip():
+                invalid_override_lines.append(line_number)
+                continue
+            key, value = line.split("=", 1)
+            overrides[key] = value
 
     root = ET.parse(input_path).getroot()
     records: dict[str, tuple[str, str, int]] = {}
@@ -96,11 +114,17 @@ def main() -> int:
         records[key] = record
         record_order.append(key)
 
-    entries = [
-        (key, escape_value(repair_unclosed_rich_text_tags(records[key][1])))
-        for key in record_order
-        if key not in duplicate_keys
-    ]
+    entries: list[tuple[str, str]] = []
+    overrides_applied: list[str] = []
+    for key in record_order:
+        if key in duplicate_keys:
+            if key not in overrides:
+                continue
+            value = overrides[key]
+            overrides_applied.append(key)
+        else:
+            value = records[key][1]
+        entries.append((key, escape_value(repair_unclosed_rich_text_tags(value))))
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8", newline="\n") as output:
@@ -121,10 +145,16 @@ def main() -> int:
     print(f"Output: {output_path}")
     print(f"Entries: {len(entries)}")
     print(f"Untranslated entries skipped: {skipped_untranslated}")
-    print(f"Duplicate keys excluded: {len(duplicate_keys)}")
+    unresolved_duplicates = duplicate_keys - set(overrides)
+    print(f"Duplicate keys detected: {len(duplicate_keys)}")
+    print(f"Duplicate keys unresolved: {len(unresolved_duplicates)}")
+    if overrides_applied:
+        print(f"Overrides applied: {', '.join(overrides_applied)}")
+    if invalid_override_lines:
+        print(f"Invalid override lines: {', '.join(map(str, invalid_override_lines))}")
     if duplicate_records:
         print(f"Duplicate report: {duplicate_report}")
-    print(f"Verified: {str(not duplicate_keys).lower()}")
+    print(f"Verified: {str(not unresolved_duplicates and not invalid_override_lines).lower()}")
     return 0
 
 

@@ -5,7 +5,8 @@ param(
     [ValidatePattern('^[A-Za-z0-9_-]+$')]
     [string]$LanguageCode,
     [string]$OutputFile = "",
-    [string]$DuplicateReport = ""
+    [string]$DuplicateReport = "",
+    [string]$OverrideFile = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -70,6 +71,12 @@ if ([string]::IsNullOrWhiteSpace($OutputFile)) {
     $OutputFile = Join-Path $inputDirectory "labels.$LanguageCode.txt"
 }
 
+if ([string]::IsNullOrWhiteSpace($OverrideFile)) {
+    $outputBase = [IO.Path]::GetFileNameWithoutExtension($OutputFile)
+    $outputDirectory = Split-Path -Parent $OutputFile
+    $OverrideFile = Join-Path $outputDirectory "$outputBase.overrides.txt"
+}
+
 $lines = [IO.File]::ReadAllLines((Resolve-Path -LiteralPath $InputFile).Path, [Text.UTF8Encoding]::new($false))
 $records = [Collections.Generic.Dictionary[string, object]]::new([StringComparer]::Ordinal)
 $recordOrder = [Collections.Generic.List[string]]::new()
@@ -132,15 +139,41 @@ for ($index = $startIndex; $index -lt $lines.Count; $index++) {
     $recordOrder.Add($key)
 }
 
+$overrides = [Collections.Generic.Dictionary[string, string]]::new([StringComparer]::Ordinal)
+$invalidOverrideLines = [Collections.Generic.List[int]]::new()
+if (Test-Path -LiteralPath $OverrideFile -PathType Leaf) {
+    $overrideLines = [IO.File]::ReadAllLines((Resolve-Path -LiteralPath $OverrideFile).Path, [Text.UTF8Encoding]::new($false))
+    for ($index = 0; $index -lt $overrideLines.Count; $index++) {
+        $line = $overrideLines[$index]
+        if ([string]::IsNullOrWhiteSpace($line) -or $line.StartsWith('#') -or $line.StartsWith('//')) {
+            continue
+        }
+        $separator = $line.IndexOf('=')
+        if ($separator -le 0 -or [string]::IsNullOrWhiteSpace($line.Substring($separator + 1))) {
+            $invalidOverrideLines.Add($index + 1)
+            continue
+        }
+        $overrideKey = $line.Substring(0, $separator)
+        $overrides[$overrideKey] = $line.Substring($separator + 1)
+    }
+}
+
 # Preserve runtime escapes. Older local exports used " / / " as a paragraph-break marker;
 # normalize that legacy form to the format consumed by the plugin.
 $output = [Collections.Generic.List[string]]::new()
+$overridesApplied = [Collections.Generic.List[string]]::new()
 foreach ($key in $recordOrder) {
     if ($duplicateKeys.Contains($key)) {
-        continue
+        if (-not $overrides.ContainsKey($key)) {
+            continue
+        }
+        $translation = $overrides[$key]
+        $overridesApplied.Add($key)
+    } else {
+        $translation = $records[$key].Translation
     }
 
-    $translation = $records[$key].Translation.Replace(" / / ", "\n\n").Replace("—", "-")
+    $translation = $translation.Replace(" / / ", "\n\n").Replace("—", "-")
     $translation = Repair-UnclosedRichTextTags $translation
     $output.Add("$key=$translation")
 }
@@ -175,10 +208,14 @@ if ($duplicateRecords.Count -gt 0) {
     OutputFile = (Resolve-Path -LiteralPath $OutputFile).Path
     OutputEntries = $output.Count
     EmptyTranslationsSkipped = $emptyTranslations.Count
-    DuplicateKeysExcluded = $duplicateKeys.Count
+    DuplicateKeysDetected = $duplicateKeys.Count
+    DuplicateKeysUnresolved = @($duplicateKeys | Where-Object { -not $overrides.ContainsKey($_) }).Count
+    OverridesApplied = @($overridesApplied)
+    OverrideFile = if (Test-Path -LiteralPath $OverrideFile -PathType Leaf) { (Resolve-Path -LiteralPath $OverrideFile).Path } else { $null }
+    InvalidOverrideLines = @($invalidOverrideLines)
     InvalidLinesSkipped = $invalidLines.Count
     DuplicateReport = if ($duplicateRecords.Count -gt 0) { (Resolve-Path -LiteralPath $DuplicateReport).Path } else { $null }
     DuplicateKeys = @($duplicateKeys)
     InvalidLineNumbers = @($invalidLines)
-    Verified = ($duplicateKeys.Count -eq 0 -and $invalidLines.Count -eq 0)
+    Verified = ($duplicateKeys | Where-Object { -not $overrides.ContainsKey($_) }).Count -eq 0 -and $invalidLines.Count -eq 0 -and $invalidOverrideLines.Count -eq 0
 } | ConvertTo-Json -Depth 3
