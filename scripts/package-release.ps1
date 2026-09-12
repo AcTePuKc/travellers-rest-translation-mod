@@ -45,6 +45,18 @@ EnableTranslationOverrides = true
 ## Translation file inside the plugin translations folder.
 # Setting type: String
 TranslationFile = labels.$LanguageCode.txt
+
+[Debug]
+
+## Write localization terms requested by the game to a runtime dump.
+# Setting type: Boolean
+# Default value: false
+DumpObservedTerms = false
+
+## Runtime dump filename inside the plugin translations folder.
+# Setting type: String
+# Default value: runtime-labels.txt
+DumpFile = runtime-labels.txt
 "@
 [IO.File]::WriteAllText((Join-Path $configRoot "actepukc.travellersrest.translation.cfg"), $config, [Text.UTF8Encoding]::new($false))
 

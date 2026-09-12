@@ -54,6 +54,18 @@ Travellers Rest\Windows\BepInEx\plugins\TravellersRest Translation\
 
 For local testing, select a language file in the config, for example `TranslationFile = labels.example.txt`.
 
+## Dump runtime localization terms
+
+To inspect the exact localization keys requested by the running game, enable this in `BepInEx/config/actepukc.travellersrest.translation.cfg`:
+
+```ini
+[Debug]
+DumpObservedTerms = true
+DumpFile = runtime-labels.txt
+```
+
+Start the game, reproduce the dialogue or screen you want to inspect, then close the game. The plugin writes the observed terms and the text returned to the game to `BepInEx/plugins/TravellersRest Translation/translations/runtime-labels.txt`. The dump is regenerated on each start while the option is enabled.
+
 ## Download a ready-to-use release
 
 Releases contain a ready-to-install ZIP. No .NET SDK, compiler, game assemblies, or source build is required for end users.
