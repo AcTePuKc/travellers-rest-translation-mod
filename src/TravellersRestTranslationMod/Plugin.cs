@@ -20,6 +20,7 @@ public sealed class Plugin : BaseUnityPlugin
 
     private static readonly Dictionary<string, string> Labels = new Dictionary<string, string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedTerms = new HashSet<string>(StringComparer.Ordinal);
+    private static readonly HashSet<string> ObservedSubtitles = new HashSet<string>(StringComparer.Ordinal);
     private static ManualLogSource log;
     private static ConfigEntry<bool> enableTranslationOverrides;
     private static ConfigEntry<string> translationFile;
@@ -100,6 +101,7 @@ public sealed class Plugin : BaseUnityPlugin
     private static void PrepareRuntimeDump()
     {
         ObservedTerms.Clear();
+        ObservedSubtitles.Clear();
         if (!dumpObservedTerms.Value)
         {
             return;
@@ -136,6 +138,40 @@ public sealed class Plugin : BaseUnityPlugin
         catch (Exception exception)
         {
             log.LogWarning($"Could not write runtime localization dump: {exception.Message}");
+        }
+    }
+
+    private static void DumpObservedSubtitle(string hook, PixelCrushers.DialogueSystem.Subtitle subtitle)
+    {
+        if (!dumpObservedTerms.Value || subtitle == null)
+        {
+            return;
+        }
+
+        var entryTag = subtitle.entrytag ?? string.Empty;
+        var rawText = subtitle.formattedText?.text ?? string.Empty;
+        var dialogueText = subtitle.dialogueEntry?.currentDialogueText ?? string.Empty;
+        var localizedText = subtitle.dialogueEntry?.currentLocalizedDialogueText ?? string.Empty;
+        var signature = $"{hook}\n{entryTag}\n{rawText}\n{dialogueText}\n{localizedText}";
+        if (!ObservedSubtitles.Add(signature))
+        {
+            return;
+        }
+
+        try
+        {
+            var block =
+                $"\n# Subtitle hook: {hook}\n" +
+                $"# EntryTag={EncodeValue(entryTag)}\n" +
+                $"# Speaker={EncodeValue(subtitle.speakerInfo?.Name)}\n" +
+                $"# RawText={EncodeValue(rawText)}\n" +
+                $"# DialogueText={EncodeValue(dialogueText)}\n" +
+                $"# LocalizedDialogueText={EncodeValue(localizedText)}\n";
+            File.AppendAllText(dumpPath, block, new UTF8Encoding(false));
+        }
+        catch (Exception exception)
+        {
+            log.LogWarning($"Could not write runtime subtitle dump: {exception.Message}");
         }
     }
 
@@ -201,5 +237,26 @@ public sealed class Plugin : BaseUnityPlugin
         {
             ApplyTranslationOverride(__0, ref __result);
         }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.AbstractDialogueUI), nameof(PixelCrushers.DialogueSystem.AbstractDialogueUI.ShowSubtitle))]
+    private static void AbstractDialogueUI_ShowSubtitle_Postfix(PixelCrushers.DialogueSystem.Subtitle __0)
+    {
+        DumpObservedSubtitle("AbstractDialogueUI.ShowSubtitle", __0);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.AbstractUISubtitleControls), nameof(PixelCrushers.DialogueSystem.AbstractUISubtitleControls.SetSubtitle))]
+    private static void AbstractUISubtitleControls_SetSubtitle_Postfix(PixelCrushers.DialogueSystem.Subtitle __0)
+    {
+        DumpObservedSubtitle("AbstractUISubtitleControls.SetSubtitle", __0);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.StandardUISubtitlePanel), "SetSubtitleTextContent")]
+    private static void StandardUISubtitlePanel_SetSubtitleTextContent_Postfix(PixelCrushers.DialogueSystem.StandardUISubtitlePanel __instance)
+    {
+        DumpObservedSubtitle("StandardUISubtitlePanel.SetSubtitleTextContent", __instance?.currentSubtitle);
     }
 }
