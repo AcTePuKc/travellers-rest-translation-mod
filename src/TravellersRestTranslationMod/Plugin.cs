@@ -172,4 +172,34 @@ public sealed class Plugin : BaseUnityPlugin
 
         ApplyTranslationOverride(__0, ref __result);
     }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.DialogueManager), nameof(PixelCrushers.DialogueSystem.DialogueManager.GetLocalizedText))]
+    private static void DialogueManager_GetLocalizedText_Postfix(string __0, ref string __result)
+    {
+        if (!string.IsNullOrEmpty(__0))
+        {
+            ApplyTranslationOverride(__0, ref __result);
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.DialogueSystemController), nameof(PixelCrushers.DialogueSystem.DialogueSystemController.GetLocalizedText))]
+    private static void DialogueSystemController_GetLocalizedText_Postfix(string __0, ref string __result)
+    {
+        if (!string.IsNullOrEmpty(__0))
+        {
+            ApplyTranslationOverride(__0, ref __result);
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.DialogueSystem.LocalizedTextTable), "GetText")]
+    private static void LocalizedTextTable_GetText_Postfix(string __0, ref string __result)
+    {
+        if (!string.IsNullOrEmpty(__0))
+        {
+            ApplyTranslationOverride(__0, ref __result);
+        }
+    }
 }
