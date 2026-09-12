@@ -139,6 +139,16 @@ public sealed class Plugin : BaseUnityPlugin
         }
     }
 
+    private static void ApplyTranslationOverride(string term, ref string result)
+    {
+        if (enableTranslationOverrides.Value && Labels.TryGetValue(term, out var replacement))
+        {
+            result = replacement;
+        }
+
+        DumpObservedTerm(term, result);
+    }
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(LocalizationManager), nameof(LocalizationManager.GetTranslation))]
     private static void LocalizationManager_GetTranslation_Postfix(string Term, ref string __result)
@@ -148,11 +158,18 @@ public sealed class Plugin : BaseUnityPlugin
             return;
         }
 
-        if (enableTranslationOverrides.Value && Labels.TryGetValue(Term, out var replacement))
+        ApplyTranslationOverride(Term, ref __result);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(PixelCrushers.UILocalizationManager), nameof(PixelCrushers.UILocalizationManager.GetLocalizedText))]
+    private static void UILocalizationManager_GetLocalizedText_Postfix(string __0, ref string __result)
+    {
+        if (string.IsNullOrEmpty(__0))
         {
-            __result = replacement;
+            return;
         }
 
-        DumpObservedTerm(Term, __result);
+        ApplyTranslationOverride(__0, ref __result);
     }
 }
