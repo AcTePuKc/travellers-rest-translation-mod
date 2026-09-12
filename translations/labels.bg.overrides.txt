@@ -1,0 +1,3 @@
+# Selected candidates for duplicate keys.
+# These are used only when the source export contains the same key more than once.
+tutorialPopUp103=Първият ти [Brown=служител] ще започне работа веднага щом [Brown=отвориш кръчмата].\n\nМожеш да видиш повече информация за служителите си [ControllerType: като натиснеш [Action: Персонал], като отвориш инвентара и избереш раздела „Персонал“].
