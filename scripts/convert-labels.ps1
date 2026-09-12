@@ -10,6 +10,57 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+function Repair-UnclosedRichTextTags([string]$Value) {
+    $selfClosing = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    [void]$selfClosing.Add("br")
+    [void]$selfClosing.Add("sprite")
+    $openTags = [Collections.Generic.List[string]]::new()
+    $result = [Text.StringBuilder]::new()
+    $tagPattern = '<(/?)([A-Za-z]+)(?:[^>]*)?>'
+    $position = 0
+
+    foreach ($match in [regex]::Matches($Value, $tagPattern)) {
+        [void]$result.Append($Value.Substring($position, $match.Index - $position))
+        $isClosing = $match.Groups[1].Value -eq "/"
+        $tagName = $match.Groups[2].Value.ToLowerInvariant()
+        if ($selfClosing.Contains($tagName)) {
+            [void]$result.Append($match.Value)
+            $position = $match.Index + $match.Length
+            continue
+        }
+
+        if ($isClosing) {
+            $found = -1
+            for ($index = $openTags.Count - 1; $index -ge 0; $index--) {
+                if ($openTags[$index] -eq $tagName) {
+                    $found = $index
+                    break
+                }
+            }
+            if ($found -ge 0) {
+                for ($index = $openTags.Count - 1; $index -gt $found; $index--) {
+                    [void]$result.Append("</$($openTags[$index])>")
+                    [void]$openTags.RemoveAt($index)
+                }
+                [void]$result.Append($match.Value)
+                [void]$openTags.RemoveAt($found)
+            }
+            $position = $match.Index + $match.Length
+            continue
+        }
+
+        [void]$result.Append($match.Value)
+        [void]$openTags.Add($tagName)
+        $position = $match.Index + $match.Length
+    }
+
+    [void]$result.Append($Value.Substring($position))
+    for ($index = $openTags.Count - 1; $index -ge 0; $index--) {
+        [void]$result.Append("</$($openTags[$index])>")
+    }
+    return $result.ToString()
+}
+
 if (-not (Test-Path -LiteralPath $InputFile -PathType Leaf)) {
     throw "Input file not found: $InputFile"
 }
@@ -27,7 +78,15 @@ $duplicateRecords = [Collections.Generic.List[object]]::new()
 $invalidLines = [Collections.Generic.List[int]]::new()
 $emptyTranslations = [Collections.Generic.List[int]]::new()
 
-for ($index = 0; $index -lt $lines.Count; $index++) {
+# A previous review export may have been prepended to the source file. When the
+# marker exists, ignore that report and process only the actual label section.
+$startIndex = 0
+$labelsMarker = [array]::IndexOf($lines, "# Unique labels")
+if ($labelsMarker -ge 0) {
+    $startIndex = $labelsMarker + 1
+}
+
+for ($index = $startIndex; $index -lt $lines.Count; $index++) {
     $lineNumber = $index + 1
     $line = $lines[$index]
 
@@ -82,6 +141,7 @@ foreach ($key in $recordOrder) {
     }
 
     $translation = $records[$key].Translation.Replace(" / / ", "\n\n").Replace("—", "-")
+    $translation = Repair-UnclosedRichTextTags $translation
     $output.Add("$key=$translation")
 }
 

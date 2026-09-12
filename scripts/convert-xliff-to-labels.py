@@ -7,6 +7,7 @@ import argparse
 import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
+import re
 
 
 XLIFF_NS = "urn:oasis:names:tc:xliff:document:1.2"
@@ -15,6 +16,39 @@ NS = {"x": XLIFF_NS}
 
 def escape_value(value: str) -> str:
     return value.replace("\r\n", "\n").replace("\r", "\n").replace("\n", r"\n").replace("\t", r"\t")
+
+
+def repair_unclosed_rich_text_tags(value: str) -> str:
+    self_closing = {"br", "sprite"}
+    open_tags: list[str] = []
+    tag_pattern = re.compile(r"<(/?)([A-Za-z]+)(?:[^>]*)?>")
+    result: list[str] = []
+    position = 0
+
+    for match in tag_pattern.finditer(value):
+        result.append(value[position : match.start()])
+        is_closing = match.group(1) == "/"
+        tag_name = match.group(2).lower()
+        if tag_name in self_closing:
+            result.append(match.group(0))
+            position = match.end()
+            continue
+        if is_closing:
+            if tag_name in open_tags:
+                found = len(open_tags) - 1 - open_tags[::-1].index(tag_name)
+                for index in range(len(open_tags) - 1, found, -1):
+                    result.append(f"</{open_tags.pop()}>")
+                result.append(match.group(0))
+                open_tags.pop()
+            position = match.end()
+            continue
+        result.append(match.group(0))
+        open_tags.append(tag_name)
+        position = match.end()
+
+    result.append(value[position:])
+    result.extend(f"</{tag_name}>" for tag_name in reversed(open_tags))
+    return "".join(result)
 
 
 def main() -> int:
@@ -63,7 +97,7 @@ def main() -> int:
         record_order.append(key)
 
     entries = [
-        (key, escape_value(records[key][1]))
+        (key, escape_value(repair_unclosed_rich_text_tags(records[key][1])))
         for key in record_order
         if key not in duplicate_keys
     ]
