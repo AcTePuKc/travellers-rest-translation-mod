@@ -24,14 +24,24 @@ public sealed class Plugin : BaseUnityPlugin
     private static readonly HashSet<string> ObservedTerms = new HashSet<string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedSubtitles = new HashSet<string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedFormattedTexts = new HashSet<string>(StringComparer.Ordinal);
+    private static readonly HashSet<int> ObservedItemIds = new HashSet<int>();
     private static ManualLogSource log;
     private static ConfigEntry<bool> enableTranslationOverrides;
     private static ConfigEntry<string> translationFile;
     private static ConfigEntry<bool> dumpObservedTerms;
     private static ConfigEntry<bool> dumpDialogueDatabase;
     private static ConfigEntry<string> dumpFile;
+    private static ConfigEntry<bool> dumpObservedItems;
+    private static ConfigEntry<string> itemDumpFile;
     private static ConfigEntry<float> tutorialPanelWidthIncrease;
+    private static ConfigEntry<string> employeeNamesFile;
+    private static ConfigEntry<bool> useBuiltInDayStatsTimeUnits;
+    private static readonly List<string> MaleFirstNames = new List<string>();
+    private static readonly List<string> FemaleFirstNames = new List<string>();
+    private static readonly List<string> MaleSurnames = new List<string>();
+    private static readonly List<string> FemaleSurnames = new List<string>();
     private static string dumpPath;
+    private static string itemDumpPath;
     private static string dialogueDatabaseDumpPath;
     private static bool dialogueDatabaseDumped;
     private static int databaseProbeCount;
@@ -44,20 +54,29 @@ public sealed class Plugin : BaseUnityPlugin
         dumpObservedTerms = Config.Bind("Debug", "DumpObservedTerms", false, "Write every localization term requested by the game to a runtime dump.");
         dumpDialogueDatabase = Config.Bind("Debug", "DumpDialogueDatabase", false, "Write the complete Dialogue System database once after it loads.");
         dumpFile = Config.Bind("Debug", "DumpFile", "runtime-labels.txt", "Runtime dump filename inside the plugin translations folder.");
+        dumpObservedItems = Config.Bind("Debug", "DumpObservedItems", false, "Write item IDs and names when the game resolves an item name.");
+        itemDumpFile = Config.Bind("Debug", "ItemDumpFile", "runtime-items.txt", "Runtime item dump filename inside the plugin translations folder.");
         tutorialPanelWidthIncrease = Config.Bind("UI", "TutorialPanelWidthIncrease", 80f, "Extra width for tutorial popups, without shrinking the text.");
+        employeeNamesFile = Config.Bind("General", "EmployeeNamesFile", "employee-names.bg.txt", "Optional localized first-name and surname pools for generated staff.");
+        useBuiltInDayStatsTimeUnits = Config.Bind("UI", "UseBuiltInDayStatsTimeUnits", true, "Read hForHours and mForMins from the game's currently selected language.");
 
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? Paths.PluginPath;
         var translationsDir = Path.Combine(pluginDir, "translations");
         var labelsPath = Path.Combine(translationsDir, translationFile.Value);
         dumpPath = Path.Combine(translationsDir, dumpFile.Value);
+        itemDumpPath = Path.Combine(translationsDir, itemDumpFile.Value);
         dialogueDatabaseDumpPath = Path.Combine(translationsDir, "runtime-dialogue-database.txt");
         LoadLabels(labelsPath);
+        LoadEmployeeNames(Path.Combine(translationsDir, employeeNamesFile.Value));
         PrepareRuntimeDump();
+        PrepareItemDump();
         log.LogInfo($"Observed localization dump enabled: {dumpObservedTerms.Value}");
         StartCoroutine(DumpDialogueDatabaseWhenReady());
         log.LogInfo($"Dialogue database dump enabled: {dumpDialogueDatabase.Value}");
 
-        new Harmony(PluginGuid).PatchAll(typeof(Plugin));
+        var harmony = new Harmony(PluginGuid);
+        harmony.PatchAll(typeof(Plugin));
+        PatchDayStatsMethods(harmony);
         log.LogInfo($"{PluginName} {PluginVersion} loaded with {Labels.Count} labels");
         log.LogInfo($"Labels path: {labelsPath}");
     }
@@ -102,6 +121,56 @@ public sealed class Plugin : BaseUnityPlugin
         }
     }
 
+    private static void LoadEmployeeNames(string path)
+    {
+        MaleFirstNames.Clear();
+        FemaleFirstNames.Clear();
+        MaleSurnames.Clear();
+        FemaleSurnames.Clear();
+        if (!File.Exists(path))
+        {
+            log.LogInfo($"Localized employee name file not found; using game defaults: {path}");
+            return;
+        }
+
+        var section = string.Empty;
+        foreach (var rawLine in File.ReadAllLines(path, Encoding.UTF8))
+        {
+            var line = rawLine.Trim().TrimStart('\uFEFF');
+            if (string.IsNullOrEmpty(line) || line.StartsWith("#") || line.StartsWith("//"))
+            {
+                continue;
+            }
+
+            if (line.StartsWith("[") && line.EndsWith("]"))
+            {
+                section = line.Substring(1, line.Length - 2);
+                continue;
+            }
+
+            if (section == "MaleFirstNames") MaleFirstNames.Add(line);
+            else if (section == "FemaleFirstNames") FemaleFirstNames.Add(line);
+            else if (section == "MaleSurnames") MaleSurnames.Add(line);
+            else if (section == "FemaleSurnames") FemaleSurnames.Add(line);
+        }
+
+        log.LogInfo($"Loaded localized employee names: male={MaleFirstNames.Count}, female={FemaleFirstNames.Count}, male surnames={MaleSurnames.Count}, female surnames={FemaleSurnames.Count}");
+    }
+
+    private static bool TryGetLocalizedEmployeeName(EmployeeInfo employee, out string name)
+    {
+        name = null;
+        var firstNames = employee.gender == Gender.Male ? MaleFirstNames : FemaleFirstNames;
+        var surnames = employee.gender == Gender.Male ? MaleSurnames : FemaleSurnames;
+        if (firstNames.Count == 0 || surnames.Count == 0)
+        {
+            return false;
+        }
+
+        name = $"{firstNames[UnityEngine.Random.Range(0, firstNames.Count)]} {surnames[UnityEngine.Random.Range(0, surnames.Count)]}";
+        return true;
+    }
+
     private static string DecodeValue(string value)
     {
         return value
@@ -142,6 +211,66 @@ public sealed class Plugin : BaseUnityPlugin
             "# This file is regenerated when the game starts with DumpObservedTerms enabled.\n",
             new UTF8Encoding(false));
         log.LogInfo($"Runtime localization dump enabled: {dumpPath}");
+    }
+
+    private static void PrepareItemDump()
+    {
+        ObservedItemIds.Clear();
+        if (!dumpObservedItems.Value)
+        {
+            return;
+        }
+
+        var directory = Path.GetDirectoryName(itemDumpPath);
+        if (!string.IsNullOrEmpty(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
+        File.WriteAllText(
+            itemDumpPath,
+            "# Runtime item dump from Travellers Rest Translation Loader\n" +
+            "# Enable Debug/DumpObservedItems in the BepInEx config, then open or hover items in-game.\n" +
+            "# id\tlocalization key\tasset name\tnameId\tdisplayed name\n",
+            new UTF8Encoding(false));
+        log.LogInfo($"Runtime item dump enabled: {itemDumpPath}");
+    }
+
+    private static void DumpObservedItem(Item item, string displayedName)
+    {
+        if (!dumpObservedItems.Value || item == null)
+        {
+            return;
+        }
+
+        var idField = AccessTools.Field(typeof(Item), "id");
+        if (idField == null)
+        {
+            return;
+        }
+
+        var id = (int)idField.GetValue(item);
+        if (!ObservedItemIds.Add(id))
+        {
+            return;
+        }
+
+        try
+        {
+            var line = string.Join("\t", new[]
+            {
+                id.ToString(),
+                $"Items/item_name_{id}",
+                EncodeValue(item.name),
+                EncodeValue(item.nameId),
+                EncodeValue(displayedName)
+            });
+            File.AppendAllText(itemDumpPath, line + Environment.NewLine, new UTF8Encoding(false));
+        }
+        catch (Exception exception)
+        {
+            log.LogWarning($"Could not write runtime item dump: {exception.Message}");
+        }
     }
 
     private IEnumerator DumpDialogueDatabaseWhenReady()
@@ -400,7 +529,9 @@ public sealed class Plugin : BaseUnityPlugin
 
     private static void ApplyTranslationOverride(string term, ref string result)
     {
-        if (enableTranslationOverrides.Value && Labels.TryGetValue(term, out var replacement))
+        var useBuiltInDayStatsTerm = useBuiltInDayStatsTimeUnits.Value &&
+            (string.Equals(term, "hForHours", StringComparison.Ordinal) || string.Equals(term, "mForMins", StringComparison.Ordinal));
+        if (enableTranslationOverrides.Value && !useBuiltInDayStatsTerm && Labels.TryGetValue(term, out var replacement))
         {
             result = replacement;
         }
@@ -499,6 +630,71 @@ public sealed class Plugin : BaseUnityPlugin
         }
     }
 
+    private static string TranslateDayStatsTimeUnits(string value)
+    {
+        if ((!enableTranslationOverrides.Value && !useBuiltInDayStatsTimeUnits.Value) || string.IsNullOrEmpty(value))
+        {
+            return value;
+        }
+
+        var hourSuffix = GetDayStatsTimeUnit("hForHours", "h.");
+        var minuteSuffix = GetDayStatsTimeUnit("mForMins", "min.");
+
+        if (!string.IsNullOrEmpty(hourSuffix))
+        {
+            value = value.Replace(" h.", " " + hourSuffix);
+        }
+
+        if (!string.IsNullOrEmpty(minuteSuffix))
+        {
+            value = value.Replace(" min.", " " + minuteSuffix);
+        }
+
+        return value;
+    }
+
+    private static string GetDayStatsTimeUnit(string term, string fallback)
+    {
+        if (useBuiltInDayStatsTimeUnits.Value)
+        {
+            try
+            {
+                var builtInValue = LocalisationSystem.Get(term);
+                if (!string.IsNullOrEmpty(builtInValue) && builtInValue != "- ")
+                {
+                    return builtInValue;
+                }
+            }
+            catch (Exception exception)
+            {
+                log.LogDebug($"Could not read built-in Day Stats time unit '{term}': {exception.Message}");
+            }
+        }
+
+        return Labels.TryGetValue(term, out var localizedValue) && !string.IsNullOrEmpty(localizedValue)
+            ? localizedValue
+            : fallback;
+    }
+
+    private static void PatchDayStatsMethods(Harmony harmony)
+    {
+        var formatterMethod = AccessTools.Method(typeof(DayStatsUI), "GNOLIEGGIKD", new[] { typeof(int) });
+        if (formatterMethod != null)
+        {
+            harmony.Patch(formatterMethod, postfix: new HarmonyMethod(typeof(Plugin), nameof(DayStatsFormatterPostfix)));
+            log.LogInfo($"Explicit Day Stats formatter patch applied: {formatterMethod.FullDescription()}");
+        }
+        else
+        {
+            log.LogWarning("Explicit Day Stats formatter patch target not found: GNOLIEGGIKD");
+        }
+    }
+
+    private static void DayStatsFormatterPostfix(ref string __result)
+    {
+        __result = TranslateDayStatsTimeUnits(__result);
+    }
+
     private static void DumpFormattedTextParse(string rawText, PixelCrushers.DialogueSystem.FormattedText parsedText)
     {
         if (!dumpObservedTerms.Value || string.IsNullOrEmpty(rawText))
@@ -594,6 +790,53 @@ public sealed class Plugin : BaseUnityPlugin
             {
                 __result = replacement;
             }
+        }
+    }
+
+    [HarmonyPatch]
+    private static class EmployeeInfo_GenerateNamePatch
+    {
+        private static MethodBase TargetMethod()
+        {
+            return AccessTools.Method(typeof(EmployeeInfo), "HHNGPPLGHML");
+        }
+
+        private static void Postfix(EmployeeInfo __instance, ref string __result)
+        {
+            if (TryGetLocalizedEmployeeName(__instance, out var replacement))
+            {
+                __result = replacement;
+            }
+        }
+    }
+
+    [HarmonyPatch]
+    private static class DayStatsUI_TimeFormatterPatch
+    {
+        private static MethodBase TargetMethod()
+        {
+            var method = AccessTools.Method(typeof(DayStatsUI), "GNOLIEGGIKD", new[] { typeof(int) });
+            log?.LogInfo($"Day Stats formatter target: {(method == null ? "NOT FOUND" : method.FullDescription())}");
+            return method;
+        }
+
+        private static void Postfix(ref string __result)
+        {
+            __result = TranslateDayStatsTimeUnits(__result);
+        }
+    }
+
+    [HarmonyPatch]
+    private static class Item_DisplayNamePatch
+    {
+        private static MethodBase TargetMethod()
+        {
+            return AccessTools.Method(typeof(Item), "LBKLMOIPKBB", new[] { typeof(bool), typeof(string) });
+        }
+
+        private static void Postfix(Item __instance, ref string __result)
+        {
+            DumpObservedItem(__instance, __result);
         }
     }
 

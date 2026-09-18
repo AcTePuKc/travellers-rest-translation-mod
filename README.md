@@ -36,6 +36,32 @@ Travellers Rest\Windows\BepInEx\plugins\TravellersRest Translation\translations\
 
 The current loader applies matching entries regardless of which language is selected in the game's settings. The labels files use the game's English localization keys as identifiers, so the selected file replaces matching displayed text even if the game was previously set to another language.
 
+### Day Stats time units and language testing
+
+The Day Stats service-time formatter in the game does not use the existing `hForHours` and `mForMins` localization keys. The mod provides an optional workaround for this.
+
+For the Bulgarian translation, keep the Bulgarian labels and use the Bulgarian time-unit entries:
+
+```ini
+[General]
+EnableTranslationOverrides = true
+
+[UI]
+UseBuiltInDayStatsTimeUnits = false
+```
+
+To view the game's currently selected language without the Bulgarian translation overrides, use the built-in localization values instead:
+
+```ini
+[General]
+EnableTranslationOverrides = false
+
+[UI]
+UseBuiltInDayStatsTimeUnits = true
+```
+
+The second mode is useful for testing another language. It disables the mod's translated labels and lets the game provide its own `hForHours` and `mForMins` values.
+
 The plugin reads the configured file from `translations/` and applies matching entries through the game's I2 Localization system. The source translation project remains separate from this mod project.
 
 Each language should use its own file, for example `labels.bg.txt`, `labels.de.txt`, or `labels.example.txt`. The plugin contains no language-specific text.
