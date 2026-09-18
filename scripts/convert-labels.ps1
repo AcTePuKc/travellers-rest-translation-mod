@@ -163,6 +163,10 @@ if (Test-Path -LiteralPath $OverrideFile -PathType Leaf) {
 $output = [Collections.Generic.List[string]]::new()
 $overridesApplied = [Collections.Generic.List[string]]::new()
 foreach ($key in $recordOrder) {
+    # The game now uses the sheet-qualified form for item labels. The old
+    # unqualified item_name/item_description keys are redundant in the package.
+    $isLegacyItemKey = $key -match '^item_(?:name|description)_-?\d+$'
+
     if ($duplicateKeys.Contains($key)) {
         if (-not $overrides.ContainsKey($key)) {
             continue
@@ -175,7 +179,8 @@ foreach ($key in $recordOrder) {
 
     $translation = $translation.Replace(" / / ", "\n\n").Replace("—", "-")
     $translation = Repair-UnclosedRichTextTags $translation
-    $output.Add("$key=$translation")
+    $outputKey = if ($isLegacyItemKey) { "Items/$key" } else { $key }
+    $output.Add("$outputKey=$translation")
 }
 
 $parent = Split-Path -Parent $OutputFile

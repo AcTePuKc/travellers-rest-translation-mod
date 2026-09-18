@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using UnityEngine;
 
 namespace TravellersRestTranslationMod;
 
@@ -29,6 +30,7 @@ public sealed class Plugin : BaseUnityPlugin
     private static ConfigEntry<bool> dumpObservedTerms;
     private static ConfigEntry<bool> dumpDialogueDatabase;
     private static ConfigEntry<string> dumpFile;
+    private static ConfigEntry<float> tutorialPanelWidthIncrease;
     private static string dumpPath;
     private static string dialogueDatabaseDumpPath;
     private static bool dialogueDatabaseDumped;
@@ -42,6 +44,7 @@ public sealed class Plugin : BaseUnityPlugin
         dumpObservedTerms = Config.Bind("Debug", "DumpObservedTerms", false, "Write every localization term requested by the game to a runtime dump.");
         dumpDialogueDatabase = Config.Bind("Debug", "DumpDialogueDatabase", false, "Write the complete Dialogue System database once after it loads.");
         dumpFile = Config.Bind("Debug", "DumpFile", "runtime-labels.txt", "Runtime dump filename inside the plugin translations folder.");
+        tutorialPanelWidthIncrease = Config.Bind("UI", "TutorialPanelWidthIncrease", 80f, "Extra width for tutorial popups, without shrinking the text.");
 
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? Paths.PluginPath;
         var translationsDir = Path.Combine(pluginDir, "translations");
@@ -405,6 +408,97 @@ public sealed class Plugin : BaseUnityPlugin
         DumpObservedTerm(term, result);
     }
 
+    private static bool TryGetActorDisplayName(string actorName, out string replacement)
+    {
+        replacement = null;
+        if (!enableTranslationOverrides.Value || string.IsNullOrEmpty(actorName))
+        {
+            return false;
+        }
+
+        // The database currently uses Mai, while some UI data spells the
+        // same actor as Mei. Keep this compatibility alias local to names.
+        if (string.Equals(actorName, "MEI", StringComparison.OrdinalIgnoreCase))
+        {
+            actorName = "Mai";
+        }
+
+        var exactKey = $"Actor/{actorName}/Display Name";
+        if (Labels.TryGetValue(exactKey, out replacement))
+        {
+            return true;
+        }
+
+        // Dialogue System actor names are case-sensitive at runtime, while the
+        // I2 export may preserve a different casing. Match only the actor key.
+        foreach (var pair in Labels)
+        {
+            if (pair.Key.StartsWith("Actor/", StringComparison.Ordinal) &&
+                pair.Key.EndsWith("/Display Name", StringComparison.Ordinal) &&
+                string.Equals(pair.Key.Substring(6, pair.Key.Length - 6 - "/Display Name".Length), actorName, StringComparison.OrdinalIgnoreCase))
+            {
+                replacement = pair.Value;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static void ApplySpeakerDisplayName(PixelCrushers.DialogueSystem.Subtitle subtitle, PixelCrushers.DialogueSystem.StandardUISubtitlePanel panel = null)
+    {
+        var speakerInfo = subtitle?.speakerInfo;
+        if (speakerInfo == null)
+        {
+            return;
+        }
+
+        if (!TryGetActorDisplayName(speakerInfo.nameInDatabase, out var replacement) &&
+            !TryGetActorDisplayName(speakerInfo.Name, out replacement))
+        {
+            return;
+        }
+
+        speakerInfo.Name = replacement;
+        if (panel?.portraitName != null)
+        {
+            panel.portraitName.text = replacement;
+        }
+    }
+
+    private static readonly Dictionary<int, float> TutorialPanelBaseWidths = new Dictionary<int, float>();
+
+    private static void WidenTutorialPanel(TutorialManagerBase instance)
+    {
+        if (instance == null || tutorialPanelWidthIncrease.Value <= 0f)
+        {
+            return;
+        }
+
+        var fieldNames = new[] { "tutorialPanelRectTransform", "contentRectTransform" };
+        foreach (var fieldName in fieldNames)
+        {
+            var field = AccessTools.Field(typeof(TutorialManagerBase), fieldName);
+            var rect = field?.GetValue(instance) as RectTransform;
+            if (rect == null)
+            {
+                continue;
+            }
+
+            var id = rect.GetInstanceID();
+            if (!TutorialPanelBaseWidths.ContainsKey(id))
+            {
+                TutorialPanelBaseWidths[id] = rect.rect.width;
+            }
+
+            var targetWidth = TutorialPanelBaseWidths[id] + tutorialPanelWidthIncrease.Value;
+            if (Math.Abs(rect.rect.width - targetWidth) > 0.5f)
+            {
+                rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, targetWidth);
+            }
+        }
+    }
+
     private static void DumpFormattedTextParse(string rawText, PixelCrushers.DialogueSystem.FormattedText parsedText)
     {
         if (!dumpObservedTerms.Value || string.IsNullOrEmpty(rawText))
@@ -456,6 +550,50 @@ public sealed class Plugin : BaseUnityPlugin
         catch (Exception exception)
         {
             log.LogWarning($"Could not write dialogue-entry trace: {exception.Message}");
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(TutorialManagerBase), "Awake")]
+    private static void TutorialManagerBase_Awake_Postfix(TutorialManagerBase __instance)
+    {
+        WidenTutorialPanel(__instance);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(TutorialManagerBase), "ShowPopUp")]
+    private static void TutorialManagerBase_ShowPopUp_Postfix(TutorialManagerBase __instance)
+    {
+        WidenTutorialPanel(__instance);
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(TutorialManagerBase), "set_Maximised")]
+    private static void TutorialManagerBase_SetMaximised_Postfix(TutorialManagerBase __instance)
+    {
+        WidenTutorialPanel(__instance);
+    }
+
+    [HarmonyPatch]
+    private static class DialogueNPCBase_DisplayNamePatch
+    {
+        private static MethodBase TargetMethod()
+        {
+            return AccessTools.Method(typeof(DialogueNPCBase), "CGBEDKLELDM");
+        }
+
+        private static void Postfix(object __0, ref string __result)
+        {
+            if (__0 == null)
+            {
+                return;
+            }
+
+            var actorName = __0.GetType().GetProperty("Name")?.GetValue(__0, null)?.ToString();
+            if (TryGetActorDisplayName(actorName, out var replacement))
+            {
+                __result = replacement;
+            }
         }
     }
 
@@ -544,6 +682,7 @@ public sealed class Plugin : BaseUnityPlugin
     private static void StandardUISubtitlePanel_SetSubtitleTextContent_Postfix(PixelCrushers.DialogueSystem.StandardUISubtitlePanel __instance)
     {
         ApplySubtitleTranslation(__instance?.currentSubtitle);
+        ApplySpeakerDisplayName(__instance?.currentSubtitle, __instance);
         DumpObservedSubtitle("StandardUISubtitlePanel.SetSubtitleTextContent", __instance?.currentSubtitle);
     }
 
