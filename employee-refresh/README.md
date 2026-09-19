@@ -2,6 +2,17 @@
 
 `EmployeeRefresh` is a separate utility mod. It does not depend on the Bulgarian Translation Mod and the two mods do not share or overwrite each other's employee-name files.
 
+## Quick start
+
+1. Install the release ZIP into Travellers Rest's `Windows` folder.
+2. Open the Staff menu and choose a profession tab.
+3. Click **Refresh** or press `F6` to generate a new set of candidates.
+4. Optionally install [Mod Config Menu](https://www.nexusmods.com/travellersrest/mods/95) to change the name file, hotkey, button spacing, and window layout in-game.
+
+EmployeeRefresh includes Bulgarian and Italian name pools. Change `EmployeeNamesFile` in Mod Config Menu or the BepInEx config to switch between them. The selected file is reloaded immediately and any open staff list refreshes automatically.
+
+## Name pools and localization
+
 Place the language file in this mod's `translations` folder and select it in:
 
 ```ini
@@ -26,6 +37,8 @@ RefreshButton=Refresh
 Keep first names and surnames short so they fit the staff cards and dialogs. The recommended maximum is 9 characters per name part; shorter is better. EmployeeRefresh warns about longer entries but does not silently cut them off.
 
 The employee-name loader is intentionally owned only by EmployeeRefresh. This prevents the translation DLL and the utility DLL from patching the same game method and producing unpredictable results.
+
+To create a new name pool, copy one of the bundled `employee-names.*.txt` files, rename it, and select the new filename through `EmployeeNamesFile`. You can contribute it through a [pull request](https://github.com/AcTePuKc/travellers-rest-translation-mod/pulls) or publish a separate pool on Nexus.
 
 ## Refreshing candidates
 

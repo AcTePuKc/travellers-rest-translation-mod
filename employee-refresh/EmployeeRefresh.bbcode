@@ -1,4 +1,4 @@
-[center][size=5][b]EmployeeRefresh[/b][/size][/center]
+[center][color=#ff0000][size=5][b]EmployeeRefresh[/b][/size][/color][/center]
 
 [b]Overview[/b]
 EmployeeRefresh is a standalone utility mod for Travellers Rest. It refreshes the available staff candidates, optionally replaces their generated names from language files, and makes the staff hiring window easier to use on smaller displays or higher DPI settings.
@@ -7,13 +7,20 @@ It is independent from the Travellers Rest Translation Loader. You may install e
 
 [b]Features[/b]
 [list]
-[*]Refresh button in the staff hiring window.[/*]
-[*]Configurable F6 hotkey while the staff hiring window is open.[/*]
-[*]Language-specific employee-name files selectable through Mod Config Menu or the BepInEx config.[/*]
-[*]Separate male/female surnames for languages with gendered family names.[/*]
-[*]One shared surname list for languages whose surnames do not change by gender.[/*]
-[*]Live name-file switching: changing the selected file reloads it and refreshes the candidates.[/*]
-[*]Configurable staff-window height and vertical position, without reducing the game font size.[/*]
+[*][color=#d9ead3]Refresh button in the staff hiring window.[/color][/*]
+[*][color=#93c47d]Configurable F6 hotkey while the staff hiring window is open.[/color][/*]
+[*][color=#a2c4c9]Language-specific employee-name files selectable through [url=https://www.nexusmods.com/travellersrest/mods/95]Mod Config Menu [/url]or the BepInEx config.[/color][/*]
+[*][color=#cfe2f3]Separate male/female surnames for languages with gendered family names.[/color][/*]
+[*][color=#d9ead3]One shared surname list for languages whose surnames do not change by gender.[/color][/*]
+[*][color=#9fc5e8]Live name-file switching: changing the selected file reloads it and refreshes the candidates.[/color][/*]
+[*][color=#ffe599]Configurable staff-window height and vertical position, without reducing the game font size.[/color][/*]
+[/list]
+
+[b]Quick start[/b]
+[list=1]
+[*]Open the Staff menu and choose a profession tab.[/*]
+[*]Use the [b]Refresh[/b] button or press [b]F6[/b] to generate a new set of candidates.[/*]
+[*]Optional: install [url=https://www.nexusmods.com/travellersrest/mods/95]Mod Config Menu[/url] to change the name file, hotkey, button spacing, and window layout in-game.[/*]
 [/list]
 
 [b]Requirements[/b]
@@ -24,16 +31,58 @@ It is independent from the Travellers Rest Translation Loader. You may install e
 
 [b]Installation[/b]
 [list=1]
-[*]Install BepInEx in the folder containing [code]TravellersRest.exe[/code] and start the game once.[/*]
-[*]Extract this archive into Travellers Rest's [code]Windows[/code] folder.[/*]
-[*]The mod will be installed to [code]BepInEx\plugins\EmployeeRefresh[/code].[/*]
-[*]Start the game. The configuration file is created at [code]BepInEx\config\actepukc.travellersrest.employee-refresh.cfg[/code].[/*]
+[*]Install BepInEx in the folder containing
+[code]TravellersRest.exe[/code]
+and start the game once.[/*]
+[*]Extract this archive into Travellers Rest's
+[code]Windows[/code]
+folder.[/*]
+[*]The mod will be installed to
+[code]BepInEx\plugins\EmployeeRefresh[/code]
+[/*]
+[*]Start the game. The configuration file is created at
+[code]BepInEx\config\actepukc.travellersrest.employee-refresh.cfg[/code]
+[/*]
 [/list]
 
 [b]Name files and configuration[/b]
-The release includes Bulgarian and Italian name pools. Select one with [code]EmployeeNamesFile[/code] in Mod Config Menu or in the configuration file. The selected file is reloaded immediately; the open staff list is refreshed automatically.
+The release includes Bulgarian and Italian name pools. Select one with
+[code]EmployeeNamesFile[/code]
+in Mod Config Menu or in the configuration file. The selected file is reloaded immediately; the open staff list is refreshed automatically.
 
-Use [code]RefreshHotkey[/code] to change or clear F6, [code]ButtonGap[/code] to change the spacing of the Refresh button, and the [code][Window][/code] settings to adjust the staff-window size and position.
+Use
+[code]RefreshHotkey[/code]
+to change or clear F6,
+[code]ButtonGap[/code]
+to change the spacing of the Refresh button, and the
+[code][Window][/code]
+settings to adjust the staff-window size and position.
+
+[b]Adding a language or name pool[/b]
+Copy one of the bundled [code]employee-names.*.txt[/code] files from
+[code]BepInEx\plugins\EmployeeRefresh\translations[/code], rename it, and select its filename through [code]EmployeeNamesFile[/code].
+
+Each file has male and female first-name sections. For surnames, use either separate sections for languages with gendered surnames, or one shared section for languages such as Italian:
+
+[code]
+[MaleFirstNames]
+[FemaleFirstNames]
+
+# Choose one surname model:
+[MaleSurnames]
+[FemaleSurnames]
+
+# or
+[Surnames]
+
+[UI]
+RefreshButton=Refresh
+[/code]
+
+[b]Adding new names[/b]
+The menu label and name pools are localizable. You can write a file yourself or use a language model to help build a first draft, then review the names for your language and style.
+
+You can contribute a new file through a [url=https://github.com/AcTePuKc/travellers-rest-translation-mod/pulls]GitHub pull request[/url], or publish and maintain a separate name pool on Nexus.
 
 [b]Notes[/b]
 Keep first names and surnames short for the best fit in staff cards and dialogs. The mod warns about unusually long name parts but does not silently truncate them.
