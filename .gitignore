@@ -4,3 +4,4 @@ dist/
 *.user
 __pycache__/
 *.duplicates.txt
+references/

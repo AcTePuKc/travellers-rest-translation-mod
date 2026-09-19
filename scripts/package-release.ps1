@@ -10,10 +10,10 @@ $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $pluginSource = Join-Path $repoRoot "plugin\TravellersRestTranslationMod.dll"
 $translationSource = Join-Path $repoRoot "translations\labels.$LanguageCode.txt"
-$employeeNamesSource = Join-Path $repoRoot "translations\employee-names.$LanguageCode.txt"
+$categoryLabelsSource = Join-Path $repoRoot "translations\category-labels.$LanguageCode.txt"
 $packageRoot = Join-Path $repoRoot "$OutputDir\BepInEx\plugins\TravellersRest Translation"
 $translationTarget = Join-Path $packageRoot "translations\labels.$LanguageCode.txt"
-$employeeNamesTarget = Join-Path $packageRoot "translations\employee-names.$LanguageCode.txt"
+$categoryLabelsTarget = Join-Path $packageRoot "translations\category-labels.$LanguageCode.txt"
 $configRoot = Join-Path $repoRoot "$OutputDir\BepInEx\config"
 $zipPath = Join-Path $repoRoot "$OutputDir\TravellersRestTranslationMod-$Version-$LanguageCode.zip"
 
@@ -32,8 +32,8 @@ if (Test-Path -LiteralPath $distRoot) {
 New-Item -ItemType Directory -Path (Split-Path -Parent $translationTarget), $configRoot -Force | Out-Null
 Copy-Item -LiteralPath $pluginSource -Destination $packageRoot -Force
 Copy-Item -LiteralPath $translationSource -Destination $translationTarget -Force
-if (Test-Path -LiteralPath $employeeNamesSource -PathType Leaf) {
-    Copy-Item -LiteralPath $employeeNamesSource -Destination $employeeNamesTarget -Force
+if (Test-Path -LiteralPath $categoryLabelsSource -PathType Leaf) {
+    Copy-Item -LiteralPath $categoryLabelsSource -Destination $categoryLabelsTarget -Force
 }
 
 $config = @"
@@ -51,9 +51,9 @@ EnableTranslationOverrides = true
 # Setting type: String
 TranslationFile = labels.$LanguageCode.txt
 
-## Optional localized first-name and surname pools for generated staff.
+## Optional fixed labels for employee category tab tooltips.
 # Setting type: String
-EmployeeNamesFile = employee-names.$LanguageCode.txt
+CategoryLabelsFile = category-labels.$LanguageCode.txt
 
 [UI]
 

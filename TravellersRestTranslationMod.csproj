@@ -42,6 +42,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- The utility mod is a separate project and must not be compiled into the translation DLL. -->
+    <Compile Remove="src\TravellersRestEmployeeRefresh\**" />
+    <EmbeddedResource Remove="src\TravellersRestEmployeeRefresh\**" />
+    <None Remove="src\TravellersRestEmployeeRefresh\**" />
+    <!-- Local reverse-engineering references are private and never part of a release build. -->
+    <Compile Remove="references\**\*.cs" />
+    <EmbeddedResource Remove="references\**\*" />
+    <None Remove="references\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
     <TranslationFiles Include="translations\*.txt" />
   </ItemGroup>
 

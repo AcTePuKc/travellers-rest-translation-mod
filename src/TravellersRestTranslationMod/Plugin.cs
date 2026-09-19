@@ -21,6 +21,7 @@ public sealed class Plugin : BaseUnityPlugin
     public const string PluginVersion = "0.1.0";
 
     private static readonly Dictionary<string, string> Labels = new Dictionary<string, string>(StringComparer.Ordinal);
+    private static readonly Dictionary<string, string> CategoryLabels = new Dictionary<string, string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedTerms = new HashSet<string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedSubtitles = new HashSet<string>(StringComparer.Ordinal);
     private static readonly HashSet<string> ObservedFormattedTexts = new HashSet<string>(StringComparer.Ordinal);
@@ -34,12 +35,8 @@ public sealed class Plugin : BaseUnityPlugin
     private static ConfigEntry<bool> dumpObservedItems;
     private static ConfigEntry<string> itemDumpFile;
     private static ConfigEntry<float> tutorialPanelWidthIncrease;
-    private static ConfigEntry<string> employeeNamesFile;
+    private static ConfigEntry<string> categoryLabelsFile;
     private static ConfigEntry<bool> useBuiltInDayStatsTimeUnits;
-    private static readonly List<string> MaleFirstNames = new List<string>();
-    private static readonly List<string> FemaleFirstNames = new List<string>();
-    private static readonly List<string> MaleSurnames = new List<string>();
-    private static readonly List<string> FemaleSurnames = new List<string>();
     private static string dumpPath;
     private static string itemDumpPath;
     private static string dialogueDatabaseDumpPath;
@@ -57,7 +54,7 @@ public sealed class Plugin : BaseUnityPlugin
         dumpObservedItems = Config.Bind("Debug", "DumpObservedItems", false, "Write item IDs and names when the game resolves an item name.");
         itemDumpFile = Config.Bind("Debug", "ItemDumpFile", "runtime-items.txt", "Runtime item dump filename inside the plugin translations folder.");
         tutorialPanelWidthIncrease = Config.Bind("UI", "TutorialPanelWidthIncrease", 80f, "Extra width for tutorial popups, without shrinking the text.");
-        employeeNamesFile = Config.Bind("General", "EmployeeNamesFile", "employee-names.bg.txt", "Optional localized first-name and surname pools for generated staff.");
+        categoryLabelsFile = Config.Bind("General", "CategoryLabelsFile", "category-labels.bg.txt", "Optional fixed labels for employee category tabs.");
         useBuiltInDayStatsTimeUnits = Config.Bind("UI", "UseBuiltInDayStatsTimeUnits", true, "Read hForHours and mForMins from the game's currently selected language.");
 
         var pluginDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? Paths.PluginPath;
@@ -67,7 +64,7 @@ public sealed class Plugin : BaseUnityPlugin
         itemDumpPath = Path.Combine(translationsDir, itemDumpFile.Value);
         dialogueDatabaseDumpPath = Path.Combine(translationsDir, "runtime-dialogue-database.txt");
         LoadLabels(labelsPath);
-        LoadEmployeeNames(Path.Combine(translationsDir, employeeNamesFile.Value));
+        LoadCategoryLabels(Path.Combine(translationsDir, categoryLabelsFile.Value));
         PrepareRuntimeDump();
         PrepareItemDump();
         log.LogInfo($"Observed localization dump enabled: {dumpObservedTerms.Value}");
@@ -121,19 +118,15 @@ public sealed class Plugin : BaseUnityPlugin
         }
     }
 
-    private static void LoadEmployeeNames(string path)
+    private static void LoadCategoryLabels(string path)
     {
-        MaleFirstNames.Clear();
-        FemaleFirstNames.Clear();
-        MaleSurnames.Clear();
-        FemaleSurnames.Clear();
+        CategoryLabels.Clear();
         if (!File.Exists(path))
         {
-            log.LogInfo($"Localized employee name file not found; using game defaults: {path}");
+            log.LogInfo($"Category label file not found; gendered category labels remain unchanged: {path}");
             return;
         }
 
-        var section = string.Empty;
         foreach (var rawLine in File.ReadAllLines(path, Encoding.UTF8))
         {
             var line = rawLine.Trim().TrimStart('\uFEFF');
@@ -142,33 +135,21 @@ public sealed class Plugin : BaseUnityPlugin
                 continue;
             }
 
-            if (line.StartsWith("[") && line.EndsWith("]"))
+            var separator = line.IndexOf('=');
+            if (separator <= 0)
             {
-                section = line.Substring(1, line.Length - 2);
                 continue;
             }
 
-            if (section == "MaleFirstNames") MaleFirstNames.Add(line);
-            else if (section == "FemaleFirstNames") FemaleFirstNames.Add(line);
-            else if (section == "MaleSurnames") MaleSurnames.Add(line);
-            else if (section == "FemaleSurnames") FemaleSurnames.Add(line);
+            var key = line.Substring(0, separator).Trim();
+            var value = line.Substring(separator + 1).Trim();
+            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
+            {
+                CategoryLabels[key] = DecodeValue(value);
+            }
         }
 
-        log.LogInfo($"Loaded localized employee names: male={MaleFirstNames.Count}, female={FemaleFirstNames.Count}, male surnames={MaleSurnames.Count}, female surnames={FemaleSurnames.Count}");
-    }
-
-    private static bool TryGetLocalizedEmployeeName(EmployeeInfo employee, out string name)
-    {
-        name = null;
-        var firstNames = employee.gender == Gender.Male ? MaleFirstNames : FemaleFirstNames;
-        var surnames = employee.gender == Gender.Male ? MaleSurnames : FemaleSurnames;
-        if (firstNames.Count == 0 || surnames.Count == 0)
-        {
-            return false;
-        }
-
-        name = $"{firstNames[UnityEngine.Random.Range(0, firstNames.Count)]} {surnames[UnityEngine.Random.Range(0, surnames.Count)]}";
-        return true;
+        log.LogInfo($"Loaded fixed category labels: {CategoryLabels.Count}");
     }
 
     private static string DecodeValue(string value)
@@ -529,14 +510,54 @@ public sealed class Plugin : BaseUnityPlugin
 
     private static void ApplyTranslationOverride(string term, ref string result)
     {
+        if (enableTranslationOverrides.Value && TryGetCategoryLabelOverride(term, out var categoryReplacement))
+        {
+            result = categoryReplacement;
+            DumpObservedTerm(term, result);
+            return;
+        }
+
         var useBuiltInDayStatsTerm = useBuiltInDayStatsTimeUnits.Value &&
             (string.Equals(term, "hForHours", StringComparison.Ordinal) || string.Equals(term, "mForMins", StringComparison.Ordinal));
-        if (enableTranslationOverrides.Value && !useBuiltInDayStatsTerm && Labels.TryGetValue(term, out var replacement))
+        if (enableTranslationOverrides.Value && !useBuiltInDayStatsTerm && TryGetLabelOverride(term, out var replacement))
         {
             result = replacement;
         }
 
         DumpObservedTerm(term, result);
+    }
+
+    private static bool TryGetCategoryLabelOverride(string term, out string replacement)
+    {
+        replacement = null;
+        if (!CategoryLabels.TryGetValue(term, out replacement))
+        {
+            return false;
+        }
+
+        // Category tooltips call LocalisationSystem.Get from TabUI. The
+        // profession UI uses GetStringWithTags elsewhere, so it keeps the
+        // gender-aware ...Gender path untouched.
+        return Environment.StackTrace.IndexOf("TabUI", StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
+    private static bool TryGetLabelOverride(string term, out string replacement)
+    {
+        if (Labels.TryGetValue(term, out replacement))
+        {
+            return true;
+        }
+
+        // Runtime perk lookups include the Perks/ sheet prefix, while the
+        // generated labels file stores these keys without that prefix.
+        if (term.StartsWith("Perks/", StringComparison.Ordinal) &&
+            Labels.TryGetValue(term.Substring("Perks/".Length), out replacement))
+        {
+            return true;
+        }
+
+        replacement = null;
+        return false;
     }
 
     private static bool TryGetActorDisplayName(string actorName, out string replacement)
@@ -787,23 +808,6 @@ public sealed class Plugin : BaseUnityPlugin
 
             var actorName = __0.GetType().GetProperty("Name")?.GetValue(__0, null)?.ToString();
             if (TryGetActorDisplayName(actorName, out var replacement))
-            {
-                __result = replacement;
-            }
-        }
-    }
-
-    [HarmonyPatch]
-    private static class EmployeeInfo_GenerateNamePatch
-    {
-        private static MethodBase TargetMethod()
-        {
-            return AccessTools.Method(typeof(EmployeeInfo), "HHNGPPLGHML");
-        }
-
-        private static void Postfix(EmployeeInfo __instance, ref string __result)
-        {
-            if (TryGetLocalizedEmployeeName(__instance, out var replacement))
             {
                 __result = replacement;
             }

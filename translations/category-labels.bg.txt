@@ -1,0 +1,6 @@
+# Fixed, gender-neutral labels used only by employee category tab tooltips.
+# Profession labels continue to use the gender-aware ...Gender entries.
+Bouncer=Охранител
+Waiter=Сервитьор
+Bartender=Барман
+HouseKeeper=Камериер

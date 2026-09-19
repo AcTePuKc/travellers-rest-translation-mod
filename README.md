@@ -1,8 +1,17 @@
-# Travellers Rest Translation Loader
+# Travellers Rest Mods
 
-Minimal, language-neutral BepInEx 5 plugin for testing translations in Travellers Rest.
+A small collection of independent BepInEx 5 mods for Travellers Rest. Each mod has its own DLL, configuration, release ZIP, and install folder; installing one never requires installing the others.
 
-## Installation for players and translators
+| Mod | Purpose | Install folder |
+| --- | --- | --- |
+| Translation Loader | Loads a selected `labels.<language>.txt` file, provides optional QA dumps, category-label overrides, and a Day Stats time-unit workaround. | `BepInEx/plugins/TravellersRest Translation/` |
+| EmployeeRefresh | Refreshes available staff candidates, loads optional local employee name pools, and resizes the hire-staff window. | `BepInEx/plugins/EmployeeRefresh/` |
+
+Private research material is kept outside the published project and is ignored by Git.
+
+## Translation Loader
+
+### Installation for players and translators
 
 1. Download the official [BepInEx 5.4.21 x64 release](https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21). Select `BepInEx_x64_5.4.21.0.zip`.
 2. Extract the contents of the BepInEx ZIP into the folder that contains `TravellersRest.exe`:
@@ -16,7 +25,37 @@ Minimal, language-neutral BepInEx 5 plugin for testing translations in Traveller
 5. Extract that ZIP into the same `Windows` folder. It already contains the required `BepInEx/plugins` and `BepInEx/config` paths.
 6. Start the game again.
 
-The generated config is:
+## EmployeeRefresh
+
+`EmployeeRefresh` is a separate utility mod. It is independent from the Translation Loader, and the Translation Loader does not load or modify employee names.
+
+It provides:
+
+- a Refresh button and configurable `F6` hotkey for new staff candidates;
+- optional, language-specific employee first-name and surname pools;
+- a configurable taller hiring window, without reducing the game font size.
+
+Install its own release ZIP into the game's `Windows` folder. Do not extract an EmployeeRefresh ZIP over the Translation Loader ZIP or vice versa; both archives contain their own correct plugin path and may safely coexist.
+
+EmployeeRefresh keeps its language-specific name pools in:
+
+```text
+Travellers Rest\Windows\BepInEx\plugins\EmployeeRefresh\translations\
+```
+
+Use `MaleFirstNames` and `FemaleFirstNames`, plus either gendered `MaleSurnames` / `FemaleSurnames` or one shared `Surnames` section. Keep each first name and surname short—preferably no more than 8–9 characters, with shorter entries fitting best in the UI. The mod warns about longer entries instead of silently truncating them. See [employee-refresh/README.md](employee-refresh/README.md) for the file format.
+
+The EmployeeRefresh config is:
+
+```text
+Travellers Rest\Windows\BepInEx\config\actepukc.travellersrest.employee-refresh.cfg
+```
+
+Use `EmployeeNamesFile` to select the name pool, `RefreshHotkey` to change or disable the hotkey, `ButtonGap` to position the Refresh button, and the `[Window]` settings to change the hiring-window size. Full file-format and configuration details are in [employee-refresh/README.md](employee-refresh/README.md).
+
+## Translation Loader configuration
+
+The Translation Loader config is:
 
 ```text
 Travellers Rest\Windows\BepInEx\config\actepukc.travellersrest.translation.cfg
@@ -66,7 +105,9 @@ The plugin reads the configured file from `translations/` and applies matching e
 
 Each language should use its own file, for example `labels.bg.txt`, `labels.de.txt`, or `labels.example.txt`. The plugin contains no language-specific text.
 
-## Local build
+## Local builds
+
+### Translation Loader
 
 ```powershell
 .\scripts\build-and-install.ps1
@@ -79,6 +120,18 @@ Travellers Rest\Windows\BepInEx\plugins\TravellersRest Translation\
 ```
 
 For local testing, select a language file in the config, for example `TranslationFile = labels.example.txt`.
+
+### EmployeeRefresh
+
+```powershell
+dotnet build .\src\TravellersRestEmployeeRefresh\TravellersRestEmployeeRefresh.csproj -c Release
+```
+
+The project stages its DLL and every file from `employee-refresh/translations/` in the EmployeeRefresh plugin folder. To create a standalone ZIP with all bundled name pools after building:
+
+```powershell
+.\scripts\package-employee-refresh.ps1 -Version 0.1.0
+```
 
 ## Dump runtime localization terms
 
@@ -109,9 +162,11 @@ Releases contain a ready-to-install ZIP. No .NET SDK, compiler, game assemblies,
 
 Extract the ZIP into the game's `Windows` folder. The archive already contains the required `BepInEx/plugins` and `BepInEx/config` paths.
 
-## GitHub Actions packaging
+## Translation Loader GitHub Actions packaging
 
 The `Build Translation Release` workflow packages one selected language file. Run it manually with a language code such as `bg`, `de`, or `fr`, and provide the release version. A version tag such as `v0.1.0` packages the default `bg` language and publishes a GitHub Release.
+
+EmployeeRefresh is packaged separately with `scripts/package-employee-refresh.ps1`; it must never be bundled into a translation release because users may want either mod on its own.
 
 ## Convert a Crowdin labels file
 

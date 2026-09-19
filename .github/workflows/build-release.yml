@@ -1,4 +1,4 @@
-name: Build Translation Release
+name: Build Translation Loader Release
 
 on:
   workflow_dispatch:
