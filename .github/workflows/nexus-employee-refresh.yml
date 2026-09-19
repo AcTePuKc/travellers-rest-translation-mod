@@ -1,0 +1,119 @@
+name: Publish EmployeeRefresh Release to Nexus
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Published EmployeeRefresh release tag, for example employee-refresh-v0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nexus-employee-refresh-${{ github.event.release.tag_name || inputs.release_tag }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'employee-refresh-v')) || (github.event_name == 'workflow_dispatch' && startsWith(inputs.release_tag, 'employee-refresh-v')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve release tag
+        id: release
+        shell: pwsh
+        run: |
+          $tag = if ("${{ github.event_name }}" -eq "workflow_dispatch") { "${{ inputs.release_tag }}" } else { "${{ github.event.release.tag_name }}" }
+          if ($tag -notmatch '^employee-refresh-v(\d+\.\d+\.\d+)$') {
+            throw "Unsupported release tag '$tag'."
+          }
+          "tag=$tag" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "version=$($Matches[1])" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Checkout the release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.tag }}
+
+      - name: Download the GitHub release archive
+        id: asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-asset
+          gh release download '${{ steps.release.outputs.tag }}' --pattern 'EmployeeRefresh-*.zip' --dir release-asset
+          asset=$(find release-asset -maxdepth 1 -name 'EmployeeRefresh-*.zip' -type f | head -n 1)
+          test -n "$asset"
+          echo "path=$asset" >> "$GITHUB_OUTPUT"
+          echo "name=$(basename "$asset")" >> "$GITHUB_OUTPUT"
+
+      - name: Build Nexus file notes
+        id: notes
+        shell: pwsh
+        run: |
+          $changes = Get-Content 'employee-refresh/changelog.txt' | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+          $description = "[b]Changes in v${{ steps.release.outputs.version }}[/b]`n[list]`n" + (($changes | ForEach-Object { "[*]$_[/*]" }) -join "`n") + "`n[/list]"
+          $marker = "NEXUS_DESCRIPTION_$([guid]::NewGuid().ToString('N'))"
+          "description<<$marker" | Add-Content $env:GITHUB_OUTPUT
+          $description | Add-Content $env:GITHUB_OUTPUT
+          $marker | Add-Content $env:GITHUB_OUTPUT
+
+      - name: Validate Nexus configuration
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_EMPLOYEEREFRESH }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$NEXUS_API_KEY" || { echo 'NEXUSMODS_API_KEY is missing.' >&2; exit 1; }
+          test -n "$NEXUS_MOD_ID" || { echo 'NEXUS_MOD_ID_EMPLOYEEREFRESH is missing.' >&2; exit 1; }
+
+      - name: Load Nexus upload mode
+        id: nexus
+        env:
+          NEXUS_FILE_ID: ${{ secrets.NEXUS_FILE_ID_EMPLOYEEREFRESH }}
+        shell: bash
+        run: |
+          if [[ -n "$NEXUS_FILE_ID" ]]; then echo 'has_file=true' >> "$GITHUB_OUTPUT"; else echo 'has_file=false' >> "$GITHUB_OUTPUT"; fi
+
+      - name: Validate Nexus page before upload
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_EMPLOYEEREFRESH }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          status=$(curl --silent --show-error --output nexus-mod.json --write-out '%{http_code}' --header "apikey: $NEXUS_API_KEY" "https://api.nexusmods.com/v3/games/travellersrest/mods/$NEXUS_MOD_ID")
+          if [[ "$status" != '200' ]]; then cat nexus-mod.json >&2 || true; exit 1; fi
+
+      - name: Bootstrap the first Nexus file
+        if: ${{ steps.nexus.outputs.has_file == 'false' }}
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_GAME_DOMAIN: travellersrest
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_EMPLOYEEREFRESH }}
+          RELEASE_ASSET: ${{ steps.asset.outputs.path }}
+          MOD_VERSION: ${{ steps.release.outputs.version }}
+          MOD_DISPLAY_NAME: EmployeeRefresh
+          MOD_DESCRIPTION: ${{ steps.notes.outputs.description }}
+          MOD_FILE_CATEGORY: main
+        run: node .github/scripts/nexus-bootstrap-upload.mjs
+
+      - name: Update existing Nexus file
+        if: ${{ steps.nexus.outputs.has_file == 'true' }}
+        uses: Nexus-Mods/upload-action@c96019556046053aa26044b44396cd38929daf23
+        with:
+          api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+          file_id: ${{ secrets.NEXUS_FILE_ID_EMPLOYEEREFRESH }}
+          filename: ${{ steps.asset.outputs.path }}
+          version: ${{ steps.release.outputs.version }}
+          display_name: EmployeeRefresh
+          description: ${{ steps.notes.outputs.description }}
+          category: main
+          archive_existing_version: false
+          update_mod_version: true

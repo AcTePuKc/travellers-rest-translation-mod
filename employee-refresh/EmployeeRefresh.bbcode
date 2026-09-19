@@ -1,0 +1,42 @@
+[center][size=5][b]EmployeeRefresh[/b][/size][/center]
+
+[b]Overview[/b]
+EmployeeRefresh is a standalone utility mod for Travellers Rest. It refreshes the available staff candidates, optionally replaces their generated names from language files, and makes the staff hiring window easier to use on smaller displays or higher DPI settings.
+
+It is independent from the Travellers Rest Translation Loader. You may install either mod on its own, or both together.
+
+[b]Features[/b]
+[list]
+[*]Refresh button in the staff hiring window.[/*]
+[*]Configurable F6 hotkey while the staff hiring window is open.[/*]
+[*]Language-specific employee-name files selectable through Mod Config Menu or the BepInEx config.[/*]
+[*]Separate male/female surnames for languages with gendered family names.[/*]
+[*]One shared surname list for languages whose surnames do not change by gender.[/*]
+[*]Live name-file switching: changing the selected file reloads it and refreshes the candidates.[/*]
+[*]Configurable staff-window height and vertical position, without reducing the game font size.[/*]
+[/list]
+
+[b]Requirements[/b]
+[list]
+[*]Travellers Rest for Windows.[/*]
+[*][url=https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21]BepInEx 5.4.21 x64[/url] or a compatible BepInEx 5 installation.[/*]
+[/list]
+
+[b]Installation[/b]
+[list=1]
+[*]Install BepInEx in the folder containing [code]TravellersRest.exe[/code] and start the game once.[/*]
+[*]Extract this archive into Travellers Rest's [code]Windows[/code] folder.[/*]
+[*]The mod will be installed to [code]BepInEx\plugins\EmployeeRefresh[/code].[/*]
+[*]Start the game. The configuration file is created at [code]BepInEx\config\actepukc.travellersrest.employee-refresh.cfg[/code].[/*]
+[/list]
+
+[b]Name files and configuration[/b]
+The release includes Bulgarian and Italian name pools. Select one with [code]EmployeeNamesFile[/code] in Mod Config Menu or in the configuration file. The selected file is reloaded immediately; the open staff list is refreshed automatically.
+
+Use [code]RefreshHotkey[/code] to change or clear F6, [code]ButtonGap[/code] to change the spacing of the Refresh button, and the [code][Window][/code] settings to adjust the staff-window size and position.
+
+[b]Notes[/b]
+Keep first names and surnames short for the best fit in staff cards and dialogs. The mod warns about unusually long name parts but does not silently truncate them.
+
+[b]Source and issues[/b]
+Source code, release notes, and issue tracking are available on [url=https://github.com/AcTePuKc/travellers-rest-translation-mod]GitHub[/url].

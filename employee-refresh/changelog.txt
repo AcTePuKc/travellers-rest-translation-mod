@@ -1,0 +1,6 @@
+Initial public release of EmployeeRefresh
+Adds a Refresh button and configurable F6 hotkey for staff candidates
+Supports gendered surnames and shared surnames for different language rules
+Includes Bulgarian and Italian employee-name pools
+Supports live switching of employee-name files through Mod Config Menu
+Adds configurable staff hiring window sizing
