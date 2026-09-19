@@ -5,7 +5,7 @@
     <Nullable>disable</Nullable>
     <AssemblyName>TravellersRestEmployeeRefresh</AssemblyName>
     <RootNamespace>TravellersRestEmployeeRefresh</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <ImplicitUsings>disable</ImplicitUsings>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GameDir Condition="'$(GameDir)' == ''">F:\SteamLibrary\steamapps\common\Travellers Rest\Windows</GameDir>

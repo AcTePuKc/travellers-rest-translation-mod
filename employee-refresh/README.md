@@ -9,7 +9,18 @@
 3. Click **Refresh** or press `F6` to generate a new set of candidates.
 4. Optionally install [Mod Config Menu](https://www.nexusmods.com/travellersrest/mods/95) to change the name file, hotkey, button spacing, and window layout in-game.
 
-EmployeeRefresh includes Bulgarian and Italian name pools. Change `EmployeeNamesFile` in Mod Config Menu or the BepInEx config to switch between them. The selected file is reloaded immediately and any open staff list refreshes automatically.
+EmployeeRefresh is non-invasive by default: it keeps the game's names and the vanilla window size. To use any bundled name pool, enable `EnableNameOverrides` and change `EmployeeNamesFile` in Mod Config Menu or the BepInEx config. The selected file is reloaded immediately and any open staff list refreshes automatically when candidate refresh is enabled.
+
+```ini
+[Features]
+EnableNameOverrides = false
+EnableCandidateRefresh = true
+RefreshLimitPerDay = 0
+```
+
+`EnableCandidateRefresh = false` removes both the button and hotkey, leaving the mod available only for names and/or the window layout.
+
+`RefreshLimitPerDay` controls manual Refresh uses per in-game day. `0` is unlimited (the default); `1` allows one use, `2` allows two, and so on. The button shows the used limit, for example `Refresh (1/3)`, and becomes unavailable until the next day after the limit is reached. Changing the name-pool file does not consume a daily use.
 
 ## Name pools and localization
 
@@ -32,11 +43,13 @@ The file uses separate first-name sections and either gendered surname sections 
 
 [UI]
 RefreshButton=Refresh
+RefreshRemaining={0} ({1}/{2})
+RefreshAvailableTomorrow=Refresh tomorrow
 ```
 
 Keep first names and surnames short so they fit the staff cards and dialogs. The recommended maximum is 9 characters per name part; shorter is better. EmployeeRefresh warns about longer entries but does not silently cut them off.
 
-The employee-name loader is intentionally owned only by EmployeeRefresh. This prevents the translation DLL and the utility DLL from patching the same game method and producing unpredictable results.
+The selected file also localizes EmployeeRefresh's own button text, even if `EnableNameOverrides` is disabled. The employee-name loader itself is intentionally owned only by EmployeeRefresh. This prevents the translation DLL and the utility DLL from patching the same game method and producing unpredictable results.
 
 To create a new name pool, copy one of the bundled `employee-names.*.txt` files, rename it, and select the new filename through `EmployeeNamesFile`. You can contribute it through a [pull request](https://github.com/AcTePuKc/travellers-rest-translation-mod/pulls) or publish a separate pool on Nexus.
 
@@ -49,11 +62,13 @@ The game exposes its own candidate generator as `StaffManager.CreateRandomOption
 RefreshHotkey = F6
 ```
 
-Leave the value empty to disable the hotkey. The button text is loaded from the same selected employee-name file, so each language can provide its own label in `[UI]`:
+Leave the value empty to disable the hotkey. The button text and daily-limit messages are loaded from the same selected employee-name file, so each language can provide its own labels in `[UI]`:
 
 ```text
 [UI]
 RefreshButton=Обнови
+RefreshRemaining={0} ({1}/{2})
+RefreshAvailableTomorrow=Обнови утре
 ```
 
 If this entry is missing, EmployeeRefresh tries the game's `Refresh` key and finally uses the config fallback.
@@ -77,4 +92,4 @@ GrowUpward = true
 VerticalOffset = 40
 ```
 
-The value is a percentage multiplier: `1.25` means 125% of the original height. `VerticalOffset` moves the whole hiring window upward in UI units; increase it if the bottom controls are too close to the screen edge.
+The default values are `HeightMultiplier = 1` and `VerticalOffset = 0`, which preserve the vanilla layout. The value is a percentage multiplier: `1.25` means 125% of the original height. `VerticalOffset` moves the whole hiring window upward in UI units; increase it if the bottom controls are too close to the screen edge.

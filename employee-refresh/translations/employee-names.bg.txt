@@ -3,6 +3,8 @@
 
 [UI]
 RefreshButton=Обнови
+RefreshRemaining={0} ({1}/{2})
+RefreshAvailableTomorrow=Обнови утре
 
 
 [MaleFirstNames]

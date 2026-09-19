@@ -9,6 +9,7 @@ It is independent from the Travellers Rest Translation Loader. You may install e
 [list]
 [*][color=#d9ead3]Refresh button in the staff hiring window.[/color][/*]
 [*][color=#93c47d]Configurable F6 hotkey while the staff hiring window is open.[/color][/*]
+[*][color=#d9ead3]Optional daily limit for manual Refresh uses.[/color][/*]
 [*][color=#a2c4c9]Language-specific employee-name files selectable through [url=https://www.nexusmods.com/travellersrest/mods/95]Mod Config Menu [/url]or the BepInEx config.[/color][/*]
 [*][color=#cfe2f3]Separate male/female surnames for languages with gendered family names.[/color][/*]
 [*][color=#d9ead3]One shared surname list for languages whose surnames do not change by gender.[/color][/*]
@@ -22,6 +23,8 @@ It is independent from the Travellers Rest Translation Loader. You may install e
 [*]Use the [b]Refresh[/b] button or press [b]F6[/b] to generate a new set of candidates.[/*]
 [*]Optional: install [url=https://www.nexusmods.com/travellersrest/mods/95]Mod Config Menu[/url] to change the name file, hotkey, button spacing, and window layout in-game.[/*]
 [/list]
+
+The default configuration is non-invasive: it preserves the game's names and the vanilla window size. Enable only the features you want.
 
 [b]Requirements[/b]
 [list]
@@ -46,9 +49,9 @@ folder.[/*]
 [/list]
 
 [b]Name files and configuration[/b]
-The release includes Bulgarian and Italian name pools. Select one with
+The release includes Arabic, Bulgarian, German, Spanish, French, Italian, Polish, Russian, Turkish, and Ukrainian name pools. Select one with
 [code]EmployeeNamesFile[/code]
-in Mod Config Menu or in the configuration file. The selected file is reloaded immediately; the open staff list is refreshed automatically.
+in Mod Config Menu or in the configuration file, then set [code]EnableNameOverrides=true[/code]. The selected file is reloaded immediately; the open staff list is refreshed automatically when candidate refresh is enabled.
 
 Use
 [code]RefreshHotkey[/code]
@@ -57,6 +60,10 @@ to change or clear F6,
 to change the spacing of the Refresh button, and the
 [code][Window][/code]
 settings to adjust the staff-window size and position.
+
+Set [code]EnableCandidateRefresh=false[/code] to remove both the Refresh button and F6 while keeping name pools and window layout available. Set [code]HeightMultiplier=1[/code] and [code]VerticalOffset=0[/code] for the vanilla window layout.
+
+[code]RefreshLimitPerDay=0[/code] keeps Refresh unlimited. Set it to [code]1[/code], [code]2[/code], or another positive number to limit manual button/F6 Refresh uses per in-game day. The button displays the used limit and becomes unavailable until the next day when the limit is reached. Switching the selected name file does not consume a daily use.
 
 [b]Adding a language or name pool[/b]
 Copy one of the bundled [code]employee-names.*.txt[/code] files from
@@ -77,7 +84,11 @@ Each file has male and female first-name sections. For surnames, use either sepa
 
 [UI]
 RefreshButton=Refresh
+RefreshRemaining={0} ({1}/{2})
+RefreshAvailableTomorrow=Refresh tomorrow
 [/code]
+
+The selected file supplies these UI labels even when [code]EnableNameOverrides=false[/code], allowing the mod controls to be localized independently from the generated names.
 
 [b]Adding new names[/b]
 The menu label and name pools are localizable. You can write a file yourself or use a language model to help build a first draft, then review the names for your language and style.

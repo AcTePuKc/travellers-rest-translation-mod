@@ -3,10 +3,11 @@
 
 [UI]
 RefreshButton=Aggiorna
+RefreshRemaining={0} ({1}/{2})
+RefreshAvailableTomorrow=Aggiorna domani
 
 [MaleFirstNames]
 Alberto
-Alessandro
 Alessio
 Andrea
 Angelo
@@ -148,7 +149,6 @@ Orlando
 Pagano
 Palmieri
 Parisi
-Pellegrini
 Piras
 Rizzo
 Romano
