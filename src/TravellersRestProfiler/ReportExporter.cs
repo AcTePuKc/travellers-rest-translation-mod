@@ -23,7 +23,7 @@ public static class ReportExporter
         var builder = new StringBuilder();
         var generated = DateTime.Now;
 
-        builder.AppendLine("Travellers Rest Profiler report");
+        builder.AppendLine("Travellers Rest Performance Diagnostic report");
         builder.AppendLine("================================");
         builder.AppendLine($"Generated      : {generated:yyyy-MM-dd HH:mm:ss}");
         builder.AppendLine($"Game version   : {gameVersion}");

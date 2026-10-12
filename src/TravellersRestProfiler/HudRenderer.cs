@@ -107,7 +107,7 @@ public sealed class HudRenderer : MonoBehaviour
         var textWidth = width - padding * 2;
         var textY = box.y + padding;
 
-        GUI.Label(new Rect(textX, textY, textWidth, lineHeight), "Travellers Rest profiler", style);
+        GUI.Label(new Rect(textX, textY, textWidth, lineHeight), "Performance Diagnostic", style);
         textY += lineHeight;
         GUI.Label(new Rect(textX, textY, textWidth, lineHeight), ProfilerRuntime.StatusLine(), style);
         textY += lineHeight;
