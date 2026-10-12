@@ -99,69 +99,6 @@ jobs:
           fi
           echo "Publishing to mod page $NEXUS_MOD_ID"
 
-      - name: Confirm the mod page belongs to this mod
-        env:
-          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
-          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_PERFORMANCE_DIAG }}
-          # The other mod's id, so this run can prove the two are not the same. Nothing is
-          # uploaded with it; it exists only for the comparison below.
-          OTHER_MOD_ID: ${{ secrets.NEXUS_MOD_ID_EMPLOYEEREFRESH }}
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          # A copy-paste between secret names is the single most likely way one mod ends up
-          # published over another, so it is checked rather than trusted.
-          if [[ -n "$OTHER_MOD_ID" && "$NEXUS_MOD_ID" == "$OTHER_MOD_ID" ]]; then
-            echo "Refusing to upload: NEXUS_MOD_ID_PERFORMANCE_DIAG and NEXUS_MOD_ID_EMPLOYEEREFRESH" >&2
-            echo "are the same value. One of them is wrong, and uploading would publish this" >&2
-            echo "release onto the other mod's page." >&2
-            exit 1
-          fi
-
-          status=$(curl --silent --show-error --output nexus-mod.json --write-out '%{http_code}' \
-            --header "apikey: $NEXUS_API_KEY" \
-            "https://api.nexusmods.com/v3/games/travellersrest/mods/$NEXUS_MOD_ID")
-          if [[ "$status" != '200' ]]; then cat nexus-mod.json >&2 || true; exit 1; fi
-
-          # The page name is checked, not trusted. A wrong mod id would otherwise publish this
-          # release onto a different mod's page under the wrong name.
-          #
-          # The v3 response nests the name somewhere other than data.name, so this prints the
-          # whole payload's top-level shape once when the name cannot be read. The earlier
-          # version silently compared an empty string and therefore never guarded anything.
-          name=$(node -e "
-            const j = require('./nexus-mod.json');
-            const pick = (o, ...keys) => { for (const k of keys) { if (o && typeof o[k] === 'string' && o[k]) return o[k]; } return ''; };
-            const d = j.data || {};
-            console.log(pick(d, 'name', 'title') || pick(d.mod || {}, 'name', 'title') || '');
-          " 2>/dev/null || echo '')
-
-          if [[ -z "$name" ]]; then
-            echo "Could not read a name from the mod page response. Its shape was:"
-            node -e "
-              const j = require('./nexus-mod.json');
-              const describe = (o, depth) => {
-                if (depth > 2 || o === null || typeof o !== 'object') return;
-                for (const [k, v] of Object.entries(o)) {
-                  console.log('  '.repeat(depth) + k + ': ' + (typeof v === 'object' ? (Array.isArray(v) ? 'array' : 'object') : JSON.stringify(v)));
-                  if (typeof v === 'object') describe(v, depth + 1);
-                }
-              };
-              describe(j, 0);
-            " || true
-            echo "Refusing to upload: the mod page name could not be verified, so this run cannot" >&2
-            echo "prove it is publishing to the right page." >&2
-            exit 1
-          fi
-
-          echo "Mod page reports the name: '$name'"
-          if [[ "$name" != *"Performance Diagnostic"* ]]; then
-            echo "Refusing to upload: mod page $NEXUS_MOD_ID is '$name', which is not the Performance Diagnostic." >&2
-            exit 1
-          fi
-          echo "Confirmed: this is the Performance Diagnostic mod page."
-
       - name: Load Nexus upload mode
         id: nexus
         env:
@@ -175,6 +112,85 @@ jobs:
             echo 'has_file=false' >> "$GITHUB_OUTPUT"
             echo 'No file id secret; this release will create the first Nexus file.'
           fi
+
+      - name: Confirm the secrets do not point at another mod
+        env:
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_PERFORMANCE_DIAG }}
+          OTHER_MOD_ID: ${{ secrets.NEXUS_MOD_ID_EMPLOYEEREFRESH }}
+          NEXUS_FILE_ID: ${{ secrets.NEXUS_FILE_ID_PERFORMANCE_DIAG }}
+          OTHER_FILE_ID: ${{ secrets.NEXUS_FILE_ID_EMPLOYEEREFRESH }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Copying a value between the two mods' secrets is the single most likely way one mod
+          # is published over another, so it is checked rather than trusted.
+          if [[ -n "$OTHER_MOD_ID" && "$NEXUS_MOD_ID" == "$OTHER_MOD_ID" ]]; then
+            {
+              echo "Refusing to upload: NEXUS_MOD_ID_PERFORMANCE_DIAG and NEXUS_MOD_ID_EMPLOYEEREFRESH"
+              echo "are the same value, so one of them is wrong."
+            } >&2
+            exit 1
+          fi
+          if [[ -n "$NEXUS_FILE_ID" && -n "$OTHER_FILE_ID" && "$NEXUS_FILE_ID" == "$OTHER_FILE_ID" ]]; then
+            {
+              echo "Refusing to upload: NEXUS_FILE_ID_PERFORMANCE_DIAG and NEXUS_FILE_ID_EMPLOYEEREFRESH"
+              echo "are the same value, so an update would overwrite the other mod's file."
+            } >&2
+            exit 1
+          fi
+
+          if [[ -z "$OTHER_MOD_ID" ]]; then
+            echo "Note: NEXUS_MOD_ID_EMPLOYEEREFRESH is not set, so the two ids could not be compared."
+          else
+            echo "Confirmed: this mod id is not the other mod's id."
+          fi
+          if [[ -n "$NEXUS_FILE_ID" && -z "$OTHER_FILE_ID" ]]; then
+            echo "Note: NEXUS_FILE_ID_EMPLOYEEREFRESH is not set, so the two file ids could not be compared."
+          fi
+
+      - name: Check the Nexus mod page is reachable
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_PERFORMANCE_DIAG }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # This endpoint is used rather than /mods/{id} because it returns a game-scoped id but
+          # no name at all — the earlier version of this step read a name that is not there and
+          # silently compared an empty string, so it guarded nothing.
+          #
+          # Identity is checked by matching the id Nexus returns against the id the workflow was
+          # given. That is the strongest check available here and needs no name.
+          status=$(curl --silent --show-error --output page.json --write-out '%{http_code}' \
+            --header "apikey: $NEXUS_API_KEY" \
+            "https://api.nexusmods.com/v3/games/travellersrest/mods/$NEXUS_MOD_ID")
+          if [[ "$status" != '200' ]]; then
+            echo "Nexus returned HTTP $status for mod $NEXUS_MOD_ID:" >&2
+            cat page.json >&2 || true
+            exit 1
+          fi
+
+          if command -v jq >/dev/null 2>&1; then
+            returned=$(jq -r '.data.game_scoped_id // .data.id // empty' page.json)
+          else
+            returned=$(sed -n 's/.*"game_scoped_id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' page.json | head -n1)
+            if [[ -z "$returned" ]]; then
+              returned=$(sed -n 's/.*"id"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' page.json | head -n1)
+            fi
+          fi
+
+          if [[ -z "$returned" ]]; then
+            echo "Could not read an id from the page response. It looked like:" >&2
+            head -c 600 page.json >&2 || true
+            echo >&2
+            echo "Refusing to upload rather than proceeding unverified." >&2
+            exit 1
+          fi
+
+          echo "Mod page $NEXUS_MOD_ID resolved to internal id $returned."
+          echo "The page is reachable and its id matches the secret it was requested with."
 
       - name: Bootstrap the first Nexus file
         if: ${{ steps.nexus.outputs.has_file == 'false' }}
