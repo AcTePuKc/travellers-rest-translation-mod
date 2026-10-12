@@ -1,0 +1,20 @@
+# Normalise line endings in the repository.
+#
+# Without this, core.autocrlf on Windows converts every text file on checkout and Git reports
+# whole files as changed when only the endings differ, which makes every diff unreadable. These
+# files are text and should be stored with LF; the working copy can be either.
+* text=auto eol=lf
+
+# Windows script and config files are consumed by tools that expect CRLF, so they keep it,
+# except the AutoHotkey scripts, which misbehave with LF: they start and then silently do
+# nothing at all.
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ahk text eol=crlf
+
+# Binaries must be left alone.
+*.dll binary
+*.exe binary
+*.png binary
+*.zip binary

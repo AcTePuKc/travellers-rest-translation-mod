@@ -1,0 +1,92 @@
+name: Build Performance Diagnostic Release
+
+# Packages the Performance Diagnostic and publishes a GitHub release for it.
+#
+# This runs on the tag prefix the Nexus workflow expects, profiler-v*, so the two connect:
+#
+#   push tag profiler-v0.1.0
+#     -> this workflow packages TravellersRestProfiler-0.1.0.zip and creates the release
+#     -> nexus-performance-diagnostic.yml sees the published release and uploads it
+#
+# No build step, deliberately. This project references the game's own assemblies, which a
+# runner does not have, so the committed DLL in profiler\ is what gets packaged. Refresh it
+# with build-and-install.ps1 after changing the source.
+#
+# The tag prefix is profiler-v rather than performance-diagnostic-v so it stays consistent with
+# the archive name and with the secret names already in use.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version, for example 0.1.0
+        required: true
+        default: 0.1.0
+        type: string
+  push:
+    tags:
+      - 'profiler-v*'
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Resolve release inputs
+        id: release
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq "push") {
+            $version = "${{ github.ref_name }}".Replace("profiler-v", "")
+          }
+          else {
+            $version = "${{ inputs.version }}"
+          }
+
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            throw "Version must use semantic version format: $version"
+          }
+          "version=$version" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Package the release
+        shell: pwsh
+        run: .\scripts\package-profiler.ps1 -Version "${{ steps.release.outputs.version }}"
+
+      - name: Confirm the archive is the right mod
+        shell: pwsh
+        run: |
+          # A release that carries another mod's archive would be uploaded to the wrong Nexus
+          # page, so the name is checked here as well as in the upload workflow.
+          $zips = Get-ChildItem .\dist\TravellersRestProfiler-*.zip
+          if (-not $zips) { throw "No TravellersRestProfiler archive was produced." }
+          foreach ($zip in $zips) {
+            Write-Host "Packaged $($zip.Name) ($($zip.Length) bytes)"
+          }
+          $others = Get-ChildItem .\dist\*.zip | Where-Object { $_.Name -notlike 'TravellersRestProfiler-*' }
+          if ($others) {
+            Write-Host "Other archives also present, which is expected and ignored:"
+            $others | ForEach-Object { Write-Host "  $($_.Name)" }
+          }
+
+      - name: Upload the package as a workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TravellersRestProfiler-${{ steps.release.outputs.version }}
+          path: dist/TravellersRestProfiler-*.zip
+
+      - name: Publish the GitHub release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          gh release create "${{ github.ref_name }}" `
+            (Get-ChildItem .\dist\TravellersRestProfiler-*.zip).FullName `
+            --repo "${{ github.repository }}" `
+            --title "Travellers Rest Performance Diagnostic ${{ github.ref_name }}" `
+            --generate-notes

@@ -1,0 +1,70 @@
+[center][color=#e6b85c][b]TRAVELLERS REST TRANSLATION LOADER[/b][/color][/center]
+
+[b]What it does[/b]
+Travellers Rest Translation Loader is a translation workbench. It loads a [b]labels.<language>.txt[/b] file and applies those strings through the game's own I2 Localization system, so a translation can be reviewed in the real game with the correct fonts, wrapping and rich-text effects.
+
+The plugin is generic and contains no language-specific text. It ships with the Bulgarian translation as a worked example, and works with any language file you add.
+
+This is a review tool for translators and for anyone who wants an early look at work in progress. Finished translations are delivered through the game's Crowdin project and arrive in a normal game update.
+
+[b]Highlights[/b]
+[list]
+[*][color=#d9ead3]See a translation in the real game[/color] instead of guessing from a spreadsheet.[/*]
+[*][color=#d9ead3]Works with any language[/color]; the plugin itself carries no translations.[/*]
+[*][color=#d9ead3]Translator-friendly dumps[/color] that list every localization key the running game actually asks for.[/*]
+[*][color=#d9ead3]Optional category-label overrides[/color] for tooltips the base game leaves in English.[/*]
+[*][color=#d9ead3]Independent[/color] from the Employee Names mod; install either one or both.[/*]
+[/list]
+
+[b]Included translation[/b]
+Bulgarian. It is reviewed against the game itself, so wording may change between releases. Treat it as a preview, not a final product.
+
+[b]Quick start[/b]
+[list=1]
+[*]Start the game once with the mod installed so the config file is created.[/*]
+[*]Open [b]BepInEx\config\actepukc.travellersrest.translation.cfg[/b] and set [b]TranslationFile=labels.bg.txt[/b].[/*]
+[*]Start the game again. The translation is applied to the interface and dialogue.[/*]
+[/list]
+
+[b]Requirements[/b]
+[list]
+[*]Travellers Rest for Windows.[/*]
+[*][url=https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21]BepInEx 5.4.21 x64[/url], or a compatible BepInEx 5 installation.[/*]
+[/list]
+
+[b]Installation[/b]
+[list=1]
+[*]Install BepInEx in the folder containing [b]TravellersRest.exe[/b], then start the game once.[/*]
+[*]Extract this archive into Travellers Rest's [b]Windows[/b] folder.[/*]
+[*]The mod files are placed in [b]BepInEx\plugins\TravellersRest Translation[/b].[/*]
+[*]Start the game. Its configuration file is created at [b]BepInEx\config\actepukc.travellersrest.translation.cfg[/b].[/*]
+[/list]
+
+[b]Choosing a language[/b]
+Set [b]TranslationFile[/b] to the file you want, for example [b]labels.bg.txt[/b]. The name must match a file in [b]BepInEx\plugins\TravellersRest Translation\translations[/b].
+
+The loader applies matching entries whatever language is selected in the game's settings, because the label files are keyed by the game's English localization keys.
+
+Set [b]EnableTranslationOverrides=false[/b] to disable all translation overrides and see the game's own text.
+
+[b]Day Stats time units[/b]
+The Day Stats service-time formatter in the base game ignores its own [b]hForHours[/b] and [b]mForMins[/b] keys. Set [b]UseBuiltInDayStatsTimeUnits=false[/b] to let the mod supply those units, or [b]true[/b] to keep the game's built-in values while testing another language.
+
+[b]Inspecting the keys the game asks for[/b]
+Debug dumps are off by default. To list every localization key the running game requests, set [b]DumpObservedTerms=true[/b]; the log is written next to the label files as [b]runtime-labels.txt[/b]. Set [b]DumpDialogueDatabase=true[/b] for a full dialogue database dump. Turn both back off for normal play.
+
+[b]Reviewing or adding a language[/b]
+Copy [b]labels.example.txt[/b], rename it to your language code such as [b]labels.de.txt[/b], and fill in one [b]key=translation[/b] pair per line. Keys are the game's English localization keys, so an existing language file works as a template.
+
+Entries that contain a line break use [b]\n[/b]. Rich-text tags such as [b]<shake>[/b] are part of the text and must be kept.
+
+[b]Notes[/b]
+The mod changes displayed text only. It does not modify save files, game balance, or any gameplay value.
+
+A translation shown here is work in progress. If you find a wrong or awkward string, report it on GitHub rather than editing the file locally, so the fix reaches the official translation instead of only your copy.
+
+[b]Contributing[/b]
+Translations are coordinated on the game's [url=https://crowdin.com/project/travellers-rest]Crowdin project[/url]. Code and language-file fixes are welcome through a [url=https://github.com/AcTePuKc/travellers-rest-translation-mod/pulls]GitHub pull request[/url].
+
+[b]Source and issues[/b]
+Source code, release notes, and issue tracking are available on [url=https://github.com/AcTePuKc/travellers-rest-translation-mod]GitHub[/url].

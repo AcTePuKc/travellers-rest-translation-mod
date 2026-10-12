@@ -1,0 +1,9 @@
+# recorded input, replay with play-input.ahk
+wait 1031
+move 972,644
+wait 16
+click MouseLeft
+wait 343
+move 972,644
+wait 0
+click MouseLeft

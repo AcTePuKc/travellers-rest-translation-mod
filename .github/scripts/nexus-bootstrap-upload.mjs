@@ -11,6 +11,25 @@ const name = process.env.MOD_DISPLAY_NAME;
 const description = process.env.MOD_DESCRIPTION || '';
 const category = process.env.MOD_FILE_CATEGORY || 'main';
 
+// Which secret the run summary should tell a human to fill in. Defaulted so an older workflow
+// that does not set it still works, but always passed explicitly by the workflows here.
+const fileIdSecret = process.env.NEXUS_FILE_ID_SECRET || 'NEXUS_FILE_ID';
+
+// The archive's own filename must match the mod it is being uploaded to. This repository
+// publishes several mods and they share one dist folder, so a wrong file picked up by the
+// release step is a realistic failure — and uploading the wrong mod over another mod's page
+// is worse than failing. The check is deliberately blunt.
+const expectedAssetPrefix = process.env.MOD_ASSET_PREFIX || '';
+if (expectedAssetPrefix) {
+  const assetName = path.basename(filename);
+  if (!assetName.startsWith(expectedAssetPrefix)) {
+    throw new Error(
+      `Refusing to upload '${assetName}': it does not start with '${expectedAssetPrefix}', ` +
+      `which is the archive expected for '${name}'. This usually means the release has the ` +
+      `wrong mod's file attached, or that MOD_ASSET_PREFIX is wrong for this workflow.`);
+  }
+}
+
 for (const [key, value] of Object.entries({ apiKey, gameDomain, modPageId, filename, version, name })) {
   if (!value) throw new Error(`Missing required value: ${key}`);
 }
@@ -112,5 +131,12 @@ const fileId = file?.data?.game_scoped_id;
 if (!fileId) throw new Error('Nexus created a file but returned no game-scoped file ID. Inspect the Nexus page before retrying.');
 console.log(`Created Nexus file ID: ${fileId}`);
 if (process.env.GITHUB_STEP_SUMMARY) {
-  fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## Nexus bootstrap upload\n\nCreated the first Nexus file. Add this value as the \`NEXUS_FILE_ID_EMPLOYEEREFRESH\` GitHub secret before the next release:\n\n- **Nexus File ID:** \`${fileId}\`\n`);
+  fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+    `## Nexus bootstrap upload\n\n` +
+    `Created the first Nexus file for **${name}** (mod page ${modPageId}).\n\n` +
+    `Nexus returns a file id here, but it is not the game-scoped id that the update workflow ` +
+    `needs, so it is reported for information only and is not written to any secret ` +
+    `automatically:\n\n- **Reported file id:** \`${fileId}\`\n\n` +
+    `Once the mod page is published, add the correct value as the \`${fileIdSecret}\` repository ` +
+    `secret before the next release of ${name}. Never copy this value into another mod's secret.\n`);
 }

@@ -8,13 +8,21 @@ param(
 
 $ErrorActionPreference = "Stop"
 $repoRoot = Split-Path -Parent $PSScriptRoot
+
+# Stages and zips the translation-loader release.
+#
+# This script touches ONLY its own staging folder and its own zip. An earlier version deleted
+# the entire dist folder, which meant packaging one mod destroyed the other mods' artefacts —
+# in a repository that publishes three mods. Called out so it is not reintroduced.
+$stage = Join-Path $repoRoot "$OutputDir\translation-loader-package"
+$packageRoot = Join-Path $stage "BepInEx\plugins\TravellersRest Translation"
+
 $pluginSource = Join-Path $repoRoot "plugin\TravellersRestTranslationMod.dll"
 $translationSource = Join-Path $repoRoot "translations\labels.$LanguageCode.txt"
 $categoryLabelsSource = Join-Path $repoRoot "translations\category-labels.$LanguageCode.txt"
-$packageRoot = Join-Path $repoRoot "$OutputDir\BepInEx\plugins\TravellersRest Translation"
 $translationTarget = Join-Path $packageRoot "translations\labels.$LanguageCode.txt"
 $categoryLabelsTarget = Join-Path $packageRoot "translations\category-labels.$LanguageCode.txt"
-$configRoot = Join-Path $repoRoot "$OutputDir\BepInEx\config"
+$configRoot = Join-Path $stage "BepInEx\config"
 $zipPath = Join-Path $repoRoot "$OutputDir\TravellersRestTranslationMod-$Version-$LanguageCode.zip"
 
 if (-not (Test-Path -LiteralPath $pluginSource -PathType Leaf)) {
@@ -24,9 +32,8 @@ if (-not (Test-Path -LiteralPath $translationSource -PathType Leaf)) {
     throw "Translation file not found: $translationSource"
 }
 
-$distRoot = Split-Path -Parent $packageRoot
-if (Test-Path -LiteralPath $distRoot) {
-    Remove-Item -LiteralPath $distRoot -Recurse -Force
+if (Test-Path -LiteralPath $stage) {
+    Remove-Item -LiteralPath $stage -Recurse -Force
 }
 
 New-Item -ItemType Directory -Path (Split-Path -Parent $translationTarget), $configRoot -Force | Out-Null
@@ -76,7 +83,9 @@ DumpFile = runtime-labels.txt
 "@
 [IO.File]::WriteAllText((Join-Path $configRoot "actepukc.travellersrest.translation.cfg"), $config, [Text.UTF8Encoding]::new($false))
 
-Compress-Archive -Path (Join-Path $repoRoot "$OutputDir\BepInEx") -DestinationPath $zipPath -Force
+if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
+Compress-Archive -Path (Join-Path $stage 'BepInEx') -DestinationPath $zipPath -Force
+Remove-Item -LiteralPath $stage -Recurse -Force
 
 [pscustomobject]@{
     LanguageCode = $LanguageCode

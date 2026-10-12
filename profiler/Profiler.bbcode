@@ -1,0 +1,75 @@
+[center][size=5][color=#e6b85c][b]TRAVELLERS REST PERFORMANCE DIAGNOSTIC[/b][/color][/size][/center]
+
+[color=#00ff00][size=4][font=Arial Black][b]What it does[/b][/font][/size][/color]
+[size=3]This is a [color=#ffff00]measuring tool[/color], not a [color=#ff0000]gameplay mod[/color]. It records how long your game takes to load, where it freezes, and whether memory keeps growing, then writes a plain text report you can read or send to a mod author.[/size]
+
+It changes no gameplay and writes nothing into your saves. It counts, and it writes a file.
+
+[size=4][b]Highlights[/b][/size]
+[list]
+[*][color=#d9ead3]A small status panel in the corner[/color] shows what it is doing, so a long load is not mistaken for a hang. It can be moved or turned off.[/*]
+[*][color=#d9ead3]Loading is measured automatically[/color]. No key to press, and nothing to miss.[/*]
+[*][color=#d9ead3]It finds the freeze, not just the slow part[/color]. A freeze is recorded with the game's own log lines from the seconds before it, which usually names the cause.[/*]
+[*][color=#d9ead3]It catches mods installed twice[/color]. A mod loaded twice runs twice, and that is a common cause of unexplained slowdown.[/*]
+[*][color=#d9ead3]Memory growth over a session[/color], so a leak can be told apart from ordinary loading.[/*]
+[*][color=#d9ead3]A readable report[/color] in English, ready to attach to a bug report.[/*]
+[*][color=#d9ead3]Independent[/color] of every other mod. Install it alone, alongside others, or not at all.[/*]
+[/list]
+
+[size=4][b]No keys, no menus[/b][/size]
+There is nothing to press and nothing to configure before it works. Start the game, load a save, play as normal. The panel appears by itself and the report is written as it goes.
+
+[size=4][b]What it found on my machine[/b][/size]
+On this machine, loading a save takes about 21 seconds - and 13 of those seconds are a [b]single frozen frame[/b], not slow loading spread out. The report named the cause from the game's own log: the game tries to generate sprite outlines from a texture it cannot read, and retries 431 times in one load.
+
+That is the kind of answer this is built to produce. It measures first, so the fix can be aimed at the right thing.
+
+[size=4][b]Where the report goes[/b][/size]
+The report is written to
+[quote][b]BepInEx\TravellersRestProfiler\profiler-report-latest.txt[/b] [/quote]
+and rewritten as the game runs, so it is always current. There is nothing to export and no file to hunt for.
+
+[color=#f9cb9c][size=4][b]The status panel[/b][/size][/color]
+The panel shows the current step, the elapsed time, how many loads have been measured and how many freezes recorded. It sits in the bottom-left corner by default, because that is the only corner Travellers Rest leaves empty: the top-left holds the clock and money, the top-right is where achievement notifications appear, and the bottom centre holds the hotbar.
+
+If it covers something you want to see, move it rather than turning it off. [b]HudMargin[/b] sets the distance from the edge in pixels, and the corner is chosen with [b]HudOnLeft[/b] and [b]HudAtBottom[/b]. Setting [b]ShowHud[/b] to false gives a completely invisible mod.
+
+[color=#ffd966][size=4][b]Requirements[/b][/size][/color]
+[list]
+[*]Travellers Rest for Windows.[/*]
+[*][url=https://github.com/BepInEx/BepInEx/releases/tag/v5.4.21]BepInEx 5.4.21 x64[/url], or a compatible BepInEx 5 installation.[/*]
+[/list]
+
+[color=#ffd966][size=4][b]Installation[/b][/size][/color]
+[list=1]
+[*]Install BepInEx in the folder containing [b]TravellersRest.exe[/b], then start the game once.[/*]
+[*]Extract this archive into Travellers Rest's [b]Windows[/b] folder.[/*]
+[*]Start the game. The panel appears and the report starts being written.[/*]
+[/list]
+
+The archive extracts itself into
+[quote] [b]BepInEx\plugins\TravellersRestProfiler[/b][/quote]
+Nothing else is required.
+
+[b]Settings[/b]
+All settings live in
+[quote][b]BepInEx\config\actepukc.travellersrest.profiler.cfg[/b][/quote]
+and have sensible defaults.
+
+[code]ReportIntervalSeconds[/code]
+sets how often the report is rewritten, 20 seconds by default.
+[code]StallThresholdMs[/code]
+sets how long a frame must last to be recorded as a freeze; the default of 2000 ms is far beyond any legitimate frame.
+
+[size=4][b]What it does not measure[/b][/size]
+It does not attribute CPU time to individual mods. Doing that means patching every method of every installed plugin at runtime, and when that goes wrong it does not crash - it quietly blames the wrong mod. An honest gap is better than a confident wrong answer, so the report says so plainly instead of showing numbers it cannot stand behind.
+
+Frame cost, garbage collections and memory growth are measured directly, not estimated.
+
+[size=4][b]Notes[/b][/size]
+Reports are written in English even when the game is not, because the people who need to read them maintain the mods named in them.
+
+Nothing here changes gameplay, balance or save data, and it is safe to add or remove at any time.
+
+[size=4][b]Source and issues[/b][/size]
+Source code, release notes and issue tracking are available on [url=https://github.com/AcTePuKc/travellers-rest-translation-mod]GitHub[/url].

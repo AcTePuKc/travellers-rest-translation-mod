@@ -4,4 +4,19 @@ dist/
 *.user
 __pycache__/
 *.duplicates.txt
+*.report.json
 references/
+
+# Promotional images. They are built from a screenshot of a real play session by
+# scripts/make-nexus-images.py, so they are generated output rather than source, and a
+# screenshot of someone's save has no business in the repository.
+profiler/screenshots/
+
+# Raw logs captured from a real session. Useful when attaching a bug report, but they name
+# the reporter's own save files and install paths, and the repository is public, so they stay
+# local. The written-up report beside them is what gets published.
+profiler/evidence/
+
+# Transient files written by the development tooling in tools/load-automation.
+tools/load-automation/*.log
+tools/load-automation/recorded-input.txt

@@ -6,8 +6,19 @@ A small collection of independent BepInEx 5 mods for Travellers Rest. Each mod h
 | --- | --- | --- |
 | Translation Loader | Loads a selected `labels.<language>.txt` file, provides optional QA dumps, category-label overrides, and a Day Stats time-unit workaround. | `BepInEx/plugins/TravellersRest Translation/` |
 | EmployeeRefresh | Refreshes available staff candidates, loads optional local employee name pools, and resizes the hire-staff window. | `BepInEx/plugins/EmployeeRefresh/` |
+| Profiler | Measures frame times, stalls, garbage collections and memory growth, and lists installed mods including any loaded twice. Read-only. | `BepInEx/plugins/TravellersRestProfiler/` |
 
 Private research material is kept outside the published project and is ignored by Git.
+
+## Profiler
+
+`Profiler` is a measurement tool. It changes no gameplay and writes nothing into
+saves; it reads counters and writes one text report when asked. It exists so that
+performance work on this game can be measured instead of guessed.
+
+Press `F9` for the window and `Ctrl+F9` to start and stop recording. See
+[profiler/README.md](profiler/README.md) for the measurement list, a suggested
+session, and an explicit statement of what it does **not** measure.
 
 ## Translation Loader
 
@@ -169,6 +180,24 @@ The `Build Translation Release` workflow packages one selected language file. Ru
 EmployeeRefresh is packaged separately with `scripts/package-employee-refresh.ps1`; it must never be bundled into a translation release because users may want either mod on its own.
 
 ## Convert a Crowdin labels file
+
+The committed `translations/labels.bg.txt` is generated from the canonical Bulgarian
+dataset in the separate translation project, not from a Crowdin export:
+
+```powershell
+python .\scripts\generate-labels-from-canonical.py `
+  --translations "C:\WebStuff\TravelersRest-CrowdinTranslation\bulgarian_translations.csv" `
+  --out ".\translations\labels.bg.txt" `
+  --report ".\translations\labels.bg.report.json"
+```
+
+It escapes newlines and tabs the way `DecodeValue` in `Plugin.cs` decodes them, emits
+item keys twice (`item_name_625` and `Items/item_name_625`) because the runtime call
+site varies, and refuses to finish unless every canonical value round-trips. The
+whole chain, including the Crowdin XLIFF and the release ZIP, is reproduced by
+`build-bulgarian-release.ps1` in the translation project.
+
+The converters below remain available for other languages and for Crowdin exports.
 
 Crowdin exports can be converted without changing the source translation project:
 

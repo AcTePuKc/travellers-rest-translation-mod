@@ -1,0 +1,177 @@
+name: Publish Performance Diagnostic Release to Nexus
+
+# This workflow publishes ONE mod: Travellers Rest Performance Diagnostic.
+#
+# This repository publishes several mods from one repository, so the single most likely mistake
+# is uploading the wrong one. Every mod-specific value below is spelled out for that reason:
+#
+#   mod page secret : NEXUS_MOD_ID_PERFORMANCE_DIAG        (created, points at this mod)
+#   file id secret  : NEXUS_FILE_ID_PERFORMANCE_DIAG       (empty until the page is published)
+#   release tag     : profiler-v*                          (matches the package name)
+#   archive         : TravellersRestProfiler-*.zip
+#   Nexus file name : Travellers Rest Performance Diagnostic
+#
+# The other mod's workflow uses NEXUS_MOD_ID_EMPLOYEEREFRESH and NEXUS_FILE_ID_EMPLOYEEREFRESH.
+# Copying a value between the two is what uploads one mod over another, so the bootstrap script
+# additionally refuses any archive whose name does not match the mod being published.
+#
+# With no file id secret the bootstrap path runs, which creates the first Nexus file. Nexus
+# reports an id there, but it is not the game-scoped id this workflow needs for updates, so it
+# is not written to a secret automatically. Add the correct value by hand once the page is live.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: Published release tag for the Performance Diagnostic, for example profiler-v0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nexus-performance-diagnostic-${{ github.event.release.tag_name || inputs.release_tag }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ (github.event_name == 'release' && startsWith(github.event.release.tag_name, 'profiler-v')) || (github.event_name == 'workflow_dispatch' && startsWith(inputs.release_tag, 'profiler-v')) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve release tag
+        id: release
+        shell: pwsh
+        run: |
+          $tag = if ("${{ github.event_name }}" -eq "workflow_dispatch") { "${{ inputs.release_tag }}" } else { "${{ github.event.release.tag_name }}" }
+          if ($tag -notmatch '^profiler-v(\d+\.\d+\.\d+)$') {
+            throw "Unsupported release tag '$tag'. Expected profiler-v<version>."
+          }
+          "tag=$tag" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+          "version=$($Matches[1])" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Checkout the release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.tag }}
+
+      - name: Download the GitHub release archive
+        id: asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release-asset
+          gh release download '${{ steps.release.outputs.tag }}' --pattern 'TravellersRestProfiler-*.zip' --dir release-asset
+          asset=$(find release-asset -maxdepth 1 -name 'TravellersRestProfiler-*.zip' -type f | head -n 1)
+          test -n "$asset" || { echo 'No TravellersRestProfiler archive in this release.' >&2; exit 1; }
+          echo "path=$asset" >> "$GITHUB_OUTPUT"
+          echo "name=$(basename "$asset")" >> "$GITHUB_OUTPUT"
+          echo "Downloaded $(basename "$asset")"
+
+      - name: Build Nexus file notes
+        id: notes
+        shell: pwsh
+        run: |
+          $changes = Get-Content 'profiler/changelog.txt' | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+          $description = "[b]Changes in v${{ steps.release.outputs.version }}[/b]`n[list]`n" + (($changes | ForEach-Object { "[*]$_[/*]" }) -join "`n") + "`n[/list]"
+          $marker = "NEXUS_DESCRIPTION_$([guid]::NewGuid().ToString('N'))"
+          "description<<$marker" | Add-Content $env:GITHUB_OUTPUT
+          $description | Add-Content $env:GITHUB_OUTPUT
+          $marker | Add-Content $env:GITHUB_OUTPUT
+
+      - name: Validate Nexus configuration
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_PERFORMANCE_DIAG }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$NEXUS_API_KEY" ]]; then
+            echo 'NEXUSMODS_API_KEY is missing.' >&2; exit 1
+          fi
+          if [[ -z "$NEXUS_MOD_ID" ]]; then
+            echo 'NEXUS_MOD_ID_PERFORMANCE_DIAG is missing. Do not substitute the other mod'"'"'s id.' >&2
+            exit 1
+          fi
+          echo "Publishing to mod page $NEXUS_MOD_ID"
+
+      - name: Confirm the mod page belongs to this mod
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_PERFORMANCE_DIAG }}
+          # The other mod's id, so this run can prove the two are not the same. Nothing is
+          # uploaded with it; it exists only for the comparison below.
+          OTHER_MOD_ID: ${{ secrets.NEXUS_MOD_ID_EMPLOYEEREFRESH }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # A copy-paste between secret names is the single most likely way one mod ends up
+          # published over another, so it is checked rather than trusted.
+          if [[ -n "$OTHER_MOD_ID" && "$NEXUS_MOD_ID" == "$OTHER_MOD_ID" ]]; then
+            echo "Refusing to upload: NEXUS_MOD_ID_PERFORMANCE_DIAG and NEXUS_MOD_ID_EMPLOYEEREFRESH" >&2
+            echo "are the same value. One of them is wrong, and uploading would publish this" >&2
+            echo "release onto the other mod's page." >&2
+            exit 1
+          fi
+
+          status=$(curl --silent --show-error --output nexus-mod.json --write-out '%{http_code}' \
+            --header "apikey: $NEXUS_API_KEY" \
+            "https://api.nexusmods.com/v3/games/travellersrest/mods/$NEXUS_MOD_ID")
+          if [[ "$status" != '200' ]]; then cat nexus-mod.json >&2 || true; exit 1; fi
+
+          # The page name is checked, not trusted. A wrong mod id would otherwise publish this
+          # release onto a different mod's page under the wrong name.
+          name=$(node -e "const j=require('./nexus-mod.json');console.log((j.data&&(j.data.name||j.data.title))||'')" 2>/dev/null || echo '')
+          echo "Mod page reports the name: '$name'"
+          if [[ -n "$name" && "$name" != *"Performance Diagnostic"* ]]; then
+            echo "Refusing to upload: mod page $NEXUS_MOD_ID is '$name', which is not the Performance Diagnostic." >&2
+            exit 1
+          fi
+
+      - name: Load Nexus upload mode
+        id: nexus
+        env:
+          NEXUS_FILE_ID: ${{ secrets.NEXUS_FILE_ID_PERFORMANCE_DIAG }}
+        shell: bash
+        run: |
+          if [[ -n "$NEXUS_FILE_ID" ]]; then
+            echo 'has_file=true' >> "$GITHUB_OUTPUT"
+            echo 'File id secret present; this release will update the existing Nexus file.'
+          else
+            echo 'has_file=false' >> "$GITHUB_OUTPUT"
+            echo 'No file id secret; this release will create the first Nexus file.'
+          fi
+
+      - name: Bootstrap the first Nexus file
+        if: ${{ steps.nexus.outputs.has_file == 'false' }}
+        env:
+          NEXUS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
+          NEXUS_GAME_DOMAIN: travellersrest
+          NEXUS_MOD_ID: ${{ secrets.NEXUS_MOD_ID_PERFORMANCE_DIAG }}
+          RELEASE_ASSET: ${{ steps.asset.outputs.path }}
+          MOD_VERSION: ${{ steps.release.outputs.version }}
+          MOD_DISPLAY_NAME: Travellers Rest Performance Diagnostic
+          MOD_DESCRIPTION: ${{ steps.notes.outputs.description }}
+          MOD_FILE_CATEGORY: main
+          MOD_ASSET_PREFIX: TravellersRestProfiler-
+          NEXUS_FILE_ID_SECRET: NEXUS_FILE_ID_PERFORMANCE_DIAG
+        run: node .github/scripts/nexus-bootstrap-upload.mjs
+
+      - name: Update existing Nexus file
+        if: ${{ steps.nexus.outputs.has_file == 'true' }}
+        uses: Nexus-Mods/upload-action@c96019556046053aa26044b44396cd38929daf23
+        with:
+          api_key: ${{ secrets.NEXUSMODS_API_KEY }}
+          file_id: ${{ secrets.NEXUS_FILE_ID_PERFORMANCE_DIAG }}
+          filename: ${{ steps.asset.outputs.path }}
+          version: ${{ steps.release.outputs.version }}
+          display_name: Travellers Rest Performance Diagnostic
+          description: ${{ steps.notes.outputs.description }}
+          category: main
+          archive_existing_version: false
+          update_mod_version: true

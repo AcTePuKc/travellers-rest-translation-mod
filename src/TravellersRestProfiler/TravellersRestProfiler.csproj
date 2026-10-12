@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <AssemblyName>TravellersRestProfiler</AssemblyName>
+    <RootNamespace>TravellersRestProfiler</RootNamespace>
+    <Version>0.1.0</Version>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- The game name has no apostrophe on disk; keep this path in one place. -->
+    <GameDir Condition="'$(GameDir)' == ''">F:\SteamLibrary\steamapps\common\Travellers Rest\Windows</GameDir>
+    <BepInExDir>$(GameDir)\BepInEx</BepInExDir>
+    <ManagedDir>$(GameDir)\TravellersRest_Data\Managed</ManagedDir>
+    <PluginDir>$(BepInExDir)\plugins\TravellersRestProfiler</PluginDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(BepInExDir)\core\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(BepInExDir)\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ManagedDir)\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(ManagedDir)\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <!-- Needed for GUIStyle and TextAnchor, which the on-screen HUD uses. -->
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>$(ManagedDir)\UnityEngine.TextRenderingModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(ManagedDir)\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Staging into the game happens on an explicit switch so a plain
+       `dotnet build` never touches the game folder. -->
+  <Target Name="StagePlugin" AfterTargets="Build" Condition="'$(StageToGame)' == 'true'">
+    <MakeDir Directories="$(PluginDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginDir)" />
+  </Target>
+</Project>

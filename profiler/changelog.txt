@@ -1,0 +1,8 @@
+On-screen status panel showing what the profiler is doing, so a long wait is not mistaken for a hang
+Turn the panel off with ShowHud=false for a completely invisible mod
+Loading windows measured automatically, with no key press and separately from gameplay
+Per-load wall time, frame count, worst frame, garbage collections and memory delta
+Freezes of 2 seconds or more recorded together with the game's own log lines from just before
+Mod list including duplicates, re-read on every report so late-loading mods are included
+Memory counters and a growth baseline taken once the game has settled
+English report export for sharing with mod authors

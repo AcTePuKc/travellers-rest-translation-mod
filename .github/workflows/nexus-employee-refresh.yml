@@ -1,5 +1,21 @@
 name: Publish EmployeeRefresh Release to Nexus
 
+# This workflow publishes ONE mod: EmployeeRefresh.
+#
+# This repository publishes several mods from one repository, so the single most likely mistake
+# is uploading the wrong one. Every mod-specific value below is spelled out for that reason:
+#
+#   mod page secret : NEXUS_MOD_ID_EMPLOYEEREFRESH
+#   file id secret  : NEXUS_FILE_ID_EMPLOYEEREFRESH
+#   release tag     : employee-refresh-v*
+#   archive         : EmployeeRefresh-*.zip
+#   Nexus file name : EmployeeRefresh
+#
+# The Performance Diagnostic workflow uses NEXUS_MOD_ID_PERFORMANCE_DIAG and
+# NEXUS_FILE_ID_PERFORMANCE_DIAG. Copying a value between the two is what uploads one mod over
+# another, so the bootstrap script additionally refuses any archive whose name does not match
+# the mod being published.
+
 on:
   release:
     types: [published]
@@ -102,6 +118,10 @@ jobs:
           MOD_DISPLAY_NAME: EmployeeRefresh
           MOD_DESCRIPTION: ${{ steps.notes.outputs.description }}
           MOD_FILE_CATEGORY: main
+          # Guards against uploading another mod's archive from the shared dist folder, and
+          # names the right secret in the run summary. See the note at the top of the file.
+          MOD_ASSET_PREFIX: EmployeeRefresh-
+          NEXUS_FILE_ID_SECRET: NEXUS_FILE_ID_EMPLOYEEREFRESH
         run: node .github/scripts/nexus-bootstrap-upload.mjs
 
       - name: Update existing Nexus file

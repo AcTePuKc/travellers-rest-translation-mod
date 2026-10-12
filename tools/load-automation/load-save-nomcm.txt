@@ -1,0 +1,13 @@
+# recorded input; replay with play-input.ahk
+# Without Mod Config Menu: the first click opens the save list from a menu whose Play
+# button sits at y=722, and the second click picks the save in the list that follows at
+# y=644. An earlier recording repeated the first coordinate for both clicks.
+wait 687
+move 965,722
+wait 0
+click MouseLeft
+wait 219
+move 972,644
+wait 16
+click MouseLeft
+# 4 events

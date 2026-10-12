@@ -1,0 +1,85 @@
+name: Build EmployeeRefresh Release
+
+# Packages EmployeeRefresh and publishes a GitHub release for it.
+#
+# This runs on the tag prefix the Nexus workflow expects, employee-refresh-v*, so the two
+# connect:
+#
+#   push tag employee-refresh-v0.1.1
+#     -> this workflow packages EmployeeRefresh-0.1.1.zip and creates the release
+#     -> nexus-employee-refresh.yml sees the published release and uploads it
+#
+# No build step, deliberately. This project references the game's own assemblies, which a
+# runner does not have, so the committed DLL in employee-refresh\ is what gets packaged.
+# Refresh it after changing the source.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version, for example 0.1.1
+        required: true
+        default: 0.1.1
+        type: string
+  push:
+    tags:
+      - 'employee-refresh-v*'
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Resolve release inputs
+        id: release
+        shell: pwsh
+        run: |
+          if ("${{ github.event_name }}" -eq "push") {
+            $version = "${{ github.ref_name }}".Replace("employee-refresh-v", "")
+          }
+          else {
+            $version = "${{ inputs.version }}"
+          }
+
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            throw "Version must use semantic version format: $version"
+          }
+          "version=$version" | Out-File $env:GITHUB_OUTPUT -Encoding utf8 -Append
+
+      - name: Package the release
+        shell: pwsh
+        run: .\scripts\package-employee-refresh.ps1 -Version "${{ steps.release.outputs.version }}"
+
+      - name: Confirm the archive is the right mod
+        shell: pwsh
+        run: |
+          # A release carrying another mod's archive would be uploaded to the wrong Nexus page,
+          # so the name is checked here as well as in the upload workflow.
+          $zips = Get-ChildItem .\dist\EmployeeRefresh-*.zip
+          if (-not $zips) { throw "No EmployeeRefresh archive was produced." }
+          foreach ($zip in $zips) {
+            Write-Host "Packaged $($zip.Name) ($($zip.Length) bytes)"
+          }
+
+      - name: Upload the package as a workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EmployeeRefresh-${{ steps.release.outputs.version }}
+          path: dist/EmployeeRefresh-*.zip
+
+      - name: Publish the GitHub release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          gh release create "${{ github.ref_name }}" `
+            (Get-ChildItem .\dist\EmployeeRefresh-*.zip).FullName `
+            --repo "${{ github.repository }}" `
+            --title "EmployeeRefresh ${{ github.ref_name }}" `
+            --generate-notes
