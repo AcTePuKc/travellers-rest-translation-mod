@@ -126,12 +126,41 @@ jobs:
 
           # The page name is checked, not trusted. A wrong mod id would otherwise publish this
           # release onto a different mod's page under the wrong name.
-          name=$(node -e "const j=require('./nexus-mod.json');console.log((j.data&&(j.data.name||j.data.title))||'')" 2>/dev/null || echo '')
+          #
+          # The v3 response nests the name somewhere other than data.name, so this prints the
+          # whole payload's top-level shape once when the name cannot be read. The earlier
+          # version silently compared an empty string and therefore never guarded anything.
+          name=$(node -e "
+            const j = require('./nexus-mod.json');
+            const pick = (o, ...keys) => { for (const k of keys) { if (o && typeof o[k] === 'string' && o[k]) return o[k]; } return ''; };
+            const d = j.data || {};
+            console.log(pick(d, 'name', 'title') || pick(d.mod || {}, 'name', 'title') || '');
+          " 2>/dev/null || echo '')
+
+          if [[ -z "$name" ]]; then
+            echo "Could not read a name from the mod page response. Its shape was:"
+            node -e "
+              const j = require('./nexus-mod.json');
+              const describe = (o, depth) => {
+                if (depth > 2 || o === null || typeof o !== 'object') return;
+                for (const [k, v] of Object.entries(o)) {
+                  console.log('  '.repeat(depth) + k + ': ' + (typeof v === 'object' ? (Array.isArray(v) ? 'array' : 'object') : JSON.stringify(v)));
+                  if (typeof v === 'object') describe(v, depth + 1);
+                }
+              };
+              describe(j, 0);
+            " || true
+            echo "Refusing to upload: the mod page name could not be verified, so this run cannot" >&2
+            echo "prove it is publishing to the right page." >&2
+            exit 1
+          fi
+
           echo "Mod page reports the name: '$name'"
-          if [[ -n "$name" && "$name" != *"Performance Diagnostic"* ]]; then
+          if [[ "$name" != *"Performance Diagnostic"* ]]; then
             echo "Refusing to upload: mod page $NEXUS_MOD_ID is '$name', which is not the Performance Diagnostic." >&2
             exit 1
           fi
+          echo "Confirmed: this is the Performance Diagnostic mod page."
 
       - name: Load Nexus upload mode
         id: nexus
